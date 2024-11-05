@@ -1,0 +1,66 @@
+CREATE TABLE Vehicles (
+    Id UNIQUEIDENTIFIER PRIMARY KEY,
+    Vin NVARCHAR(50) NOT NULL,
+    LicensePlate NVARCHAR(20) NOT NULL,
+    Model NVARCHAR(50) NOT NULL,
+    LastInspectionDate DATETIME NOT NULL,
+    CurrentLocation NVARCHAR(255) NOT NULL
+);
+
+CREATE TABLE VehicleUsages (
+    Id UNIQUEIDENTIFIER PRIMARY KEY,
+    VehicleId UNIQUEIDENTIFIER NOT NULL,
+    StartDate DATETIME NOT NULL,
+    EndDate DATETIME NULL,
+    FOREIGN KEY (VehicleId) REFERENCES Vehicles(Id)
+);
+
+CREATE TABLE Routes (
+    Id UNIQUEIDENTIFIER PRIMARY KEY,
+    StartLocationId UNIQUEIDENTIFIER NOT NULL,
+    EndLocationId UNIQUEIDENTIFIER NOT NULL,
+    Status INT NOT NULL,
+    ScheduledStartTime DATETIME NOT NULL,
+    ActualEndTime DATETIME NULL,
+    VehicleUsageId UNIQUEIDENTIFIER NOT NULL, -- Relacja do VehicleUsage
+    FOREIGN KEY (VehicleUsageId) REFERENCES VehicleUsages(Id)
+);
+
+CREATE TABLE FuelExpenses (
+    Id UNIQUEIDENTIFIER PRIMARY KEY,
+    VehicleUsageId UNIQUEIDENTIFIER NOT NULL, -- Relacja do VehicleUsage
+    RouteId UNIQUEIDENTIFIER NOT NULL, -- Relacja do Route
+    Amount DECIMAL(18, 2) NOT NULL,
+    Liters DECIMAL(18, 2) NOT NULL,
+    FuelType INT NOT NULL,
+    Date DATETIME NOT NULL,
+    FOREIGN KEY (VehicleUsageId) REFERENCES VehicleUsages(Id), -- Relacja z VehicleUsage
+    FOREIGN KEY (RouteId) REFERENCES Routes(Id) -- Relacja z Route
+);
+
+CREATE TABLE RouteStops (
+    Id UNIQUEIDENTIFIER PRIMARY KEY,
+    RouteId UNIQUEIDENTIFIER NOT NULL,
+    LocationId UNIQUEIDENTIFIER NOT NULL,
+    ArrivalTime DATETIME NOT NULL,
+    DepartureTime DATETIME NOT NULL,
+    FOREIGN KEY (RouteId) REFERENCES Routes(Id)
+);
+
+CREATE TABLE Inspections (
+    Id UNIQUEIDENTIFIER PRIMARY KEY,
+    VehicleId UNIQUEIDENTIFIER NOT NULL,
+    Date DATETIME NOT NULL,
+    Description NVARCHAR(255) NOT NULL,
+    Cost DECIMAL(18, 2) NOT NULL,
+    FOREIGN KEY (VehicleId) REFERENCES Vehicles(Id)
+);
+
+CREATE TABLE Repairs (
+    Id UNIQUEIDENTIFIER PRIMARY KEY,
+    VehicleId UNIQUEIDENTIFIER NOT NULL,
+    Date DATETIME NOT NULL,
+    Description NVARCHAR(255) NOT NULL,
+    Cost DECIMAL(18, 2) NOT NULL,
+    FOREIGN KEY (VehicleId) REFERENCES Vehicles(Id)
+);
