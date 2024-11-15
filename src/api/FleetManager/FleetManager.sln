@@ -5,25 +5,27 @@ VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{E6777EBC-CC5F-4966-B89D-B2522BFBC8A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FleetManager.API", "FleetManager.API\FleetManager.API.csproj", "{96274241-CA87-400E-A2F6-DA2640F260CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FleetManager.API", "FleetManager.API\FleetManager.API.csproj", "{96274241-CA87-400E-A2F6-DA2640F260CF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{56943DB7-8214-4835-9BFA-34DE085DE038}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FleetManager.Domain", "FleetManager.Domain\FleetManager.Domain.csproj", "{A6329880-1928-4A49-B9AA-32A4237C97BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FleetManager.Domain", "FleetManager.Domain\FleetManager.Domain.csproj", "{A6329880-1928-4A49-B9AA-32A4237C97BA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{C213D125-5FE4-4B18-8CF7-350BF779EEAD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FleetManager.Infrastructure", "FleetManager.Infrastructure\FleetManager.Infrastructure.csproj", "{A14EA3D1-AE7F-4AD3-8DE6-A7F61CA1EFB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FleetManager.Infrastructure", "FleetManager.Infrastructure\FleetManager.Infrastructure.csproj", "{A14EA3D1-AE7F-4AD3-8DE6-A7F61CA1EFB3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{AFA17216-B67E-4F85-97EF-451B8EFD247F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FleetManager.Application", "FleetManager.Application\FleetManager.Application.csproj", "{A108D414-C373-4B1D-AE86-93D353F0F94D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FleetManager.Application", "FleetManager.Application\FleetManager.Application.csproj", "{A108D414-C373-4B1D-AE86-93D353F0F94D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A37233C1-8FBF-42D5-8BF3-C202704B080F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FleetManager.Tests.Integration", "FleetManager.Tests.Integration\FleetManager.Tests.Integration.csproj", "{436BC844-1042-451C-97A2-DD73ADAA4179}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FleetManager.Tests.Integration", "FleetManager.Tests.Integration\FleetManager.Tests.Integration.csproj", "{436BC844-1042-451C-97A2-DD73ADAA4179}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FleetManager.Tests.Unit", "FleetManager.Tests.Unit\FleetManager.Tests.Unit.csproj", "{1212EA40-4607-4E78-845E-B1CFC3BBEC69}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FleetManager.Tests.Unit", "FleetManager.Tests.Unit\FleetManager.Tests.Unit.csproj", "{1212EA40-4607-4E78-845E-B1CFC3BBEC69}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{8732CF15-B313-46DB-8C56-949B8B2F0C6A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,10 @@ Global
 		{1212EA40-4607-4E78-845E-B1CFC3BBEC69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1212EA40-4607-4E78-845E-B1CFC3BBEC69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1212EA40-4607-4E78-845E-B1CFC3BBEC69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8732CF15-B313-46DB-8C56-949B8B2F0C6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8732CF15-B313-46DB-8C56-949B8B2F0C6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8732CF15-B313-46DB-8C56-949B8B2F0C6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8732CF15-B313-46DB-8C56-949B8B2F0C6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

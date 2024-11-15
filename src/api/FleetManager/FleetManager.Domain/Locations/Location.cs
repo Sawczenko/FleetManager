@@ -7,20 +7,29 @@
         public decimal Latitude;
         public decimal Longitude;
 
+        private Location()
+        {
+            
+        }
+
         public Location(string name, decimal latitude, decimal longitude)
         {
             Id = Guid.NewGuid();
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException("Brak nazwy");
+            }
+
             Name = name;
+
+
             Latitude = latitude;
             Longitude = longitude;
         }
 
-        public Location(decimal latitude, decimal longitude)
-            : this(null, latitude, longitude) { }
-
         public override string ToString()
         {
-            return $"{Name ?? "Unnamed Location"} ({Latitude}, {Longitude})";
+            return $"{Name} ({Latitude}, {Longitude})";
         }
     }
 

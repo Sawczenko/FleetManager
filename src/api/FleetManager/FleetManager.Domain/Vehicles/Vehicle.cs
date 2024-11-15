@@ -9,7 +9,7 @@ namespace FleetManager.Domain.Vehicles
         public string LicensePlate { get; private set; }
         public string Model { get; private set; }
         public DateTime LastInspectionDate { get; private set; }
-        public Location CurrentLocation { get; private set; }
+        public Location? CurrentLocation { get; private set; }
         public List<Inspection> Inspections { get; private set; }
         public List<Repair> Repairs { get; private set; }
 
