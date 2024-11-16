@@ -4,15 +4,15 @@
     {
         public Guid Id;
         public string Name;
-        public decimal Latitude;
-        public decimal Longitude;
+        public double Latitude;
+        public double Longitude;
 
         private Location()
         {
             
         }
 
-        public Location(string name, decimal latitude, decimal longitude)
+        public Location(string name, double latitude, double longitude)
         {
             Id = Guid.NewGuid();
             if (string.IsNullOrWhiteSpace(name))

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FleetManager.Infrastructure.Migrations
 {
     [DbContext(typeof(FleetManagerDbContext))]
-    [Migration("20241115230354_InitialCreate")]
+    [Migration("20241116175041_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -31,11 +31,11 @@ namespace FleetManager.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("Latitude")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Latitude")
+                        .HasColumnType("float");
 
-                    b.Property<decimal>("Longitude")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Longitude")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -133,7 +133,7 @@ namespace FleetManager.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DomainUsers");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("FleetManager.Domain.VehicleUsages.FuelExpense", b =>
@@ -142,8 +142,8 @@ namespace FleetManager.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Amount")
+                        .HasColumnType("float");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -151,8 +151,8 @@ namespace FleetManager.Infrastructure.Migrations
                     b.Property<int>("FuelType")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Liters")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Liters")
+                        .HasColumnType("float");
 
                     b.Property<Guid>("RouteId")
                         .HasColumnType("uniqueidentifier");
@@ -160,16 +160,11 @@ namespace FleetManager.Infrastructure.Migrations
                     b.Property<Guid>("VehicleUsageId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("VehicleUsageId1")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
                     b.HasIndex("RouteId");
 
                     b.HasIndex("VehicleUsageId");
-
-                    b.HasIndex("VehicleUsageId1");
 
                     b.ToTable("FuelExpenses");
                 });
@@ -207,8 +202,8 @@ namespace FleetManager.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("Cost")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Cost")
+                        .HasColumnType("float");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -220,14 +215,9 @@ namespace FleetManager.Infrastructure.Migrations
                     b.Property<Guid>("VehicleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("VehicleId1")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
                     b.HasIndex("VehicleId");
-
-                    b.HasIndex("VehicleId1");
 
                     b.ToTable("Inspections");
                 });
@@ -238,8 +228,8 @@ namespace FleetManager.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("Cost")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Cost")
+                        .HasColumnType("float");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -251,14 +241,9 @@ namespace FleetManager.Infrastructure.Migrations
                     b.Property<Guid>("VehicleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("VehicleId1")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
                     b.HasIndex("VehicleId");
-
-                    b.HasIndex("VehicleId1");
 
                     b.ToTable("Repairs");
                 });
@@ -303,13 +288,15 @@ namespace FleetManager.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("EndLocationId")
                         .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("Route_EndLocation");
 
                     b.HasOne("FleetManager.Domain.Locations.Location", null)
                         .WithMany()
                         .HasForeignKey("StartLocationId")
                         .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("Route_StartLocation");
 
                     b.HasOne("FleetManager.Domain.VehicleUsages.VehicleUsage", null)
                         .WithMany("Routes")
@@ -333,17 +320,15 @@ namespace FleetManager.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("RouteId")
                         .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("FleetManager.Domain.VehicleUsages.VehicleUsage", null)
-                        .WithMany()
-                        .HasForeignKey("VehicleUsageId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FuelExpense_Route");
 
                     b.HasOne("FleetManager.Domain.VehicleUsages.VehicleUsage", null)
                         .WithMany("FuelExpenses")
-                        .HasForeignKey("VehicleUsageId1");
+                        .HasForeignKey("VehicleUsageId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("FuelExpense_VehicleUsage");
                 });
 
             modelBuilder.Entity("FleetManager.Domain.VehicleUsages.VehicleUsage", b =>
@@ -352,39 +337,35 @@ namespace FleetManager.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("VehicleUsage_User");
 
                     b.HasOne("FleetManager.Domain.Vehicles.Vehicle", null)
                         .WithMany()
                         .HasForeignKey("VehicleId")
                         .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("VehicleUsage_Vehicle");
                 });
 
             modelBuilder.Entity("FleetManager.Domain.Vehicles.Inspection", b =>
                 {
                     b.HasOne("FleetManager.Domain.Vehicles.Vehicle", null)
-                        .WithMany()
-                        .HasForeignKey("VehicleId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("FleetManager.Domain.Vehicles.Vehicle", null)
                         .WithMany("Inspections")
-                        .HasForeignKey("VehicleId1");
+                        .HasForeignKey("VehicleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("Inspection_Vehicle");
                 });
 
             modelBuilder.Entity("FleetManager.Domain.Vehicles.Repair", b =>
                 {
                     b.HasOne("FleetManager.Domain.Vehicles.Vehicle", null)
-                        .WithMany()
+                        .WithMany("Repairs")
                         .HasForeignKey("VehicleId")
                         .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("FleetManager.Domain.Vehicles.Vehicle", null)
-                        .WithMany("Repairs")
-                        .HasForeignKey("VehicleId1");
+                        .IsRequired()
+                        .HasConstraintName("Repair_Vehicle");
                 });
 
             modelBuilder.Entity("FleetManager.Domain.Vehicles.Vehicle", b =>
@@ -392,7 +373,8 @@ namespace FleetManager.Infrastructure.Migrations
                     b.HasOne("FleetManager.Domain.Locations.Location", "CurrentLocation")
                         .WithMany()
                         .HasForeignKey("CurrentLocationId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasConstraintName("Vehicle_CurrentLocation");
 
                     b.Navigation("CurrentLocation");
                 });

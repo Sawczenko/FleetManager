@@ -12,7 +12,20 @@ namespace FleetManager.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "DomainUsers",
+                name: "Location",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Latitude = table.Column<double>(type: "float", nullable: false),
+                    Longitude = table.Column<double>(type: "float", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Location", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -24,20 +37,7 @@ namespace FleetManager.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DomainUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Location",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Latitude = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Longitude = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Location", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -55,7 +55,7 @@ namespace FleetManager.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Vehicle", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Vehicle_Location_CurrentLocationId",
+                        name: "Vehicle_CurrentLocation",
                         column: x => x.CurrentLocationId,
                         principalTable: "Location",
                         principalColumn: "Id",
@@ -70,23 +70,17 @@ namespace FleetManager.Infrastructure.Migrations
                     VehicleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Cost = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    VehicleId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    Cost = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Inspections", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Inspections_Vehicle_VehicleId",
+                        name: "Inspection_Vehicle",
                         column: x => x.VehicleId,
                         principalTable: "Vehicle",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Inspections_Vehicle_VehicleId1",
-                        column: x => x.VehicleId1,
-                        principalTable: "Vehicle",
-                        principalColumn: "Id");
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -97,23 +91,17 @@ namespace FleetManager.Infrastructure.Migrations
                     VehicleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Cost = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    VehicleId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    Cost = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Repairs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Repairs_Vehicle_VehicleId",
+                        name: "Repair_Vehicle",
                         column: x => x.VehicleId,
                         principalTable: "Vehicle",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Repairs_Vehicle_VehicleId1",
-                        column: x => x.VehicleId1,
-                        principalTable: "Vehicle",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -130,13 +118,13 @@ namespace FleetManager.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_VehicleUsages", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_VehicleUsages_DomainUsers_UserId",
+                        name: "VehicleUsage_User",
                         column: x => x.UserId,
-                        principalTable: "DomainUsers",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_VehicleUsages_Vehicle_VehicleId",
+                        name: "VehicleUsage_Vehicle",
                         column: x => x.VehicleId,
                         principalTable: "Vehicle",
                         principalColumn: "Id",
@@ -159,23 +147,23 @@ namespace FleetManager.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Routes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Routes_Location_EndLocationId",
-                        column: x => x.EndLocationId,
-                        principalTable: "Location",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Routes_Location_StartLocationId",
-                        column: x => x.StartLocationId,
-                        principalTable: "Location",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_Routes_VehicleUsages_VehicleUsageId",
                         column: x => x.VehicleUsageId,
                         principalTable: "VehicleUsages",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "Route_EndLocation",
+                        column: x => x.EndLocationId,
+                        principalTable: "Location",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "Route_StartLocation",
+                        column: x => x.StartLocationId,
+                        principalTable: "Location",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -185,32 +173,26 @@ namespace FleetManager.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     VehicleUsageId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     RouteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Liters = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Amount = table.Column<double>(type: "float", nullable: false),
+                    Liters = table.Column<double>(type: "float", nullable: false),
                     FuelType = table.Column<int>(type: "int", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    VehicleUsageId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_FuelExpenses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FuelExpenses_Routes_RouteId",
+                        name: "FuelExpense_Route",
                         column: x => x.RouteId,
                         principalTable: "Routes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_FuelExpenses_VehicleUsages_VehicleUsageId",
+                        name: "FuelExpense_VehicleUsage",
                         column: x => x.VehicleUsageId,
                         principalTable: "VehicleUsages",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_FuelExpenses_VehicleUsages_VehicleUsageId1",
-                        column: x => x.VehicleUsageId1,
-                        principalTable: "VehicleUsages",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -245,29 +227,14 @@ namespace FleetManager.Infrastructure.Migrations
                 column: "VehicleUsageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FuelExpenses_VehicleUsageId1",
-                table: "FuelExpenses",
-                column: "VehicleUsageId1");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Inspections_VehicleId",
                 table: "Inspections",
                 column: "VehicleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Inspections_VehicleId1",
-                table: "Inspections",
-                column: "VehicleId1");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Repairs_VehicleId",
                 table: "Repairs",
                 column: "VehicleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Repairs_VehicleId1",
-                table: "Repairs",
-                column: "VehicleId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Routes_EndLocationId",
@@ -327,7 +294,7 @@ namespace FleetManager.Infrastructure.Migrations
                 name: "VehicleUsages");
 
             migrationBuilder.DropTable(
-                name: "DomainUsers");
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Vehicle");

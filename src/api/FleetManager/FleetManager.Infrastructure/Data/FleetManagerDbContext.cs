@@ -9,7 +9,7 @@ namespace FleetManager.Infrastructure.Data
 {
     internal class FleetManagerDbContext : DbContext
     {
-        public DbSet<User> DomainUsers { get; set; } // Użytkownicy domenowi
+        public DbSet<User> Users { get; set; } // Użytkownicy domenowi
         public DbSet<VehicleUsage> VehicleUsages { get; set; } // Użycia pojazdów
         public DbSet<FuelExpense> FuelExpenses { get; set; } // Wydatki na paliwo
         public DbSet<Route> Routes { get; set; } // Trasy
@@ -82,6 +82,7 @@ namespace FleetManager.Infrastructure.Data
                 entity.HasOne(v => v.CurrentLocation)
                       .WithMany()
                       .HasForeignKey("CurrentLocationId")
+                      .HasConstraintName("Vehicle_CurrentLocation")
                       .OnDelete(DeleteBehavior.Restrict);
             });
         }
@@ -101,11 +102,13 @@ namespace FleetManager.Infrastructure.Data
                 entity.HasOne<User>()
                       .WithMany()
                       .HasForeignKey("UserId")
+                      .HasConstraintName("VehicleUsage_User")
                       .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne<Vehicle>()
                       .WithMany()
                       .HasForeignKey(vu => vu.VehicleId)
+                      .HasConstraintName("VehicleUsage_Vehicle")
                       .OnDelete(DeleteBehavior.Restrict);
             });
         }
@@ -128,11 +131,13 @@ namespace FleetManager.Infrastructure.Data
                 entity.HasOne<Location>()
                       .WithMany()
                       .HasForeignKey("StartLocationId")
+                      .HasConstraintName("Route_StartLocation")
                       .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne<Location>()
                       .WithMany()
                       .HasForeignKey("EndLocationId")
+                      .HasConstraintName("Route_EndLocation")
                       .OnDelete(DeleteBehavior.Restrict);
             });
         }
@@ -149,14 +154,19 @@ namespace FleetManager.Infrastructure.Data
                 entity.Property(fe => fe.FuelType)
                       .IsRequired();
 
+                entity.Property(fe => fe.VehicleUsageId)
+                    .IsRequired();
+
                 entity.HasOne<Route>()
                       .WithMany()
                       .HasForeignKey(fe => fe.RouteId)
+                      .HasConstraintName("FuelExpense_Route")
                       .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne<VehicleUsage>()
-                      .WithMany()
+                      .WithMany(fe => fe.FuelExpenses)
                       .HasForeignKey(fe => fe.VehicleUsageId)
+                      .HasConstraintName("FuelExpense_VehicleUsage")
                       .OnDelete(DeleteBehavior.Restrict);
             });
         }
@@ -174,9 +184,9 @@ namespace FleetManager.Infrastructure.Data
                       .IsRequired();
 
                 entity.HasOne<Vehicle>()
-                      .WithMany()
-                      .HasForeignKey(i => i.VehicleId)
-                      .OnDelete(DeleteBehavior.Restrict);
+                    .WithMany(v => v.Inspections)
+                    .HasConstraintName("Inspection_Vehicle")
+                    .HasForeignKey(i => i.VehicleId);
             });
         }
 
@@ -193,8 +203,9 @@ namespace FleetManager.Infrastructure.Data
                       .IsRequired();
 
                 entity.HasOne<Vehicle>()
-                      .WithMany()
+                      .WithMany(v => v.Repairs)
                       .HasForeignKey(r => r.VehicleId)
+                      .HasConstraintName("Repair_Vehicle")
                       .OnDelete(DeleteBehavior.Restrict);
             });
         }
