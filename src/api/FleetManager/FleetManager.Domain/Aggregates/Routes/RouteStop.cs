@@ -1,12 +1,13 @@
-﻿namespace FleetManager.Domain.Routes
+﻿namespace FleetManager.Domain.Aggregates.Routes
 {
     public class RouteStop
     {
         public Guid Id { get; private set; }
+        public int SequenceNumber { get; private set; }
         public Guid RouteId { get; private set; }
         public Guid LocationId { get; private set; }
-        public DateTime ArrivalTime { get; private set; }
-        public DateTime DepartureTime { get; private set; }
+        public DateTime? ArrivalTime { get; private set; }
+        public DateTime? DepartureTime { get; private set; }
 
         public RouteStop(Guid routeId, Guid locationId)
         {

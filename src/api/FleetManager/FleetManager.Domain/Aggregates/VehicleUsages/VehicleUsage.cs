@@ -1,6 +1,6 @@
-﻿using FleetManager.Domain.Routes;
+﻿using FleetManager.Domain.Aggregates.Routes;
 
-namespace FleetManager.Domain.VehicleUsages
+namespace FleetManager.Domain.Aggregates.VehicleUsages
 {
     public class VehicleUsage
     {

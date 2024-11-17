@@ -1,4 +1,4 @@
-﻿namespace FleetManager.Domain.Locations
+﻿namespace FleetManager.Domain.Aggregates.Locations
 {
     public record Location
     {
@@ -9,7 +9,7 @@
 
         private Location()
         {
-            
+            Name = string.Empty;
         }
 
         public Location(string name, double latitude, double longitude)

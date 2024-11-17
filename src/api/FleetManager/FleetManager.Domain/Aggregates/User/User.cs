@@ -1,4 +1,4 @@
-﻿namespace FleetManager.Domain.User
+﻿namespace FleetManager.Domain.Aggregates.User
 {
     public class User
     {

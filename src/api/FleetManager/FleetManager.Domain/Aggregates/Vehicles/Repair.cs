@@ -1,4 +1,4 @@
-﻿namespace FleetManager.Domain.Vehicles
+﻿namespace FleetManager.Domain.Aggregates.Vehicles
 {
     public record Repair
     {

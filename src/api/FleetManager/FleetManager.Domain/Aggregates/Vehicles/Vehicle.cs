@@ -1,6 +1,6 @@
-﻿using FleetManager.Domain.Locations;
+﻿using FleetManager.Domain.Aggregates.Locations;
 
-namespace FleetManager.Domain.Vehicles
+namespace FleetManager.Domain.Aggregates.Vehicles
 {
     public class Vehicle
     {
@@ -9,19 +9,29 @@ namespace FleetManager.Domain.Vehicles
         public string LicensePlate { get; private set; }
         public string Model { get; private set; }
         public DateTime LastInspectionDate { get; private set; }
-        public Location? CurrentLocation { get; private set; }
+        public DateTime NextInspectionDate { get; private set; }
+        public Location CurrentLocation { get; private set; }
         public List<Inspection> Inspections { get; private set; }
         public List<Repair> Repairs { get; private set; }
 
-        public Vehicle(string vin, string licensePlate, string model)
+        internal Vehicle(string vin,
+            string licensePlate,
+            string model,
+            DateTime lastInspectionDate,
+            DateTime nextInspectionDate,
+            Location currentLocation,
+            List<Inspection>? inspections = null,
+            List<Repair>? repairs = null)
         {
             Id = Guid.NewGuid();
             Vin = vin;
             LicensePlate = licensePlate;
             Model = model;
-            LastInspectionDate = DateTime.UtcNow;
-            Inspections = new List<Inspection>();
-            Repairs = new List<Repair>();
+            LastInspectionDate = lastInspectionDate;
+            NextInspectionDate = nextInspectionDate;
+            CurrentLocation = currentLocation;
+            Inspections = inspections ?? new List<Inspection>();
+            Repairs = repairs ?? new List<Repair>();
         }
 
         public void UpdateLocation(Location newLocation)
