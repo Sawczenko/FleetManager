@@ -5,9 +5,7 @@ namespace FleetManager.Domain.Aggregates.Vehicles
     public class Vehicle
     {
         public Guid Id { get; private set; }
-        public string Vin { get; private set; }
-        public string LicensePlate { get; private set; }
-        public string Model { get; private set; }
+        public VehicleDetails VehicleData { get; private set; }
         public DateTime LastInspectionDate { get; private set; }
         public DateTime NextInspectionDate { get; private set; }
         public Location CurrentLocation { get; private set; }
@@ -24,9 +22,7 @@ namespace FleetManager.Domain.Aggregates.Vehicles
             List<Repair>? repairs = null)
         {
             Id = Guid.NewGuid();
-            Vin = vin;
-            LicensePlate = licensePlate;
-            Model = model;
+            VehicleData = new VehicleDetails(vin, licensePlate, model);
             LastInspectionDate = lastInspectionDate;
             NextInspectionDate = nextInspectionDate;
             CurrentLocation = currentLocation;

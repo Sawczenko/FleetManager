@@ -1,8 +1,8 @@
-﻿namespace FleetManager.Domain.SeedWork
+﻿namespace FleetManager.Domain.SeedWork.Results
 {
     public class Result
     {
-        private Result(bool isSuccess, Error error)
+        protected Result(bool isSuccess, Error error)
         {
             if (isSuccess && error != Error.None ||
                 !isSuccess && error == Error.None)
@@ -23,5 +23,17 @@
         public static Result Success() => new(true, Error.None);
 
         public static Result Failure(Error error) => new(false, error);
+    }
+
+    public class Result<T> : Result
+    {
+        public readonly T? Value;
+
+        protected Result(T value, bool isSuccess, Error error) : base(isSuccess, error)
+        {
+            Value = value;
+        }
+
+        public static Result<T> Success(T value) => new Result<T>(value, true, Error.None);
     }
 }

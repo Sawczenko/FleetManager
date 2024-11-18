@@ -1,5 +1,5 @@
 ﻿using FleetManager.Domain.Aggregates.Locations;
-using FleetManager.Domain.SeedWork;
+using FleetManager.Domain.SeedWork.Results;
 
 namespace FleetManager.Domain.Aggregates.Vehicles
 {
@@ -24,38 +24,39 @@ namespace FleetManager.Domain.Aggregates.Vehicles
         {
             if (string.IsNullOrWhiteSpace(vin))
             {
-                throw new ArgumentException("VIN cannot be empty.", nameof(vin));
+                return Result.Failure(VehicleErrors.MissingVehicleDetails(nameof(vin)));
             }
 
             if (string.IsNullOrWhiteSpace(licensePlate))
             {
-                throw new ArgumentException("License plate cannot be empty.", nameof(licensePlate));
+                return Result.Failure(VehicleErrors.MissingVehicleDetails(nameof(licensePlate)));
             }
 
             if (string.IsNullOrWhiteSpace(model))
             {
-                throw new ArgumentException("Model cannot be empty.", nameof(model));
+                return Result.Failure(VehicleErrors.MissingVehicleDetails(nameof(model)));
             }
 
             if (currentLocation is null)
             {
-                throw new ArgumentException("Initial location ID is required.", nameof(currentLocation));
-
+                return Result.Failure(VehicleErrors.MissingInitialLocation);
             }
 
-            if (lastInspectionDate > DateTime.UtcNow)
+            DateTime currentDate = DateTime.UtcNow;
+;
+            if (lastInspectionDate > currentDate)
             {
-                throw new ArgumentException("Last inspection date cannot be in the future.");
+                return Result.Failure(VehicleErrors.FutureLastInspectionDate(lastInspectionDate, currentDate));
             }
 
-            if (nextInspectionDate < DateTime.UtcNow)
+            if (nextInspectionDate < currentDate)
             {
-                throw new ArgumentException("Next inspection date cannot be in the past.");
+                return Result.Failure(VehicleErrors.PastNextInspectionDate(nextInspectionDate, currentDate));
             }
 
             if (nextInspectionDate < lastInspectionDate)
             {
-                throw new ArgumentException("Next inspection date cannot be older than last inspection date.");
+                return Result.Failure(VehicleErrors.NextInspectionDateOlderThanLastInspectionDate(nextInspectionDate, lastInspectionDate));
             }
 
             Vehicle vehicle = new Vehicle(vin,
@@ -66,6 +67,14 @@ namespace FleetManager.Domain.Aggregates.Vehicles
                 currentLocation,
                 inspections,
                 repairs);
+
+            Vehicle? existingVehicle =
+                await _vehicleRepository.GetByVehicleDataAsync(vehicle.VehicleData, cancellationToken);
+
+            if (existingVehicle is not null)
+            {
+                return Result.Failure(VehicleErrors.VehicleAlreadyExists(existingVehicle.VehicleData));
+            }
 
             await _vehicleRepository.AddAsync(vehicle, cancellationToken);
 
