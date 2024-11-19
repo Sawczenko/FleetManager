@@ -1,5 +1,6 @@
 using FleetManager.Infrastructure;
 using FleetManager.Domain;
+using FleetManager.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,10 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    DataSeeder dataSeeder = new DataSeeder(app.Services);
+
+    await dataSeeder.SeedDataAsync();
+
     app.UseSwagger();
     app.UseSwaggerUI();
 }

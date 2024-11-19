@@ -5,16 +5,21 @@ namespace FleetManager.Domain.Aggregates.Vehicles
     public class Vehicle
     {
         public Guid Id { get; private set; }
-        public VehicleDetails VehicleData { get; private set; }
+        public VehicleDetails VehicleDetails { get; private set; }
         public DateTime LastInspectionDate { get; private set; }
         public DateTime NextInspectionDate { get; private set; }
-        public Location CurrentLocation { get; private set; }
+        public Location? CurrentLocation { get; private set; }
         public List<Inspection> Inspections { get; private set; }
         public List<Repair> Repairs { get; private set; }
 
-        internal Vehicle(string vin,
-            string licensePlate,
-            string model,
+        private Vehicle()
+        {
+            Inspections = new List<Inspection>();
+            Repairs = new List<Repair>();
+            VehicleDetails = new VehicleDetails(string.Empty, string.Empty, string.Empty);
+        }
+
+        internal Vehicle(VehicleDetails vehicleDetails,
             DateTime lastInspectionDate,
             DateTime nextInspectionDate,
             Location currentLocation,
@@ -22,7 +27,7 @@ namespace FleetManager.Domain.Aggregates.Vehicles
             List<Repair>? repairs = null)
         {
             Id = Guid.NewGuid();
-            VehicleData = new VehicleDetails(vin, licensePlate, model);
+            VehicleDetails = vehicleDetails;
             LastInspectionDate = lastInspectionDate;
             NextInspectionDate = nextInspectionDate;
             CurrentLocation = currentLocation;

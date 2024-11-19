@@ -1,3 +1,4 @@
+using FleetManager.Domain.Aggregates.Vehicles;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FleetManager.API.Controllers
@@ -12,22 +13,18 @@ namespace FleetManager.API.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IVehicleRepository _vehicleRepository;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IVehicleRepository vehicleRepository)
         {
             _logger = logger;
+            _vehicleRepository = vehicleRepository;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpGet(Name = "GetVehicles")]
+        public async Task<List<Vehicle>> Get(CancellationToken cancellationToken)
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            return await _vehicleRepository.GetVehiclesAsync(cancellationToken);
         }
     }
 }

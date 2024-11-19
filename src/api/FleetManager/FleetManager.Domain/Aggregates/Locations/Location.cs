@@ -15,14 +15,7 @@
         public Location(string name, double latitude, double longitude)
         {
             Id = Guid.NewGuid();
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new ArgumentException("Brak nazwy");
-            }
-
             Name = name;
-
-
             Latitude = latitude;
             Longitude = longitude;
         }

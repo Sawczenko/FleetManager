@@ -11,7 +11,7 @@
         public List<RouteStop> RouteStops { get; private set; }
         public Guid VehicleUsageId { get; private set; }
 
-        public Route(Guid startLocationId, Guid endLocationId, Guid vehicleUsageId)
+        internal Route(Guid startLocationId, Guid endLocationId, Guid vehicleUsageId)
         {
             Id = Guid.NewGuid();
             StartLocationId = startLocationId;
@@ -19,7 +19,7 @@
             Status = RouteStatus.Planned;
             ScheduledStartTime = DateTime.UtcNow;
             RouteStops = new List<RouteStop>();
-            VehicleUsageId = vehicleUsageId; // Ustawienie klucza obcego
+            VehicleUsageId = vehicleUsageId;
         }
 
         public void AddStop(RouteStop stop)

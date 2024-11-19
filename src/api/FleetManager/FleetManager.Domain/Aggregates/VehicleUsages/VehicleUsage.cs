@@ -12,7 +12,7 @@ namespace FleetManager.Domain.Aggregates.VehicleUsages
         public DateTime StartDate { get; private set; }
         public DateTime? EndDate { get; private set; }
 
-        public VehicleUsage(Guid vehicleId, Guid userId, DateTime startDate)
+        internal VehicleUsage(Guid vehicleId, Guid userId, DateTime startDate)
         {
             Id = Guid.NewGuid();
             VehicleId = vehicleId;

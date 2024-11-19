@@ -15,8 +15,7 @@ namespace FleetManager.Infrastructure
         {
             services.AddDbContext<FleetManagerDbContext>(options =>
                 options.UseSqlServer(
-                    configuration.GetConnectionString("DefaultConnection")));
-
+                    configuration.GetConnectionString("SqlDockerDevelopmentConnection")));
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 

@@ -13,7 +13,7 @@ namespace FleetManager.Infrastructure.Domain.Vehicles
             _vehicles = fleetManagerDbContext.Set<Vehicle>();
         }
 
-        public async Task<Vehicle?> GetById(Guid id, CancellationToken cancellationToken)
+        public async Task<Vehicle?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             return await _vehicles
                 .Include(x => x.Repairs)
@@ -22,11 +22,29 @@ namespace FleetManager.Infrastructure.Domain.Vehicles
                 .FirstOrDefaultAsync(cancellationToken);
         }
 
+        public async Task<Vehicle?> GetByVehicleDetailsAsync(VehicleDetails vehicleDetails, CancellationToken cancellationToken)
+        {
+            return await _vehicles
+                .Where(x => x.VehicleDetails.Vin == vehicleDetails.Vin
+                || x.VehicleDetails.LicensePlate == vehicleDetails.LicensePlate)
+                .FirstOrDefaultAsync(cancellationToken);
+        }
+
         public Task AddAsync(Vehicle vehicle, CancellationToken cancellationToken)
         {
             _vehicles.AddAsync(vehicle, cancellationToken);
 
             return Task.CompletedTask;
+        }
+
+        public async Task<List<Vehicle>> GetVehiclesAsync(CancellationToken cancellationToken)
+        {
+            var cehicles = await _vehicles
+                .Include(x => x.CurrentLocation)
+                .Include(x => x.Repairs)
+                .Include(x => x.Inspections)
+                .AsNoTracking().ToListAsync(cancellationToken);
+            return cehicles;
         }
     }
 }

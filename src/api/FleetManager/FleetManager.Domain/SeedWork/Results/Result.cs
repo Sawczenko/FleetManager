@@ -29,11 +29,13 @@
     {
         public readonly T? Value;
 
-        protected Result(T value, bool isSuccess, Error error) : base(isSuccess, error)
+        protected Result(T? value, bool isSuccess, Error error) : base(isSuccess, error)
         {
             Value = value;
         }
 
         public static Result<T> Success(T value) => new Result<T>(value, true, Error.None);
+
+        public new static Result<T> Failure(Error error) => new(default, false, error);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
 using FleetManager.Domain.Aggregates.Vehicles;
+using Microsoft.EntityFrameworkCore;
 
 namespace FleetManager.Infrastructure.Domain.Vehicles.Configurations
 {
@@ -8,20 +8,25 @@ namespace FleetManager.Infrastructure.Domain.Vehicles.Configurations
     {
         public void Configure(EntityTypeBuilder<Vehicle> builder)
         {
-
             builder.HasKey(v => v.Id);
 
-            builder.Property(v => v.Vin)
+            builder.OwnsOne(v => v.VehicleDetails, vDetails =>
+            {
+                vDetails.Property(v => v.Vin)
                     .IsRequired()
-                    .HasMaxLength(17);
-
-            builder.Property(v => v.LicensePlate)
-                    .HasMaxLength(20)
-                    .IsRequired();
-
-            builder.Property(v => v.Model)
+                    .HasMaxLength(17)
+                    .HasColumnName("VIN");
+                vDetails.Property(v => v.LicensePlate)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .HasColumnName("LicensePlate");
+                vDetails.Property(v => v.Model)
+                    .IsRequired()
                     .HasMaxLength(50)
-                    .IsRequired();
+                    .HasColumnName("Model");
+
+                vDetails.HasIndex(v => v.Vin).IsUnique();
+            });
 
             builder.Property(v => v.LastInspectionDate)
                     .IsRequired();

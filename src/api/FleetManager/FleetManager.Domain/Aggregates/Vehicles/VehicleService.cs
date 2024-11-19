@@ -22,61 +22,25 @@ namespace FleetManager.Domain.Aggregates.Vehicles
             List<Repair>? repairs = null,
             CancellationToken cancellationToken = new())
         {
-            if (string.IsNullOrWhiteSpace(vin))
+            var result = VehicleFactory.Create(vin, licensePlate, model, lastInspectionDate, nextInspectionDate,
+                currentLocation, inspections, repairs);
+
+            if (result.IsFailure  || result.Value is null)
             {
-                return Result.Failure(VehicleErrors.MissingVehicleDetails(nameof(vin)));
+                return result;
             }
 
-            if (string.IsNullOrWhiteSpace(licensePlate))
-            {
-                return Result.Failure(VehicleErrors.MissingVehicleDetails(nameof(licensePlate)));
-            }
-
-            if (string.IsNullOrWhiteSpace(model))
-            {
-                return Result.Failure(VehicleErrors.MissingVehicleDetails(nameof(model)));
-            }
-
-            if (currentLocation is null)
-            {
-                return Result.Failure(VehicleErrors.MissingInitialLocation);
-            }
-
-            DateTime currentDate = DateTime.UtcNow;
-;
-            if (lastInspectionDate > currentDate)
-            {
-                return Result.Failure(VehicleErrors.FutureLastInspectionDate(lastInspectionDate, currentDate));
-            }
-
-            if (nextInspectionDate < currentDate)
-            {
-                return Result.Failure(VehicleErrors.PastNextInspectionDate(nextInspectionDate, currentDate));
-            }
-
-            if (nextInspectionDate < lastInspectionDate)
-            {
-                return Result.Failure(VehicleErrors.NextInspectionDateOlderThanLastInspectionDate(nextInspectionDate, lastInspectionDate));
-            }
-
-            Vehicle vehicle = new Vehicle(vin,
-                licensePlate, 
-                model,
-                lastInspectionDate, 
-                nextInspectionDate,
-                currentLocation,
-                inspections,
-                repairs);
+            Vehicle newVehicle = result.Value;
 
             Vehicle? existingVehicle =
-                await _vehicleRepository.GetByVehicleDataAsync(vehicle.VehicleData, cancellationToken);
+                await _vehicleRepository.GetByVehicleDetailsAsync(newVehicle.VehicleDetails, cancellationToken);
 
             if (existingVehicle is not null)
             {
-                return Result.Failure(VehicleErrors.VehicleAlreadyExists(existingVehicle.VehicleData));
+                return Result.Failure(VehicleErrors.VehicleAlreadyExists(existingVehicle.VehicleDetails));
             }
 
-            await _vehicleRepository.AddAsync(vehicle, cancellationToken);
+            await _vehicleRepository.AddAsync(newVehicle, cancellationToken);
 
             return Result.Success();
         }
