@@ -1,7 +1,7 @@
-﻿using FleetManager.Domain.Aggregates.Locations;
+﻿using FleetManager.Domain.Locations;
 using FleetManager.Domain.SeedWork.Results;
 
-namespace FleetManager.Domain.Aggregates.Vehicles
+namespace FleetManager.Domain.Vehicles.Models
 {
     public static class VehicleFactory
     {
@@ -10,9 +10,7 @@ namespace FleetManager.Domain.Aggregates.Vehicles
             string model,
             DateTime lastInspectionDate,
             DateTime nextInspectionDate,
-            Location? currentLocation,
-            List<Inspection>? inspections = null,
-            List<Repair>? repairs = null)
+            Location? currentLocation)
         {
             if (string.IsNullOrWhiteSpace(vin))
             {
@@ -54,9 +52,7 @@ namespace FleetManager.Domain.Aggregates.Vehicles
             Vehicle vehicle = new Vehicle(new VehicleDetails(vin, licensePlate, model),
                 lastInspectionDate,
                 nextInspectionDate,
-                currentLocation,
-                inspections,
-                repairs);
+                currentLocation);
 
             return Result<Vehicle>.Success(vehicle);
         }

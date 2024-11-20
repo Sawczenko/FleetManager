@@ -1,17 +1,17 @@
 ﻿using FleetManager.Infrastructure.Domain.Vehicles.Configurations;
 using FleetManager.Infrastructure.Domain.VehicleUsages;
 using FleetManager.Infrastructure.Domain.Locations;
-using FleetManager.Domain.Aggregates.VehicleUsages;
 using FleetManager.Infrastructure.Domain.Routes;
 using FleetManager.Infrastructure.Domain.Users;
-using FleetManager.Domain.Aggregates.Vehicles;
-using FleetManager.Domain.Aggregates.Routes;
-using FleetManager.Domain.Aggregates.User;
+using FleetManager.Domain.Vehicles.Models;
+using FleetManager.Domain.VehicleUsages;
 using Microsoft.EntityFrameworkCore;
+using FleetManager.Domain.Routes;
+using FleetManager.Domain.User;
 
 namespace FleetManager.Infrastructure.Data
 {
-    internal class FleetManagerDbContext : DbContext
+    public class FleetManagerDbContext : DbContext
     {
         public required DbSet<Vehicle> Vehicles { get; set; }
         public required DbSet<User> Users { get; set; }

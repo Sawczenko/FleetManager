@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using FleetManager.Domain.Aggregates.Locations;
+using FleetManager.Domain.Locations;
 
 namespace FleetManager.Infrastructure.Domain.Locations
 {

@@ -1,4 +1,4 @@
-﻿namespace FleetManager.Domain.Aggregates.Vehicles;
+﻿namespace FleetManager.Domain.Vehicles.Models;
 
 public record VehicleDetails
 {

@@ -1,7 +1,8 @@
-﻿using FleetManager.Domain.Aggregates.Locations;
-using FleetManager.Domain.SeedWork.Results;
+﻿using FleetManager.Domain.SeedWork.Results;
+using FleetManager.Domain.Vehicles.Models;
+using FleetManager.Domain.Locations;
 
-namespace FleetManager.Domain.Aggregates.Vehicles
+namespace FleetManager.Domain.Vehicles
 {
     public sealed class VehicleService
     {
@@ -18,16 +19,19 @@ namespace FleetManager.Domain.Aggregates.Vehicles
             DateTime lastInspectionDate,
             DateTime nextInspectionDate,
             Location? currentLocation,
-            List<Inspection>? inspections = null,
-            List<Repair>? repairs = null,
             CancellationToken cancellationToken = new())
         {
             var result = VehicleFactory.Create(vin, licensePlate, model, lastInspectionDate, nextInspectionDate,
-                currentLocation, inspections, repairs);
+                currentLocation);
 
-            if (result.IsFailure  || result.Value is null)
+            if (result.IsFailure)
             {
                 return result;
+            }
+
+            if (result.Value is null)
+            {
+                return Result.Failure(VehicleErrors.VehicleWasNotCreated);
             }
 
             Vehicle newVehicle = result.Value;

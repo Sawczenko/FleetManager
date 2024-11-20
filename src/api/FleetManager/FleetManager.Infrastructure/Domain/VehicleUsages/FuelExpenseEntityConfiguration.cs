@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using FleetManager.Domain.Aggregates.VehicleUsages;
-using FleetManager.Domain.Aggregates.Routes;
+using FleetManager.Domain.VehicleUsages;
+using FleetManager.Domain.Routes;
 
 namespace FleetManager.Infrastructure.Domain.VehicleUsages
 {

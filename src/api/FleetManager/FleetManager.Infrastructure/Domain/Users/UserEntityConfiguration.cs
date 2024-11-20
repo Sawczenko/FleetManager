@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using FleetManager.Domain.Aggregates.User;
+using FleetManager.Domain.User;
 
 namespace FleetManager.Infrastructure.Domain.Users
 {

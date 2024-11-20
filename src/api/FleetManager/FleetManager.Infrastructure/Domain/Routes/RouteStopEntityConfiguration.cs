@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using FleetManager.Domain.Aggregates.Locations;
-using FleetManager.Domain.Aggregates.Routes;
+using FleetManager.Domain.Routes;
+using FleetManager.Domain.Locations;
 
 namespace FleetManager.Infrastructure.Domain.Routes
 {

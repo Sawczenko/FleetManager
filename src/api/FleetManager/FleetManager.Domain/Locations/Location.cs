@@ -1,11 +1,11 @@
-﻿namespace FleetManager.Domain.Aggregates.Locations
+﻿namespace FleetManager.Domain.Locations
 {
-    public record Location
+    public class Location
     {
         public Guid Id;
-        public string Name;
-        public double Latitude;
-        public double Longitude;
+        public string Name { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
 
         private Location()
         {

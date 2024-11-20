@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using FleetManager.Domain.Aggregates.Vehicles;
 using Microsoft.EntityFrameworkCore;
+using FleetManager.Domain.Vehicles.Models;
 
 namespace FleetManager.Infrastructure.Domain.Vehicles.Configurations
 {

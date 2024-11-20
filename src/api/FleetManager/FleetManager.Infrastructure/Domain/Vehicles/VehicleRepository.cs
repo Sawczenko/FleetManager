@@ -1,6 +1,7 @@
 ﻿using FleetManager.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using FleetManager.Domain.Aggregates.Vehicles;
+using FleetManager.Domain.Vehicles;
+using FleetManager.Domain.Vehicles.Models;
 
 namespace FleetManager.Infrastructure.Domain.Vehicles
 {
@@ -35,16 +36,6 @@ namespace FleetManager.Infrastructure.Domain.Vehicles
             _vehicles.AddAsync(vehicle, cancellationToken);
 
             return Task.CompletedTask;
-        }
-
-        public async Task<List<Vehicle>> GetVehiclesAsync(CancellationToken cancellationToken)
-        {
-            var cehicles = await _vehicles
-                .Include(x => x.CurrentLocation)
-                .Include(x => x.Repairs)
-                .Include(x => x.Inspections)
-                .AsNoTracking().ToListAsync(cancellationToken);
-            return cehicles;
         }
     }
 }

@@ -5,7 +5,7 @@ using FleetManager.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using FleetManager.Domain.SeedWork;
 using FleetManager.Infrastructure.Domain.Vehicles;
-using FleetManager.Domain.Aggregates.Vehicles;
+using FleetManager.Domain.Vehicles;
 
 namespace FleetManager.Infrastructure
 {
@@ -20,11 +20,17 @@ namespace FleetManager.Infrastructure
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddRepositories();
+            services.AddDomainServices();
         }
 
         private static void AddRepositories(this IServiceCollection services)
         {
             services.AddScoped<IVehicleRepository, VehicleRepository>();
+        }
+
+        private static void AddDomainServices(this IServiceCollection services)
+        {
+            services.AddScoped<VehicleService>();
         }
     }
 }

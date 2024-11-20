@@ -1,6 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using FleetManager.Domain.Aggregates.Locations;
-using FleetManager.Domain.Aggregates.Vehicles;
+﻿using FleetManager.Domain.Locations;
+using Microsoft.Extensions.DependencyInjection;
+using FleetManager.Domain.Vehicles.Models;
 
 #nullable disable
 

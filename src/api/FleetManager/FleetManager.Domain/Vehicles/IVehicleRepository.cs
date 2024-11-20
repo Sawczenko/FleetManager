@@ -1,4 +1,6 @@
-﻿namespace FleetManager.Domain.Aggregates.Vehicles;
+﻿using FleetManager.Domain.Vehicles.Models;
+
+namespace FleetManager.Domain.Vehicles;
 
 public interface IVehicleRepository
 {
@@ -7,6 +9,4 @@ public interface IVehicleRepository
     public Task<Vehicle?> GetByVehicleDetailsAsync(VehicleDetails vehicleData, CancellationToken cancellationToken);
 
     public Task AddAsync(Vehicle vehicle, CancellationToken cancellationToken);
-
-    public Task<List<Vehicle>> GetVehiclesAsync(CancellationToken cancellationToken);
 }

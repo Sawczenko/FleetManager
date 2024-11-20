@@ -1,4 +1,4 @@
-﻿namespace FleetManager.Domain.Aggregates.User
+﻿namespace FleetManager.Domain.User
 {
     public class User
     {
@@ -11,7 +11,7 @@
 
         private User() { } // Konstruktor wymagany przez ORM
 
-        public User(string firstName, string lastName, string email)
+        internal User(string firstName, string lastName, string email)
         {
             Id = Guid.NewGuid();
 

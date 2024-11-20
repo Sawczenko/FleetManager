@@ -1,4 +1,4 @@
-﻿namespace FleetManager.Domain.Aggregates.Routes
+﻿namespace FleetManager.Domain.Routes
 {
     public class Route
     {

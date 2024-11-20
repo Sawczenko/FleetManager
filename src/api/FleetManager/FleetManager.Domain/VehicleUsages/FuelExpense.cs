@@ -1,4 +1,4 @@
-﻿namespace FleetManager.Domain.Aggregates.VehicleUsages
+﻿namespace FleetManager.Domain.VehicleUsages
 {
     public record FuelExpense
     {

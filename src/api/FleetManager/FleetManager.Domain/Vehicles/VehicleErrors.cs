@@ -1,6 +1,7 @@
 ﻿using FleetManager.Domain.SeedWork;
+using FleetManager.Domain.Vehicles.Models;
 
-namespace FleetManager.Domain.Aggregates.Vehicles
+namespace FleetManager.Domain.Vehicles
 {
     public static class VehicleErrors
     {
@@ -18,5 +19,8 @@ namespace FleetManager.Domain.Aggregates.Vehicles
 
         public static Error VehicleAlreadyExists(VehicleDetails vehicleDetails) =>
             new Error("Vehicle.VehicleAlreadyExists", $"Vehicle with VIN: {vehicleDetails.Vin}, LicensePlate: {vehicleDetails.LicensePlate} already exists.");
+
+        public static readonly Error VehicleWasNotCreated =
+            new Error("Vehicle.VehicleWasNotCreated", $"Vehicle was not created due to an error.");
     }
 }
