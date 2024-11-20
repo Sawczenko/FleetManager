@@ -9,7 +9,7 @@
         public string Email { get; private set; } = string.Empty;
         public List<Guid> VehicleUsageIds { get; private set; } = new List<Guid>();
 
-        private User() { } // Konstruktor wymagany przez ORM
+        private User() { }
 
         internal User(string firstName, string lastName, string email)
         {

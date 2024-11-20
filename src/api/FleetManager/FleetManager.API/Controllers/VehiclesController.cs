@@ -1,8 +1,7 @@
 ﻿using FleetManager.Application.Vehicles.Queries.GetVehicles;
 using FleetManager.Domain.Vehicles.Models;
-using FleetManager.Domain.Vehicles;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using MediatR;
 
 namespace FleetManager.API.Controllers
 {
