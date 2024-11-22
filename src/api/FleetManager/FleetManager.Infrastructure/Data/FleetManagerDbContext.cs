@@ -13,14 +13,14 @@ namespace FleetManager.Infrastructure.Data
 {
     public class FleetManagerDbContext : DbContext
     {
-        public required DbSet<Vehicle> Vehicles { get; set; }
-        public required DbSet<User> Users { get; set; }
-        public required DbSet<VehicleUsage> VehicleUsages { get; set; }
-        public required DbSet<FuelExpense> FuelExpenses { get; set; }
-        public required DbSet<Route> Routes { get; set; }
-        public required DbSet<RouteStop> RouteStops { get; set; }
-        public required DbSet<Inspection> Inspections { get; set; }
-        public required DbSet<Repair> Repairs { get; set; }
+        public DbSet<Vehicle> Vehicles { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<VehicleUsage> VehicleUsages { get; set; }
+        public DbSet<FuelExpense> FuelExpenses { get; set; }
+        public DbSet<Route> Routes { get; set; }
+        public DbSet<RouteStop> RouteStops { get; set; }
+        public DbSet<Inspection> Inspections { get; set; }
+        public DbSet<Repair> Repairs { get; set; }
 
         public FleetManagerDbContext(DbContextOptions<FleetManagerDbContext> options)
             : base(options)
