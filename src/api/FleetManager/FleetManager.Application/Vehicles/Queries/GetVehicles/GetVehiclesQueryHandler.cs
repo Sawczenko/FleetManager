@@ -1,11 +1,12 @@
-﻿using FleetManager.Domain.Vehicles.Models;
+﻿using FleetManager.Application.Vehicles.Dtos;
+using FleetManager.Domain.Vehicles.Models;
 using FleetManager.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using MediatR;
 
 namespace FleetManager.Application.Vehicles.Queries.GetVehicles
 {
-    internal sealed class GetVehiclesQueryHandler : IRequestHandler<GetVehiclesQuery, IEnumerable<Vehicle>>
+    internal sealed class GetVehiclesQueryHandler : IRequestHandler<GetVehiclesQuery, IEnumerable<VehicleDto>>
     {
         private readonly FleetManagerDbContext _dbContext;
 
@@ -14,14 +15,12 @@ namespace FleetManager.Application.Vehicles.Queries.GetVehicles
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<Vehicle>> Handle(GetVehiclesQuery query, CancellationToken cancellationToken)
+        public async Task<IEnumerable<VehicleDto>> Handle(GetVehiclesQuery query, CancellationToken cancellationToken)
         {
             return await _dbContext
-                .Vehicles
-                .Include(x => x.Repairs)
-                .Include(x => x.Inspections)
-                .Include(x => x.CurrentLocation)
+                .Set<Vehicle>()
                 .AsNoTracking()
+                .Select(x => new VehicleDto(x.Id, x.VehicleDetails))
                 .ToListAsync(cancellationToken);
         }
     }

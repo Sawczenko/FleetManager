@@ -55,7 +55,6 @@ namespace FleetManager.Tests.Integration
             var options = new DbContextOptionsBuilder<FleetManagerDbContext>().UseSqlServer(_dbContainer.GetConnectionString()).Options;
 
             var dbContext = new FleetManagerDbContext(options);
-            //await dbContext.Database.EnsureDeletedAsync();
             await dbContext.Database.EnsureCreatedAsync();
 
             _respawner = await Respawner.CreateAsync(_dbConnection, new RespawnerOptions
@@ -74,7 +73,6 @@ namespace FleetManager.Tests.Integration
         {
             return _respawner.ResetAsync(_dbConnection);
         }
-
 
         public new Task DisposeAsync()
         {

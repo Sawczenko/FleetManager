@@ -23,7 +23,7 @@ namespace FleetManager.Infrastructure.Domain.Vehicles.Configurations
 
             builder.HasOne<Vehicle>()
                 .WithMany(v => v.Inspections)
-                .HasConstraintName("Inspection_Vehicle")
+                .HasConstraintName("FK_Inspection_Vehicle")
                 .HasForeignKey(i => i.VehicleId);
         }
     }

@@ -24,7 +24,7 @@ namespace FleetManager.Tests.Integration
             return DbContext;
         }
 
-        public Task InitializeAsync()
+        public virtual Task InitializeAsync()
         {
             return _resetDatabaseTask();
         }

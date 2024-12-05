@@ -24,7 +24,7 @@ namespace FleetManager.Infrastructure.Domain.Vehicles.Configurations
             builder.HasOne<Vehicle>()
                 .WithMany(v => v.Repairs)
                 .HasForeignKey(r => r.VehicleId)
-                .HasConstraintName("Repair_Vehicle")
+                .HasConstraintName("FK_Repair_Vehicle")
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

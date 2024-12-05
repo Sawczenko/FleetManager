@@ -1,5 +1,6 @@
 ﻿using FleetManager.Domain.Vehicles.Models;
 using System.Net.Http.Json;
+using FleetManager.Application.Vehicles.Dtos;
 using FleetManager.Domain.Locations;
 using FluentAssertions;
 
@@ -31,7 +32,7 @@ namespace FleetManager.Tests.Integration.Vehicles
                 Assert.Fail("Error occurred during the request.");
             }
 
-            var vehicles = await response.Content.ReadFromJsonAsync<IEnumerable<Vehicle>>();
+            var vehicles = await response.Content.ReadFromJsonAsync<IEnumerable<VehicleDto>>();
 
             #endregion
 
@@ -76,7 +77,7 @@ namespace FleetManager.Tests.Integration.Vehicles
             }
 
             //TODO: DTO
-            var vehicles = await response.Content.ReadFromJsonAsync<IEnumerable<Vehicle>>();
+            var vehicles = await response.Content.ReadFromJsonAsync<IEnumerable<VehicleDto>>();
 
             #endregion
 
@@ -86,9 +87,10 @@ namespace FleetManager.Tests.Integration.Vehicles
             vehicles.Count().Should().Be(expectedVehicles.Count);
             vehicles.Should().AllSatisfy(x =>
             {
-                x.CurrentLocation.Should().NotBeNull();
-                x.Inspections.Should().NotBeNull();
-                x.Repairs.Should().NotBeNull();
+                x.Id.Should().NotBe(Guid.Empty);
+                x.Vin.Should().NotBeNull();
+                x.LicensePlate.Should().NotBeNull();
+                x.Model.Should().NotBeNull();
             });
 
             #endregion

@@ -23,13 +23,13 @@ namespace FleetManager.Infrastructure.Domain.VehicleUsages
             builder.HasOne<Route>()
                 .WithMany()
                 .HasForeignKey(fe => fe.RouteId)
-                .HasConstraintName("FuelExpense_Route")
+                .HasConstraintName("FK_FuelExpense_Route")
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne<VehicleUsage>()
                 .WithMany(fe => fe.FuelExpenses)
                 .HasForeignKey(fe => fe.VehicleUsageId)
-                .HasConstraintName("FuelExpense_VehicleUsage")
+                .HasConstraintName("FK_FuelExpense_VehicleUsage")
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

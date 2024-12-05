@@ -1,20 +1,20 @@
 ﻿using FleetManager.Infrastructure.Domain.Vehicles.Configurations;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using FleetManager.Infrastructure.Domain.VehicleUsages;
 using FleetManager.Infrastructure.Domain.Locations;
 using FleetManager.Infrastructure.Domain.Routes;
-using FleetManager.Infrastructure.Domain.Users;
+using FleetManager.Infrastructure.Identity;
 using FleetManager.Domain.Vehicles.Models;
 using FleetManager.Domain.VehicleUsages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using FleetManager.Domain.Routes;
-using FleetManager.Domain.User;
 
 namespace FleetManager.Infrastructure.Data
 {
-    public class FleetManagerDbContext : DbContext
+    public class FleetManagerDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
     {
         public DbSet<Vehicle> Vehicles { get; set; }
-        public DbSet<User> Users { get; set; }
         public DbSet<VehicleUsage> VehicleUsages { get; set; }
         public DbSet<FuelExpense> FuelExpenses { get; set; }
         public DbSet<Route> Routes { get; set; }
@@ -36,10 +36,10 @@ namespace FleetManager.Infrastructure.Data
 
         private void ApplyConfigurations(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new ApplicationUserConfiguration());
             modelBuilder.ApplyConfiguration(new LocationEntityConfiguration());
             modelBuilder.ApplyConfiguration(new RouteEntityConfiguration());
             modelBuilder.ApplyConfiguration(new RouteStopEntityConfiguration());
-            modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
             modelBuilder.ApplyConfiguration(new VehicleEntityConfiguration());
             modelBuilder.ApplyConfiguration(new RepairEntityConfiguration());
             modelBuilder.ApplyConfiguration(new InspectionEntityConfiguration());

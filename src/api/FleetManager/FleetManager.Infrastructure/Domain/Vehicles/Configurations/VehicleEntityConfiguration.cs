@@ -34,7 +34,7 @@ namespace FleetManager.Infrastructure.Domain.Vehicles.Configurations
             builder.HasOne(v => v.CurrentLocation)
                     .WithMany()
                     .HasForeignKey("CurrentLocationId")
-                    .HasConstraintName("Vehicle_CurrentLocation")
+                    .HasConstraintName("FK_Vehicle_CurrentLocation")
                     .OnDelete(DeleteBehavior.Restrict);
         }
     }
