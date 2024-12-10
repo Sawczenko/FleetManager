@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.DependencyInjection;
+﻿using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
-using System.Text;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace FleetManager.Infrastructure.Identity
+namespace FleetManager.Infrastructure.Authentication
 {
     internal static class AuthenticationConfiguration
     {
@@ -31,6 +31,8 @@ namespace FleetManager.Infrastructure.Identity
                         IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Secret"]))
                     };
                 });
+
+            services.AddScoped<JwtTokenService>();
         }
     }
 }

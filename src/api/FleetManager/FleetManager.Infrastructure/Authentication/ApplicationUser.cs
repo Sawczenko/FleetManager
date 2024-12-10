@@ -1,7 +1,7 @@
 ﻿using FleetManager.Domain.VehicleUsages;
 using Microsoft.AspNetCore.Identity;
 
-namespace FleetManager.Infrastructure.Identity
+namespace FleetManager.Infrastructure.Authentication
 {
     public class ApplicationUser : IdentityUser<Guid>
     {

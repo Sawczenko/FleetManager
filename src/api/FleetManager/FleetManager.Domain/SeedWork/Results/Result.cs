@@ -1,7 +1,10 @@
-﻿namespace FleetManager.Domain.SeedWork.Results
+﻿using System.Text.Json.Serialization;
+
+namespace FleetManager.Domain.SeedWork.Results
 {
     public class Result
     {
+        [JsonConstructor]
         protected Result(bool isSuccess, Error error)
         {
             if (isSuccess && error != Error.None ||

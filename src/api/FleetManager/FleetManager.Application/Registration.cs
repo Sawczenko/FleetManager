@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FleetManager.Application.Account;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace FleetManager.Application
 {
@@ -7,6 +8,8 @@ namespace FleetManager.Application
         public static void AddApplication(this IServiceCollection services)
         {
             services.AddMediatR(config => config.RegisterServicesFromAssemblies(typeof(Registration).Assembly));
+
+            services.AddScoped<AccountService>();
         }
     }
 }

@@ -1,7 +1,7 @@
-﻿using FleetManager.Application.Users.Login.Dtos;
-using FleetManager.Infrastructure.Identity;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using System.Net.Http.Json;
+using FleetManager.Infrastructure.Authentication;
+using FleetManager.Application.Account.Login;
 
 namespace FleetManager.Tests.Integration
 {

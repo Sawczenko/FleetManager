@@ -1,4 +1,4 @@
-﻿namespace FleetManager.Application.Users.Login.Dtos
+﻿namespace FleetManager.Application.Account.Login
 {
     public record LoginRequestDto(string? Email, string? Password)
     {

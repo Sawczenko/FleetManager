@@ -1,12 +1,12 @@
 ﻿using FleetManager.Infrastructure.Domain.Vehicles;
 using Microsoft.Extensions.DependencyInjection;
-using FleetManager.Infrastructure.Identity;
 using Microsoft.Extensions.Configuration;
 using FleetManager.Infrastructure.Domain;
 using FleetManager.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using FleetManager.Domain.SeedWork;
 using FleetManager.Domain.Vehicles;
+using FleetManager.Infrastructure.Authentication;
 using Microsoft.AspNetCore.Identity;
 
 namespace FleetManager.Infrastructure

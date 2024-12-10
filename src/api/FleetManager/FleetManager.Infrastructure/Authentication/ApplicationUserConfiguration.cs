@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace FleetManager.Infrastructure.Identity
+namespace FleetManager.Infrastructure.Authentication
 {
     internal class ApplicationUserConfiguration : IEntityTypeConfiguration<ApplicationUser>
     {

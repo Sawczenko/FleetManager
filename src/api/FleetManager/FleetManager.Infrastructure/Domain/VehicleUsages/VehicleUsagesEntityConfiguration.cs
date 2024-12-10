@@ -3,7 +3,6 @@ using FleetManager.Domain.Vehicles.Models;
 using FleetManager.Domain.VehicleUsages;
 using Microsoft.EntityFrameworkCore;
 using FleetManager.Domain.User;
-using FleetManager.Infrastructure.Identity;
 
 namespace FleetManager.Infrastructure.Domain.VehicleUsages
 {

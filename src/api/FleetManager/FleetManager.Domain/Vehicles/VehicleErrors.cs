@@ -1,5 +1,5 @@
-﻿using FleetManager.Domain.SeedWork;
-using FleetManager.Domain.Vehicles.Models;
+﻿using FleetManager.Domain.Vehicles.Models;
+using FleetManager.Domain.SeedWork;
 
 namespace FleetManager.Domain.Vehicles
 {

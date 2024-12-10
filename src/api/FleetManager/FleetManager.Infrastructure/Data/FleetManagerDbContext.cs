@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using FleetManager.Infrastructure.Domain.VehicleUsages;
 using FleetManager.Infrastructure.Domain.Locations;
 using FleetManager.Infrastructure.Domain.Routes;
-using FleetManager.Infrastructure.Identity;
 using FleetManager.Domain.Vehicles.Models;
 using FleetManager.Domain.VehicleUsages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using FleetManager.Domain.Routes;
+using FleetManager.Infrastructure.Authentication;
 
 namespace FleetManager.Infrastructure.Data
 {

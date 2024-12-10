@@ -1,10 +1,10 @@
-﻿using Microsoft.Extensions.Configuration;
-using System.IdentityModel.Tokens.Jwt;
-using Microsoft.IdentityModel.Tokens;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 
-namespace FleetManager.Infrastructure.Identity
+namespace FleetManager.Infrastructure.Authentication
 {
     public class JwtTokenService
     {
