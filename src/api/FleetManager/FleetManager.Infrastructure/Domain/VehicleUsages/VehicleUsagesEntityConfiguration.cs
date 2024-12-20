@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using FleetManager.Domain.Routes;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using FleetManager.Domain.Vehicles.Models;
 using FleetManager.Domain.VehicleUsages;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +28,12 @@ namespace FleetManager.Infrastructure.Domain.VehicleUsages
                 .WithMany()
                 .HasForeignKey(vu => vu.VehicleId)
                 .HasConstraintName("FK_VehicleUsage_Vehicle")
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne<Route>()
+                .WithMany()
+                .HasForeignKey(vu => vu.RouteId)
+                .HasConstraintName("FK_VehicleUsage_Route")
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

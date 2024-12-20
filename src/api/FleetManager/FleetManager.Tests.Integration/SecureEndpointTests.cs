@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.Net.Http.Json;
-using FleetManager.Infrastructure.Authentication;
+﻿using FleetManager.Infrastructure.Authentication;
 using FleetManager.Application.Account.Login;
+using Microsoft.AspNetCore.Identity;
+using System.Net.Http.Json;
 
 namespace FleetManager.Tests.Integration
 {
@@ -14,12 +14,15 @@ namespace FleetManager.Tests.Integration
         {
             var hasher = new PasswordHasher<ApplicationUser>();
 
+            string email = "testuser@example.com";
+
             TestUser = new ApplicationUser
             {
                 Id = Guid.NewGuid(),
-                Email = "testuser@example.com",
+                Email = email,
+                NormalizedEmail = email.ToUpper(),
                 UserName = "testuser@example.com",
-                PasswordHash = hasher.HashPassword(null, TestUserPassword)
+                PasswordHash = hasher.HashPassword(default, TestUserPassword)
             };
         }
 
@@ -40,7 +43,7 @@ namespace FleetManager.Tests.Integration
         {
             LoginRequestDto loginRequestRequest = new LoginRequestDto(email, password);
 
-            var response = await HttpClient.PostAsJsonAsync("/api/auth/login", loginRequestRequest);
+            var response = await HttpClient.PostAsJsonAsync("/account/login", loginRequestRequest);
 
             if (!response.IsSuccessStatusCode)
             {

@@ -1,8 +1,8 @@
 ﻿using FleetManager.Domain.Vehicles.Models;
 using System.Net.Http.Json;
-using FleetManager.Application.Vehicles.Dtos;
 using FleetManager.Domain.Locations;
 using FluentAssertions;
+using FleetManager.Application.Vehicles.GetVehicles;
 
 #nullable disable
 
@@ -54,11 +54,13 @@ namespace FleetManager.Tests.Integration.Vehicles
                 new (new VehicleDetails("TESTVin_A", "TestA", "Ford F-150"),
                     DateTime.UtcNow,
                     DateTime.UtcNow.AddYears(1),
-                    new Location("TestLocationA", 10.00, 10.00)),
+                    new Location("TestLocationA", 10.00, 10.00)
+                    , VehicleStatus.Available),
                 new (new VehicleDetails("TESTVin_B", "TestB", "Ford F-150"),
                     DateTime.UtcNow,
                     DateTime.UtcNow.AddYears(1),
-                    new Location("TestLocationB", 11.00, 11.00))
+                    new Location("TestLocationB", 11.00, 11.00),
+                    VehicleStatus.InMainetance)
             };
 
             await DbContext.Vehicles.AddRangeAsync(expectedVehicles);

@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using FleetManager.Domain.Routes;
 using FleetManager.Domain.Locations;
+using FleetManager.Domain.Vehicles.Models;
+using FleetManager.Domain.VehicleUsages;
 
 namespace FleetManager.Infrastructure.Domain.Routes
 {
@@ -31,6 +33,11 @@ namespace FleetManager.Infrastructure.Domain.Routes
                 .HasForeignKey("EndLocationId")
                 .HasConstraintName("FK_Route_EndLocation")
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasMany<VehicleUsage>()
+                .WithOne()
+                .HasForeignKey(y => y.RouteId)
+                .HasConstraintName("FK_Route_VehicleUsage");
         }
     }
 }

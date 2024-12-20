@@ -1,5 +1,5 @@
-﻿using FleetManager.Domain.Locations;
-using FleetManager.Domain.SeedWork.Results;
+﻿using FleetManager.Domain.SeedWork.Results;
+using FleetManager.Domain.Locations;
 
 namespace FleetManager.Domain.Vehicles.Models
 {
@@ -10,7 +10,8 @@ namespace FleetManager.Domain.Vehicles.Models
             string model,
             DateTime lastInspectionDate,
             DateTime nextInspectionDate,
-            Location? currentLocation)
+            Location? currentLocation,
+            VehicleStatus vehicleStatus = VehicleStatus.Available)
         {
             if (string.IsNullOrWhiteSpace(vin))
             {
@@ -33,7 +34,7 @@ namespace FleetManager.Domain.Vehicles.Models
             }
 
             DateTime currentDate = DateTime.UtcNow;
-            ;
+
             if (lastInspectionDate > currentDate)
             {
                 return Result<Vehicle>.Failure(VehicleErrors.FutureLastInspectionDate(lastInspectionDate, currentDate));
@@ -52,7 +53,8 @@ namespace FleetManager.Domain.Vehicles.Models
             Vehicle vehicle = new Vehicle(new VehicleDetails(vin, licensePlate, model),
                 lastInspectionDate,
                 nextInspectionDate,
-                currentLocation);
+                currentLocation,
+                vehicleStatus);
 
             return Result<Vehicle>.Success(vehicle);
         }

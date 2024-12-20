@@ -4,8 +4,7 @@ namespace FleetManager.Domain.SeedWork.Results
 {
     public class Result
     {
-        [JsonConstructor]
-        protected Result(bool isSuccess, Error error)
+        public Result(bool isSuccess, Error error)
         {
             if (isSuccess && error != Error.None ||
                 !isSuccess && error == Error.None)
@@ -30,20 +29,20 @@ namespace FleetManager.Domain.SeedWork.Results
 
     public class Result<T> : Result
     {
-        public readonly T? Value;
+        public T? Value { get; }
 
-        protected Result(T value, bool isSuccess, Error error) : base(isSuccess, error)
+        public Result(T value, bool isSuccess, Error error) : base(isSuccess, error)
         {
             Value = value;
         }
 
-        protected Result(bool isSuccess, Error error) : base(isSuccess, error)
+        private Result(Error error) : base(false, error)
         {
             Value = default;
         }
 
         public static Result<T> Success(T value) => new Result<T>(value, true, Error.None);
 
-        public new static Result<T> Failure(Error error) => new(false, error);
+        public new static Result<T> Failure(Error error) => new(error);
     }
 }

@@ -14,4 +14,12 @@
     <ProjectReference Include="..\FleetManager.Infrastructure\FleetManager.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Dashboard\Queries\GetDashboard\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Vehicles\GetVehiclesWithUpcomingMaintenances\GetVehiclesWithUpcomingMaintenances.cs" />
+  </ItemGroup>
+
 </Project>

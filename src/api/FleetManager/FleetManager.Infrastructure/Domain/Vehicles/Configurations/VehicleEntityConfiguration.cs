@@ -31,6 +31,10 @@ namespace FleetManager.Infrastructure.Domain.Vehicles.Configurations
             builder.Property(v => v.LastInspectionDate)
                     .IsRequired();
 
+            builder.Property(x => x.Status)
+                .IsRequired()
+                .HasColumnType("INT");
+
             builder.HasOne(v => v.CurrentLocation)
                     .WithMany()
                     .HasForeignKey("CurrentLocationId")

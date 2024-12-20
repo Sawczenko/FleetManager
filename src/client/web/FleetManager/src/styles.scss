@@ -1,0 +1,33 @@
+@use '@angular/material' as mat;
+@import '@angular/material/prebuilt-themes/azure-blue.css';
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+@include mat.core();
+
+$theme: mat.define-theme((
+  color: (
+    primary: mat.$azure-palette,
+    tertiary: mat.$blue-palette,
+  ),
+  density: (
+    scale: 0,
+  )
+));
+
+@include mat.color-variants-backwards-compatibility($theme);
+
+@mixin theme($theme) {
+  app-header {
+    color: mat.get-theme-color($theme, primary);
+
+    mat-toolbar {
+      background: mat.get-theme-color($theme, primary-container);
+    }
+  }
+}
+
+html, body { height: 100%; overflow: hidden; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+:root {
+  @include mat.all-component-themes($theme);
+  @include theme($theme);
+}

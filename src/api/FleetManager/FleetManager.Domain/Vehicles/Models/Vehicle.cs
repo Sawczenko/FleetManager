@@ -5,6 +5,7 @@ namespace FleetManager.Domain.Vehicles.Models
     public class Vehicle
     {
         public Guid Id { get; private set; }
+        public VehicleStatus Status { get; private set; }
         public VehicleDetails VehicleDetails { get; private set; }
         public DateTime LastInspectionDate { get; private set; }
         public DateTime NextInspectionDate { get; private set; }
@@ -17,20 +18,24 @@ namespace FleetManager.Domain.Vehicles.Models
             Inspections = new List<Inspection>();
             Repairs = new List<Repair>();
             VehicleDetails = new VehicleDetails(string.Empty, string.Empty, string.Empty);
+            Status = VehicleStatus.Available;
         }
 
         internal Vehicle(VehicleDetails vehicleDetails,
             DateTime lastInspectionDate,
             DateTime nextInspectionDate,
-            Location currentLocation)
+            Location currentLocation,
+            VehicleStatus status)
         {
             Id = Guid.NewGuid();
+            Status = VehicleStatus.Available;
             VehicleDetails = vehicleDetails;
             LastInspectionDate = lastInspectionDate;
             NextInspectionDate = nextInspectionDate;
             CurrentLocation = currentLocation;
             Inspections = new List<Inspection>();
             Repairs = new List<Repair>();
+            Status = status;
         }
 
         public void UpdateLocation(Location newLocation)

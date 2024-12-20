@@ -24,7 +24,7 @@ namespace FleetManager.Infrastructure.Authentication
                 new Claim("userId", user.Id.ToString())
             };
 
-            string? secret = _configuration.GetSection("Jwt")["Key"];
+            string? secret = _configuration.GetSection("Jwt")["Secret"];
 
             if (string.IsNullOrWhiteSpace(secret))
             {

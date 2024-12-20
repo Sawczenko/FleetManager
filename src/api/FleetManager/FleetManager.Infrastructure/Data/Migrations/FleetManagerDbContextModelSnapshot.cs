@@ -64,16 +64,11 @@ namespace FleetManager.Infrastructure.Data.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("VehicleUsageId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
                     b.HasIndex("EndLocationId");
 
                     b.HasIndex("StartLocationId");
-
-                    b.HasIndex("VehicleUsageId");
 
                     b.ToTable("Routes");
                 });
@@ -150,6 +145,9 @@ namespace FleetManager.Infrastructure.Data.Migrations
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid>("RouteId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
@@ -160,6 +158,8 @@ namespace FleetManager.Infrastructure.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RouteId");
 
                     b.HasIndex("UserId");
 
@@ -233,6 +233,9 @@ namespace FleetManager.Infrastructure.Data.Migrations
                     b.Property<DateTime>("NextInspectionDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("INT");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CurrentLocationId");
@@ -240,7 +243,7 @@ namespace FleetManager.Infrastructure.Data.Migrations
                     b.ToTable("Vehicles");
                 });
 
-            modelBuilder.Entity("FleetManager.Infrastructure.Identity.ApplicationUser", b =>
+            modelBuilder.Entity("FleetManager.Infrastructure.Authentication.ApplicationUser", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -462,12 +465,6 @@ namespace FleetManager.Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
                         .HasConstraintName("FK_Route_StartLocation");
-
-                    b.HasOne("FleetManager.Domain.VehicleUsages.VehicleUsage", null)
-                        .WithMany("Routes")
-                        .HasForeignKey("VehicleUsageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("FleetManager.Domain.Routes.RouteStop", b =>
@@ -504,7 +501,14 @@ namespace FleetManager.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("FleetManager.Domain.VehicleUsages.VehicleUsage", b =>
                 {
-                    b.HasOne("FleetManager.Infrastructure.Identity.ApplicationUser", null)
+                    b.HasOne("FleetManager.Domain.Routes.Route", null)
+                        .WithMany()
+                        .HasForeignKey("RouteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_Route_VehicleUsage");
+
+                    b.HasOne("FleetManager.Infrastructure.Authentication.ApplicationUser", null)
                         .WithMany("VehicleUsages")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -591,7 +595,7 @@ namespace FleetManager.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
-                    b.HasOne("FleetManager.Infrastructure.Identity.ApplicationUser", null)
+                    b.HasOne("FleetManager.Infrastructure.Authentication.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -600,7 +604,7 @@ namespace FleetManager.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
-                    b.HasOne("FleetManager.Infrastructure.Identity.ApplicationUser", null)
+                    b.HasOne("FleetManager.Infrastructure.Authentication.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -615,7 +619,7 @@ namespace FleetManager.Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FleetManager.Infrastructure.Identity.ApplicationUser", null)
+                    b.HasOne("FleetManager.Infrastructure.Authentication.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -624,7 +628,7 @@ namespace FleetManager.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.HasOne("FleetManager.Infrastructure.Identity.ApplicationUser", null)
+                    b.HasOne("FleetManager.Infrastructure.Authentication.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -639,8 +643,6 @@ namespace FleetManager.Infrastructure.Data.Migrations
             modelBuilder.Entity("FleetManager.Domain.VehicleUsages.VehicleUsage", b =>
                 {
                     b.Navigation("FuelExpenses");
-
-                    b.Navigation("Routes");
                 });
 
             modelBuilder.Entity("FleetManager.Domain.Vehicles.Models.Vehicle", b =>
@@ -650,7 +652,7 @@ namespace FleetManager.Infrastructure.Data.Migrations
                     b.Navigation("Repairs");
                 });
 
-            modelBuilder.Entity("FleetManager.Infrastructure.Identity.ApplicationUser", b =>
+            modelBuilder.Entity("FleetManager.Infrastructure.Authentication.ApplicationUser", b =>
                 {
                     b.Navigation("VehicleUsages");
                 });

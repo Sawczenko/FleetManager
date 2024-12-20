@@ -1,0 +1,10 @@
+mat-nav-list{
+  mat-list-item{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}
+
+mat-sidenav-container{
+  height: 100%;
+}
