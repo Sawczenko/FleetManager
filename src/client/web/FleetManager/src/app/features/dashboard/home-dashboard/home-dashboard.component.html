@@ -1,10 +1,51 @@
 <div class="container-fluid p-2">
   <div class="row g-2">
-    <div class="col-lg-4 col-xs-12">
-      <mat-card><mat-card-content><div echarts [options]="options" class="chart-container"></div></mat-card-content></mat-card>
+    <div class="col-lg-6 col-xs-12">
+      <mat-card><mat-card-content>
+        <div echarts [options]="vehicleCountByStatusChartOptions" class="chart-container">
+        </div>
+      </mat-card-content>
+      </mat-card>
     </div>
-    <div class="col-lg-8 col-xs-12">
-      <mat-card><mat-card-content>gello</mat-card-content></mat-card>
+    <div class="col-lg-6 col-xs-12">
+      <mat-card><mat-card-content><div echarts [options]="routeCountByStatusChartOptions" class="chart-container"></div></mat-card-content></mat-card>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-xs-12">
+      <mat-card>
+        <mat-card-header>Vehicles with upcoming maintenance</mat-card-header>
+        <mat-card-content>
+          <mat-table [dataSource]="vehiclesWithUpcomingMaintenanceDataSource" class="mat-elevation-z8">
+            <!-- Position Column -->
+            <ng-container matColumnDef="vin">
+              <mat-header-cell *matHeaderCellDef> Vin </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.vin}} </mat-cell>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="licensePlate">
+              <mat-header-cell *matHeaderCellDef> License plate </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.licensePlate}} </mat-cell>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="model">
+              <mat-header-cell *matHeaderCellDef> Model </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.model}} </mat-cell>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="nextInspectionDate">
+              <mat-header-cell *matHeaderCellDef> Next inspection date </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.nextInspectionDate | date: 'dd-MM-yyyy'}} </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+        </mat-card-content>
+      </mat-card>
     </div>
   </div>
 </div>

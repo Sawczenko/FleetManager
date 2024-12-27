@@ -5,6 +5,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatCardModule} from '@angular/material/card';
 import {NgxEchartsModule} from 'ngx-echarts';
+import {MatTableModule} from '@angular/material/table';
 
 const routes: Routes = [
   {path: '', component: HomeDashboardComponent},
@@ -19,6 +20,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     MatGridListModule,
     MatCardModule,
+    MatTableModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts'),
     })
