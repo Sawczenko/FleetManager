@@ -1,4 +1,29 @@
-<app-header (menuButtonClickedEvent)="menuButtonClickedEventHandler($event)"></app-header>
-<app-side-navigation [opened]="menuOpened">
+<mat-sidenav-container class="sidenav-container">
+
+  <mat-sidenav #sidenav mode="push" [(opened)]="menuOpened" class="sidenav-menu">
+    <div class="sidenav">
+      <mat-nav-list role="list" class="w-100">
+        <mat-list-item role="listitem" [routerLink]="'dashboard'">Dashboard</mat-list-item>
+        <mat-list-item role="listitem" [routerLink]="'vehicles'">Vehicles</mat-list-item>
+        <mat-accordion>
+          <mat-expansion-panel class="mat-elevation-z8">
+            <mat-expansion-panel-header>
+              <mat-panel-title>Routes</mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-list-item role="listitem">
+              elo
+            </mat-list-item>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-list-item role="listitem" [routerLink]="'test'">Test</mat-list-item>
+        <mat-list-item role="listitem" (click)="logout()">Logout</mat-list-item>
+      </mat-nav-list>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <app-header (menuButtonClickedEvent)="menuButtonClickedEventHandler($event)"></app-header>
     <router-outlet/>
-</app-side-navigation>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+

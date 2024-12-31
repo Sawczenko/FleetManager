@@ -43,7 +43,6 @@ namespace FleetManager.Infrastructure.Data
 
         private async Task AddVehicles()
         {
-
             List<Vehicle> vehicles = new List<Vehicle>
             {
                 VehicleFactory.Create(
@@ -76,6 +75,9 @@ namespace FleetManager.Infrastructure.Data
 
             await _dbContext.Set<Vehicle>()
                 .AddRangeAsync(vehicles);
+
+            var vehicle = vehicles[0];
+            vehicle.AddInspection(new Inspection(vehicle.Id, DateTime.UtcNow, "Przegląd", 120));
         }
 
         private async Task AddRoutes()

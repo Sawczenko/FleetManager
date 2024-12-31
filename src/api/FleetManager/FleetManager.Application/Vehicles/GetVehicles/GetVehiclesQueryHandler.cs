@@ -19,7 +19,7 @@ namespace FleetManager.Application.Vehicles.GetVehicles
             return await _dbContext
                 .Set<Vehicle>()
                 .AsNoTracking()
-                .Select(x => new VehicleDto(x.Id, x.VehicleDetails))
+                .Select(x => new VehicleDto(x.Id, x.VehicleDetails, x.Status.ToString()))
                 .ToListAsync(cancellationToken);
         }
     }

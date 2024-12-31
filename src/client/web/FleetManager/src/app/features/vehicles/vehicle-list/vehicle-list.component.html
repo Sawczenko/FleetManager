@@ -1,18 +1,18 @@
-<div class="container-fluid p-2">
-  <div class="row">
-    <div class="col-3 filter">
+<div class="container-fluid p-4">
+  <div class="row g-2">
+    <div class="col-xs-12 col-lg-3 filter">
       <mat-card>
         <mat-card-content>
           Filter
         </mat-card-content>
       </mat-card>
     </div>
-    <div class="col-9">
-    <mat-card>
-      <mat-card-content>
-        <app-vehicle></app-vehicle>
-      </mat-card-content>
-    </mat-card>
+    <div class="col-lg-9">
+      <div class="row g-2">
+        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12" *ngFor="let vehicle of vehicles$ | async">
+          <app-vehicle [vehicle]="vehicle"></app-vehicle>
+        </div>
+      </div>
     </div>
   </div>
 </div>
