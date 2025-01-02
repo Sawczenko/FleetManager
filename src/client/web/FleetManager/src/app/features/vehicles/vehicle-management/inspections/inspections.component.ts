@@ -1,7 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Inspection} from '../models/inspection';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {HomeDashboardService} from '../../../dashboard/home-dashboard/service/home-dashboard.service';
+import {FormBuilder, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
+import {VehicleManagementService} from '../service/vehicle-management.service';
 
 @Component({
   selector: 'app-inspections',
@@ -12,10 +12,12 @@ import {HomeDashboardService} from '../../../dashboard/home-dashboard/service/ho
 })
 export class InspectionsComponent implements OnInit{
   @Input() inspections: Inspection[] = [];
+  @Input() vehicleId: string = '';
+  @Output() inspectionAdded: EventEmitter<any> = new EventEmitter();
   public displayedColumns: string[] = ['date', 'description', 'cost'];
   public inspectionForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private vehicleManagementService: VehicleManagementService) {
 
   }
 
@@ -25,5 +27,25 @@ export class InspectionsComponent implements OnInit{
       description: ['', Validators.required],
       cost: ['', [Validators.required, Validators.min(0)]],
     })
+  }
+
+  public addInspection(formDirective: FormGroupDirective): void {
+    if (this.inspectionForm.invalid) {
+      return;
+    }
+
+    const formValue = this.inspectionForm.value;
+    const inspection = new Inspection(this.vehicleId, formValue.date, formValue.description, formValue.cost);
+
+    this.vehicleManagementService.addInspection(inspection).subscribe({
+        next: () => {
+          console.log('added')
+          this.inspectionAdded.emit()
+        },
+        complete: () => {
+          formDirective.resetForm();
+        }
+      }
+    );
   }
 }

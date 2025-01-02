@@ -6,7 +6,7 @@
         Add Repair
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <form [formGroup]="repairForm">
+    <form [formGroup]="repairForm" (ngSubmit)="addRepair(formDirective)" #formDirective="ngForm">
       <div class="form-fields">
         <mat-form-field>
           <mat-label>Date</mat-label>
@@ -25,7 +25,7 @@
         </mat-form-field>
       </div>
 
-      <button mat-button>Add</button>
+      <button mat-button type="submit" [disabled]="!repairForm.valid">Add</button>
     </form>
   </mat-expansion-panel>
 

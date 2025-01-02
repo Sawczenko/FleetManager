@@ -5,7 +5,7 @@ using MediatR;
 
 namespace FleetManager.Application.Vehicles.AddRepair
 {
-    public record AddRepairCommand(AddRepairRequest AddRepairRequest) : IRequest<Result>
+    public record AddRepairCommand(RepairDto RepairDto) : IRequest<Result>
     {
     }
 
@@ -20,9 +20,9 @@ namespace FleetManager.Application.Vehicles.AddRepair
 
         public async Task<Result> Handle(AddRepairCommand request, CancellationToken cancellationToken)
         {
-            RepairDto repairDto = request.AddRepairRequest.Repair;
+            RepairDto repairDto = request.RepairDto;
 
-            return await _vehicleService.AddRepairAsync(repairDto.VehicleId, repairDto.Date, repairDto.Description,
+            return await _vehicleService.AddRepairAsync(Guid.Parse(repairDto.VehicleId), repairDto.Date, repairDto.Description,
                 repairDto.Cost, cancellationToken);
         }
     }

@@ -23,10 +23,18 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {ReactiveFormsModule} from '@angular/forms';
+import {AuthGuard} from '../../core/guards/auth-guard';
 
 const routes: Routes = [
-  {path: '', component: VehicleListComponent},
-  {path: 'vehicle-management/:id', component: VehicleManagementComponent},
+  {
+    path: '',
+    component: VehicleListComponent,
+    canActivate: [AuthGuard]},
+  {
+    path: 'vehicle-management/:id',
+    component: VehicleManagementComponent,
+    canActivate: [AuthGuard]
+  },
 ]
 
 

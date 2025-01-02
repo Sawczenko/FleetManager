@@ -19,5 +19,5 @@ export class VehicleListComponent implements OnInit{
 
   ngOnInit(): void {
         this.vehicles$ = this.vehicleService.getVehicles();
-    }
+  }
 }

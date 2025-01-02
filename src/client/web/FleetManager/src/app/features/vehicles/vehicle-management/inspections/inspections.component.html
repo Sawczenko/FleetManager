@@ -6,25 +6,25 @@
         Add Inspection
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <form [formGroup]="inspectionForm">
+    <form [formGroup]="inspectionForm" (ngSubmit)="addInspection(formDirective)" #formDirective="ngForm">
       <div class="form-fields">
         <mat-form-field>
           <mat-label>Date</mat-label>
           <input matInput formControlName="date">
-          <mat-error *ngIf="inspectionForm.get('date')?.hasError('required')">Date is required</mat-error>
+          <mat-error *ngIf="inspectionForm.get('date')?.touched && inspectionForm.get('date')?.hasError('required')">Date is required</mat-error>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Cost</mat-label>
           <input matInput formControlName="cost">
-          <mat-error *ngIf="inspectionForm.get('cost')?.hasError('required')">Cost is required</mat-error>
+          <mat-error *ngIf="inspectionForm.get('cost')?.touched && inspectionForm.get('cost')?.hasError('required')">Cost is required</mat-error>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Description</mat-label>
           <input matInput formControlName="description">
-          <mat-error *ngIf="inspectionForm.get('description')?.hasError('required')">Description is required</mat-error>
+          <mat-error *ngIf="inspectionForm.get('description')?.touched && inspectionForm.get('description')?.hasError('required')">Description is required</mat-error>
         </mat-form-field>
       </div>
-      <button mat-button>Add</button>
+      <button mat-button type="submit" [disabled]="!inspectionForm.valid">Add</button>
     </form>
   </mat-expansion-panel>
 

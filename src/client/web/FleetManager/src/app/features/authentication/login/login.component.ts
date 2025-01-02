@@ -30,9 +30,6 @@ export class LoginComponent {
   onSubmit(): void {
     if (this.loginForm.valid) {
       const formData = this.loginForm.value;
-
-      console.log(formData);
-
       let loginRequest = new LoginRequest(formData.email, formData.password);
 
       this.loginService.login(loginRequest).subscribe({

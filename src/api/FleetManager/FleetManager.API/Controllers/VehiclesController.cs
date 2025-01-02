@@ -2,6 +2,7 @@
 using FleetManager.Application.Vehicles.AddRepair;
 using FleetManager.Application.Vehicles.GetVehicleManagement;
 using FleetManager.Application.Vehicles.GetVehicles;
+using FleetManager.Application.Vehicles.Shared;
 using FleetManager.Domain.Vehicles.Models;
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
@@ -32,15 +33,15 @@ namespace FleetManager.API.Controllers
         }
 
         [HttpPost("management/repair")]
-        public async Task<ActionResult> AddRepairAsync([FromBody]AddRepairRequest repairRequest, CancellationToken cancellationToken)
+        public async Task<ActionResult> AddRepairAsync([FromBody]RepairDto repairRequest, CancellationToken cancellationToken)
         {
             return Ok(await _mediator.Send(new AddRepairCommand(repairRequest), cancellationToken));
         }
 
         [HttpPost("management/inspection")]
-        public async Task<ActionResult> AddInspectionAsync([FromBody] AddInspectionRequest inspectionRequest, CancellationToken cancellationToken)
+        public async Task<ActionResult> AddInspectionAsync([FromBody] InspectionDto addInspectionRequest, CancellationToken cancellationToken)
         {
-            return Ok(await _mediator.Send(new AddInspectionCommand(inspectionRequest), cancellationToken));
+            return Ok(await _mediator.Send(new AddInspectionCommand(addInspectionRequest), cancellationToken));
         }
     }
 }

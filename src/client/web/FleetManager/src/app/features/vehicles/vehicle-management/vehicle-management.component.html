@@ -23,11 +23,11 @@
   <mat-card class="mt-4">
     <mat-tab-group>
       <mat-tab label="Repairs">
-        <app-repairs [repairs]="vehicleManagement.repairs"></app-repairs>
+        <app-repairs [repairs]="vehicleManagement.repairs" [vehicleId]="vehicleManagement.id" (repairAdded)="vehicleModified($event)"></app-repairs>
       </mat-tab>
 
       <mat-tab label="Inspections">
-        <app-inspections [inspections]="vehicleManagement.inspections"></app-inspections>
+        <app-inspections [inspections]="vehicleManagement.inspections" [vehicleId]="vehicleManagement.id" (inspectionAdded)="vehicleModified($event)"></app-inspections>
       </mat-tab>
     </mat-tab-group>
   </mat-card>
