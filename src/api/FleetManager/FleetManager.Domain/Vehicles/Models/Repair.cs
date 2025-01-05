@@ -10,7 +10,6 @@
 
         public Repair(Guid vehicleId, DateTime date, string description, double cost)
         {
-            Id = Guid.NewGuid();
             VehicleId = vehicleId;
             Date = date;
             Description = description;

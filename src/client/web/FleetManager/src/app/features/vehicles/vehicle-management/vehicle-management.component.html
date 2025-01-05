@@ -1,0 +1,37 @@
+<div class="container-fluid p-4" *ngIf="vehicleManagement$ | async as vehicleManagement">
+  <mat-card>
+    <div class="row">
+      <div class="col">
+        <img mat-card-image src="./assets/toyota_corolla.png" width="300" alt="toyota">
+      </div>
+      <div class="col">
+        <mat-card-header>
+          <mat-card-title-group>
+            <mat-card-title>
+              {{ vehicleManagement.model }}
+            </mat-card-title>
+            <mat-card-subtitle>{{ vehicleManagement.vin }}</mat-card-subtitle>
+          </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-content>
+          content
+        </mat-card-content>
+      </div>
+    </div>
+  </mat-card>
+
+  <mat-card class="mt-4">
+    <mat-tab-group>
+      <mat-tab label="Repairs">
+        <app-repairs [repairs]="vehicleManagement.repairs" [vehicleId]="vehicleManagement.id" (repairAdded)="vehicleModified($event)"></app-repairs>
+      </mat-tab>
+
+      <mat-tab label="Inspections">
+        <app-inspections [inspections]="vehicleManagement.inspections" [vehicleId]="vehicleManagement.id" (inspectionAdded)="vehicleModified($event)"></app-inspections>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+
+</div>
+
+

@@ -1,0 +1,55 @@
+<div class="container-fluid mt-2">
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Add Repair
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <form [formGroup]="repairForm" (ngSubmit)="addRepair(formDirective)" #formDirective="ngForm">
+      <div class="form-fields">
+        <mat-form-field>
+          <mat-label>Date</mat-label>
+          <input matInput formControlName="date">
+          <mat-error *ngIf="repairForm.get('date')?.hasError('required')">Date is required</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Cost</mat-label>
+          <input matInput formControlName="cost">
+          <mat-error *ngIf="repairForm.get('cost')?.hasError('required')">Cost is required</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Description</mat-label>
+          <input matInput formControlName="description">
+          <mat-error *ngIf="repairForm.get('description')?.hasError('required')">Description is required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <button mat-button type="submit" [disabled]="!repairForm.valid">Add</button>
+    </form>
+  </mat-expansion-panel>
+
+  <mat-table [dataSource]="repairs" class="mat-elevation-z0 mb-2">
+    <!-- Position Column -->
+    <ng-container matColumnDef="date">
+      <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.date | date: 'dd-MM-yyyy'}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="cost">
+      <mat-header-cell *matHeaderCellDef> Cost </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.cost}} </mat-cell>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>
+

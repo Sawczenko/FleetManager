@@ -6,15 +6,15 @@ import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {AuthenticationModule} from './features/authentication/authentication.module';
 import {CoreModule} from './core/core.module';
-import { HeaderComponent } from './layouts/main-layout/header/header.component';
 import {MatToolbar} from '@angular/material/toolbar';
 import {MatIcon} from '@angular/material/icon';
 import {MainLayoutModule} from './layouts/main-layout/main-layout.module';
 import {AuthenticationLayoutModule} from './layouts/authentication-layout/authentication-layout.module';
+import {provideNativeDateAdapter} from '@angular/material/core';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +27,8 @@ import {AuthenticationLayoutModule} from './layouts/authentication-layout/authen
     MatIcon
   ],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    provideNativeDateAdapter()
   ],
   exports: [
   ],

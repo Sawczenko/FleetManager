@@ -17,9 +17,14 @@ const routes: Routes = [
       canActivate: [AuthGuard]
       },
       { path: 'test', loadChildren: () => import('./features/test/test.module')
-          .then(m => m.TestModule) },
+          .then(m => m.TestModule),
+        canActivate: [AuthGuard] },
       { path: 'vehicles', loadChildren: () => import('./features/vehicles/vehicles.module')
-          .then(m => m.VehiclesModule)}
+          .then(m => m.VehiclesModule),
+        canActivate: [AuthGuard]},
+      { path: 'routes', loadChildren: () => import('./features/routes/routes.module')
+          .then(m => m.RoutesModule),
+        canActivate: [AuthGuard]}
     ]
   },
   {

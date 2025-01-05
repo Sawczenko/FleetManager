@@ -1,0 +1,21 @@
+<form [formGroup]="filterForm" (ngSubmit)="applyFilter(formDirective)" #formDirective="ngForm">
+<mat-card>
+  <mat-card-content>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Vin</mat-label>
+          <input matInput formControlName="vin">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>License Plate</mat-label>
+          <input matInput formControlName="licensePlate">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Model</mat-label>
+          <input matInput formControlName="model">
+        </mat-form-field>
+      </div>
+    <button class="w-100" mat-button type="submit" >Search</button>
+  </mat-card-content>
+</mat-card>
+</form>

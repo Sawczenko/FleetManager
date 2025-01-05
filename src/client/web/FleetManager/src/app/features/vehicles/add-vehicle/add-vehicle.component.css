@@ -1,0 +1,11 @@
+.form-fields {
+  mat-form-field{
+    padding: 5px;
+    width: 100%;
+  }
+  vertical-align: center;
+}
+
+mat-stepper{
+  background: transparent;
+}

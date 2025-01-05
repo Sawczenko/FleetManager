@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {Router} from "@angular/router";
+import {AuthenticationService} from '../../features/authentication/service/authentication.service';
 
 @Component({
   selector: 'app-main-layout',
@@ -10,10 +11,13 @@ import {Router} from "@angular/router";
 export class MainLayoutComponent {
   public menuOpened: boolean = false;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private authenticationService: AuthenticationService) {
   }
 
   public menuButtonClickedEventHandler($event: any){
     this.menuOpened = !this.menuOpened;
+  }
+  public logout(){
+    this.authenticationService.logout();
   }
 }

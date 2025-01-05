@@ -8,10 +8,10 @@ import {HeaderComponent} from "./header/header.component";
 import {MatIconModule} from "@angular/material/icon";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
-import { SideNavigationComponent } from './side-navigation/side-navigation.component';
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {TestComponent} from "../../features/test/test.component";
+import {MatAccordion, MatExpansionModule} from '@angular/material/expansion';
 
 const routes: Routes = [
   { path: '', component: MainLayoutComponent },
@@ -20,8 +20,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     MainLayoutComponent,
-    HeaderComponent,
-    SideNavigationComponent
+    HeaderComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +29,9 @@ const routes: Routes = [
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    MatAccordion,
+    MatExpansionModule
   ],
   exports: [MainLayoutComponent]
 })

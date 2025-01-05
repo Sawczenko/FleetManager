@@ -1,0 +1,123 @@
+<div class="container-fluid p-4">
+  <div class="row">
+    <div class="col-lg-4 col-xs-12">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Add new vehicle</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-stepper [linear]="true" [orientation]="'vertical'" #stepper>
+            <mat-step [stepControl]="vehicleForm">
+              <ng-template matStepLabel>Fill vehicle data</ng-template>
+              <form [formGroup]="vehicleForm">
+                <div class="form-fields">
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <mat-form-field>
+                        <mat-label>Vin</mat-label>
+                        <input formControlName="vin" matInput placeholder="Vehicle identification number" required>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xs-12">
+                      <mat-form-field>
+                        <mat-label>License plate</mat-label>
+                        <input formControlName="licensePlate" matInput placeholder="License plate" required>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xs-12">
+                      <mat-form-field>
+                        <mat-label>Model</mat-label>
+                        <input formControlName="model" matInput placeholder="Model" required>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xs-12">
+                      <mat-form-field>
+                        <mat-label>Last inspection date</mat-label>
+                        <input formControlName="lastInspectionDate" matInput [matDatepicker]="lastInspectionDatePicker" required>
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="lastInspectionDatePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #lastInspectionDatePicker></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xs-12">
+                      <mat-form-field>
+                        <mat-label>Next inspection date</mat-label>
+                        <input formControlName="nextInspectionDate" matInput [matDatepicker]="nextInspectionDatePicker" required>
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="nextInspectionDatePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #nextInspectionDatePicker></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                    <div class="mt-1">
+                      <button type="button" mat-button matStepperNext>Next</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </mat-step>
+            <mat-step [stepControl]="locationForm" label="Provide vehicle location">
+              <form [formGroup]="locationForm">
+                <div class="form-fields">
+                  <div class="col-xs-12">
+                    <mat-form-field>
+                      <mat-label>Name</mat-label>
+                      <input formControlName="name" matInput placeholder="Location name" required>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xs-12">
+                    <mat-form-field>
+                      <mat-label>Latitude</mat-label>
+                      <input formControlName="latitude" matInput type="number" placeholder="Latitude" required>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xs-12">
+                    <mat-form-field>
+                      <mat-label>Longitude</mat-label>
+                      <input formControlName="longitude" matInput type="number" placeholder="Longitude" required>
+                    </mat-form-field>
+                  </div>
+                  <div class="mt-1">
+                    <button type="button" mat-button matStepperNext (click)="createRequest()">Next</button>
+                  </div>
+                </div>
+              </form>
+            </mat-step>
+            <mat-step label="Summary">
+              <div *ngIf="addVehicleRequest">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <mat-label>Vin: {{ addVehicleRequest.vin }}</mat-label>
+                  </div>
+                  <div class="col-xs-12">
+                    <mat-label>License plate: {{ addVehicleRequest.licensePlate }}</mat-label>
+                  </div>
+                  <div class="col-xs-12">
+                    <mat-label>Model: {{ addVehicleRequest.model }}</mat-label>
+                  </div>
+                  <div class="col-xs-12">
+                    <mat-label>Last inspection date: {{ addVehicleRequest.lastInspectionDate | date: 'dd-MM-yyyy' }}</mat-label>
+                  </div>
+                  <div class="col-xs-12">
+                    <mat-label>Next inspection date: {{ addVehicleRequest.nextInspectionDate | date: 'dd-MM-yyyy' }}</mat-label>
+                  </div>
+                  <div class="col-xs-12">
+                    <mat-label>Location: {{ addVehicleRequest.locationName }}  {{ addVehicleRequest.latitude }}, {{addVehicleRequest.longitude}}</mat-label>
+                  </div>
+                  <div class="col-xs-12 mt-2">
+                    <button mat-button (click)="stepper.reset()">Reset</button>
+                    <button mat-button (click)="addVehicle()">Add vehicle</button>
+                  </div>
+                </div>
+
+
+              </div>
+            </mat-step>
+          </mat-stepper>
+        </mat-card-content>
+
+      </mat-card>
+    </div>
+  </div>
+
+</div>
+

@@ -1,7 +1,6 @@
 ﻿using FleetManager.Infrastructure.Authentication;
 using Microsoft.Extensions.DependencyInjection;
 using FleetManager.Domain.Vehicles.Models;
-using FleetManager.Domain.VehicleUsages;
 using FleetManager.Domain.Locations;
 using Microsoft.AspNetCore.Identity;
 using FleetManager.Domain.Routes;
@@ -32,18 +31,37 @@ namespace FleetManager.Infrastructure.Data
 
             await _dbContext.Database.EnsureCreatedAsync();
 
-            await AddVehicles();
+            ApplicationUser applicationUser = await AddApplicationUser();
 
-            await AddRoutes();
+            List<Vehicle> vehicles = await AddVehicles();
 
-            await AddVehicleUsages();
+            await AddRoutes(vehicles, applicationUser);
 
             await _dbContext.SaveChangesAsync();
         }
 
-        private async Task AddVehicles()
+        private async Task<ApplicationUser> AddApplicationUser()
         {
+            string userEmail = "seededUser1@test.com";
+            string userPassword = "TestPassword123!";
+            var user = new ApplicationUser
+            {
+                Id = Guid.NewGuid(),
+                Email = userEmail,
+                FirstName = "Test",
+                LastName = "User",
+                NormalizedEmail = userEmail.ToUpper(),
+                UserName = "testuser@example.com",
+                PasswordHash = _passwordHasher.HashPassword(default, userPassword)
+            };
 
+            await _userManager.CreateAsync(user);
+
+            return user;
+        }
+
+        private async Task<List<Vehicle>> AddVehicles()
+        {
             List<Vehicle> vehicles = new List<Vehicle>
             {
                 VehicleFactory.Create(
@@ -76,91 +94,43 @@ namespace FleetManager.Infrastructure.Data
 
             await _dbContext.Set<Vehicle>()
                 .AddRangeAsync(vehicles);
+
+            var vehicle = vehicles[0];
+            vehicle.AddInspection(new Inspection(vehicle.Id, DateTime.UtcNow, "Przegląd", 120));
+
+            return vehicles;
         }
 
-        private async Task AddRoutes()
+        private async Task AddRoutes(List<Vehicle> vehicles, ApplicationUser applicationUser)
         {
             var locations = new List<Location>
             {
-                new Location("First", 30.00, 32.00),
-                new Location("Second", 35.00, 37.00)
+                new Location("Test_A", 30.00, 32.00),
+                new Location("Test_B", 35.00, 37.00),
+                new Location("Test_C", 36.00, 40.00),
+                new Location("Test_D", 37.00, 41.00),
+                new Location("Test_E", 38.00, 42.00),
+                new Location("Test_F", 39.00, 43.00)
             };
 
             await _dbContext.Set<Location>().AddRangeAsync(locations);
 
-            await _dbContext.Set<Route>().AddAsync(RouteFactory.Create(locations[0].Id, locations[1].Id).Value);
+            await _dbContext.Set<Route>().AddAsync(RouteFactory
+                .Create(locations[0].Id, locations[1].Id, applicationUser.Id, vehicles[0].Id).Value);
 
-            await _dbContext.Set<Route>().AddAsync(RouteFactory.Create(locations[1].Id, locations[0].Id).Value);
+            await _dbContext.Set<Route>().AddAsync(RouteFactory
+                .Create(locations[1].Id, locations[0].Id, applicationUser.Id, vehicles[1].Id).Value);
+
+            await _dbContext.Set<Route>().AddAsync(RouteFactory
+                .Create(locations[2].Id, locations[1].Id, applicationUser.Id, vehicles[2].Id).Value);
+
+            //    await _dbContext.Set<Route>().AddAsync(RouteFactory.Create(locations[3].Id, locations[2].Id).Value);
+
+            //    await _dbContext.Set<Route>().AddAsync(RouteFactory.Create(locations[3].Id, locations[1].Id).Value);
+
+            //    await _dbContext.Set<Route>().AddAsync(RouteFactory.Create(locations[4].Id, locations[2].Id).Value);
+            //}
         }
 
-
-        private async Task AddVehicleUsages()
-        {
-            List<Vehicle> vehicles = new List<Vehicle>
-            {
-                VehicleFactory.Create(
-                    "1HGCM75633A123456",
-                    "ABC563",
-                    "Toyota Yaris",
-                    DateTime.UtcNow.AddYears(-1),
-                    DateTime.UtcNow.AddYears(1),
-                    new Location("Warsaw", 54.23, 54.45)
-                ).Value,
-                VehicleFactory.Create(
-                    "1HGCM84533A123465",
-                    "ABC143",
-                    "Toyota Avensis",
-                    DateTime.UtcNow.AddYears(-1),
-                    DateTime.UtcNow.AddDays(14),
-                    new Location("Warsaw", 54.21, 54.46),
-                    VehicleStatus.InMainetance
-                ).Value
-            };
-
-            await _dbContext.Set<Vehicle>().AddRangeAsync(vehicles);
-
-            var locations = new List<Location>
-            {
-                new Location("First", 36.00, 37.00),
-                new Location("Second", 33.00, 31.00)
-            };
-
-            await _dbContext.Set<Location>().AddRangeAsync(locations);
-
-            var routes = new List<Route>
-            {
-                RouteFactory.Create(locations[0].Id, locations[1].Id).Value,
-                RouteFactory.Create(locations[1].Id, locations[0].Id).Value
-            };
-
-            routes[0].CompleteRoute();
-
-            await _dbContext.Set<Route>().AddRangeAsync(routes);
-
-
-            string userEmail = "seededUser1@test.com";
-            string userPassword = "TestPassword123!";
-            var user = new ApplicationUser
-            {
-                Id = Guid.NewGuid(),
-                Email = userEmail,
-                FirstName = "Test",
-                LastName = "User",
-                NormalizedEmail = userEmail.ToUpper(),
-                UserName = "testuser@example.com",
-                PasswordHash = _passwordHasher.HashPassword(default, userPassword)
-            };
-
-            await _userManager.CreateAsync(user);
-
-            var vehicleUsages = new List<VehicleUsage>
-            {
-                VehicleUsageFactory.Create(vehicles[0].Id, routes[0].Id, user.Id, routes[0].ScheduledStartTime).Value
-            };
-
-            vehicleUsages[0].EndUsage(DateTime.UtcNow);
-
-            await _dbContext.Set<VehicleUsage>().AddRangeAsync(vehicleUsages);
-        }
     }
 }

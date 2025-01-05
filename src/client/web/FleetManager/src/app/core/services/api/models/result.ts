@@ -11,7 +11,15 @@ export class Result{
     this.error = error;
   }
 
-
+  static isResult(obj: any): obj is Result {
+    return (
+      obj &&
+      typeof obj.isSuccess === 'boolean' &&
+      typeof obj.error === 'object' &&
+      typeof obj.error.code === 'string' &&
+      typeof obj.error.description === 'string'
+    );
+  }
 }
 
 export class ValueResult<T> extends Result{

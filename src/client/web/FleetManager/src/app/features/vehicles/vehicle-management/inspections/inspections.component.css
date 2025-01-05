@@ -1,0 +1,6 @@
+.form-fields {
+  mat-form-field{
+    padding: 5px
+  }
+  vertical-align: center;
+}
