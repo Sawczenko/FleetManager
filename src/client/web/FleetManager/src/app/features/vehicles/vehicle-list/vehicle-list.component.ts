@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {VehicleListService} from './service/vehicle-list.service';
 import {Vehicle} from './models/vehicle';
 import {Observable} from 'rxjs';
+import {VehiclesFilter} from './filter/models/vehicles-filter';
 
 @Component({
   selector: 'app-vehicle-list',
@@ -19,5 +20,9 @@ export class VehicleListComponent implements OnInit{
 
   ngOnInit(): void {
         this.vehicles$ = this.vehicleService.getVehicles();
+  }
+
+  public handleFilterApplied(vehiclesFilter: VehiclesFilter): void {
+    this.vehicles$ = this.vehicleService.getFilteredVehicles(vehiclesFilter);
   }
 }

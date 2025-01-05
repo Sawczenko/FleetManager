@@ -2,7 +2,7 @@
 
 namespace FleetManager.Application.Vehicles.GetVehicles
 {
-    public sealed record GetVehiclesQuery : IRequest<IEnumerable<VehicleDto>>
+    public sealed record GetVehiclesQuery(VehiclesFilterDto VehiclesFilter) : IRequest<IEnumerable<VehicleDto>>
     {
     }
 }

@@ -49,6 +49,8 @@ namespace FleetManager.Domain.Vehicles
 
             await _vehicleRepository.AddAsync(newVehicle, cancellationToken);
 
+            await _unitOfWork.CommitAsync(cancellationToken);
+
             return Result.Success();
         }
 

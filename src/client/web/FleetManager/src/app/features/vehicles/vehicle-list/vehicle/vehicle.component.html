@@ -11,8 +11,14 @@
     </mat-card-title-group>
   </mat-card-header>
   <mat-card-content>
-    <p>License plate: {{vehicle.licensePlate}}</p>
-    <p>Status: {{vehicle.status}}</p>
+    <div class="row">
+      <div class="col-xs-12">
+        <mat-label>License plate: {{vehicle.licensePlate}}</mat-label>
+      </div>
+      <div class="col-xs-12">
+        <mat-label>Status: {{vehicle.status}}</mat-label>
+      </div>
+    </div>
   </mat-card-content>
   <mat-card-actions [align]="'end'">
     <button mat-button [routerLink]="['vehicle-management', vehicle.id]">Manage</button>

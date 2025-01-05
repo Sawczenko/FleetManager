@@ -1,0 +1,63 @@
+.route-card {
+  padding: 15px;
+}
+
+mat-card-header {
+  padding: 0 0 10px 0;
+}
+
+.route-header {
+  display: flex;
+  justify-content: space-between; /* Rozdziela elementy na boki */
+  align-items: center; /* Wyrównuje elementy w pionie */
+  width: 100%;
+}
+
+.route-description {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.route-description mat-icon {
+  margin: 0 5px;
+}
+
+.route-status {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.route-user {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.route-user mat-icon {
+  margin-right: 5px;
+}
+
+.route-locations {
+  margin-top: 10px;
+}
+
+.route-location {
+  display: flex;
+  align-items: center;
+}
+
+.route-location mat-icon {
+  margin-right: 5px;
+}
+
+.route-timing {
+  margin-top: 10px;
+  color: gray;
+}
+
+.route-timing mat-icon {
+  vertical-align: middle;
+  margin-right: 5px;
+}

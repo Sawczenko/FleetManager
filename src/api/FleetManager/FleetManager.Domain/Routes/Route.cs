@@ -1,8 +1,11 @@
 ﻿namespace FleetManager.Domain.Routes
 {
+    //TODO: Itinerary refactor
     public class Route
     {
         public Guid Id { get; private set; }
+        public Guid UserId { get; private set; }
+        public Guid VehicleId { get; private set; }
         public Guid StartLocationId { get; private set; }
         public Guid EndLocationId { get; private set; }
         public RouteStatus Status { get; private set; }
@@ -10,9 +13,11 @@
         public DateTime? ActualEndTime { get; private set; }
         public List<RouteStop> RouteStops { get; private set; }
 
-        internal Route(Guid startLocationId, Guid endLocationId)
+        internal Route(Guid startLocationId, Guid endLocationId, Guid userId, Guid vehicleId)
         {
             Id = Guid.NewGuid();
+            UserId = userId;
+            VehicleId = vehicleId;
             StartLocationId = startLocationId;
             EndLocationId = endLocationId;
             Status = RouteStatus.Planned;

@@ -10,31 +10,35 @@ import { VehicleManagementComponent } from './vehicle-management/vehicle-managem
 import {MatTabsModule} from '@angular/material/tabs';
 import { InspectionsComponent } from './vehicle-management/inspections/inspections.component';
 import { RepairsComponent } from './vehicle-management/repairs/repairs.component';
-import {
-  MatCell,
-  MatCellDef,
-  MatColumnDef,
-  MatHeaderCell,
-  MatHeaderRow,
-  MatHeaderRowDef,
-  MatRow, MatRowDef, MatTable, MatTableModule
-} from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {ReactiveFormsModule} from '@angular/forms';
 import {AuthGuard} from '../../core/guards/auth-guard';
+import {FilterComponent} from './vehicle-list/filter/filter.component';
+import { AddVehicleComponent } from './add-vehicle/add-vehicle.component';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { AddVehicleResultDialogComponent } from './add-vehicle/add-vehicle-result-dialog/add-vehicle-result-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 const routes: Routes = [
   {
     path: '',
     component: VehicleListComponent,
-    canActivate: [AuthGuard]},
+    canActivate: [AuthGuard]
+  },
   {
     path: 'vehicle-management/:id',
     component: VehicleManagementComponent,
     canActivate: [AuthGuard]
   },
+  {
+    path: 'add-vehicle',
+    component: AddVehicleComponent,
+    canActivate: [AuthGuard]
+  }
 ]
 
 
@@ -44,7 +48,13 @@ const routes: Routes = [
     VehicleComponent,
     VehicleManagementComponent,
     InspectionsComponent,
-    RepairsComponent
+    RepairsComponent,
+    FilterComponent,
+    AddVehicleComponent,
+    AddVehicleResultDialogComponent
+  ],
+  exports: [
+    FilterComponent
   ],
   imports: [
     CommonModule,
@@ -58,6 +68,9 @@ const routes: Routes = [
     ReactiveFormsModule,
     MatTableModule,
     MatButtonModule,
+    MatStepperModule,
+    MatDatepickerModule,
+    MatDialogModule
   ]
 })
 export class VehiclesModule { }

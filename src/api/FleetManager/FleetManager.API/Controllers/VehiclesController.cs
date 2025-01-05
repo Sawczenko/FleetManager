@@ -1,8 +1,10 @@
 ﻿using FleetManager.Application.Vehicles.AddInspection;
 using FleetManager.Application.Vehicles.AddRepair;
+using FleetManager.Application.Vehicles.AddVehicle;
 using FleetManager.Application.Vehicles.GetVehicleManagement;
 using FleetManager.Application.Vehicles.GetVehicles;
 using FleetManager.Application.Vehicles.Shared;
+using FleetManager.Domain.SeedWork.Results;
 using FleetManager.Domain.Vehicles.Models;
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
@@ -21,9 +23,22 @@ namespace FleetManager.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Vehicle>>> GetAsync(CancellationToken cancellationToken)
+        public async Task<ActionResult<IEnumerable<Vehicle>>> GetAsync([FromQuery] VehiclesFilterDto vehiclesFilterDto, CancellationToken cancellationToken)
         {
-            return Ok(await _mediator.Send(new GetVehiclesQuery(), cancellationToken));
+            return Ok(await _mediator.Send(new GetVehiclesQuery(vehiclesFilterDto), cancellationToken));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Result>> AddVehicleAsync([FromBody] AddVehicleRequest request, CancellationToken cancellationToken)
+        {
+            Result result = await _mediator.Send(new AddVehicleCommand(request), cancellationToken);
+
+            if (result.IsFailure)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
         }
 
         [HttpGet("management/{id}")]

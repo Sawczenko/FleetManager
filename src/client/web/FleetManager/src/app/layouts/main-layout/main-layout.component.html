@@ -4,14 +4,29 @@
     <div class="sidenav">
       <mat-nav-list role="list" class="w-100">
         <mat-list-item role="listitem" [routerLink]="'dashboard'">Dashboard</mat-list-item>
-        <mat-list-item role="listitem" [routerLink]="'vehicles'">Vehicles</mat-list-item>
+        <mat-accordion>
+          <mat-expansion-panel class="mat-elevation-z8">
+            <mat-expansion-panel-header>
+              <mat-panel-title>Vehicles</mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-list-item role="listitem" [routerLink]="'vehicles'">
+              Overview
+            </mat-list-item>
+            <mat-list-item role="listitem" [routerLink]="'vehicles/add-vehicle'">
+              Add vehicle
+            </mat-list-item>
+          </mat-expansion-panel>
+        </mat-accordion>
         <mat-accordion>
           <mat-expansion-panel class="mat-elevation-z8">
             <mat-expansion-panel-header>
               <mat-panel-title>Routes</mat-panel-title>
             </mat-expansion-panel-header>
+            <mat-list-item role="listitem" [routerLink]="'routes'">
+              Overview
+            </mat-list-item>
             <mat-list-item role="listitem">
-              elo
+              Planner
             </mat-list-item>
           </mat-expansion-panel>
         </mat-accordion>

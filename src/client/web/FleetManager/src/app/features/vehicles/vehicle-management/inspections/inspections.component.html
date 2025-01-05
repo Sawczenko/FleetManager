@@ -15,7 +15,7 @@
         </mat-form-field>
         <mat-form-field>
           <mat-label>Cost</mat-label>
-          <input matInput formControlName="cost">
+          <input matInput formControlName="cost" type="number">
           <mat-error *ngIf="inspectionForm.get('cost')?.touched && inspectionForm.get('cost')?.hasError('required')">Cost is required</mat-error>
         </mat-form-field>
         <mat-form-field>
