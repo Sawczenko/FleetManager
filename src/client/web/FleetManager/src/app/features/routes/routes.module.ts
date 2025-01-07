@@ -16,11 +16,18 @@ import {MatSelectModule} from '@angular/material/select';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
+import { RoutePlannerComponent } from './route-planner/route-planner.component';
+import {MatStepperModule} from '@angular/material/stepper';
 
 const routes: Routes = [
   {
     path: '',
     component: RouteListComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'planner',
+    component: RoutePlannerComponent,
     canActivate: [AuthGuard]
   }
 ]
@@ -29,7 +36,8 @@ const routes: Routes = [
   declarations: [
     RouteListComponent,
     FilterComponent,
-    RouteComponent
+    RouteComponent,
+    RoutePlannerComponent
   ],
   imports: [
     CommonModule,
@@ -45,7 +53,8 @@ const routes: Routes = [
     MatSelectModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatStepperModule
   ]
 })
 export class RoutesModule { }

@@ -1,4 +1,8 @@
-﻿using FleetManager.Application.Routes.GetRoutes;
+﻿using FleetManager.Application.Routes.AddRoute;
+using FleetManager.Application.Routes.GetRoutePlannerForm;
+using FleetManager.Application.Routes.GetRoutePlannerForm.Dto;
+using FleetManager.Application.Routes.GetRoutes;
+using FleetManager.Domain.SeedWork.Results;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +23,26 @@ namespace FleetManager.API.Controllers
         public async Task<ActionResult<List<RouteDto>>> GetRoutesAsync([FromQuery] RoutesFilterDto routesFilter, CancellationToken cancellationToken)
         {
             return Ok(await _mediator.Send(new GetRoutesQuery(routesFilter), cancellationToken));
+        }
+
+        [HttpGet("route-planner")]
+        public async Task<ActionResult<RoutePlannerFormDto>> GetRoutePlannerFormAsync(
+            CancellationToken cancellationToken)
+        {
+            return Ok(await _mediator.Send(new GetRoutePlannerFormQuery(), cancellationToken));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Result>> AddRouteAsync([FromBody] AddRouteRequest addRouteRequest, CancellationToken cancellationToken)
+        {
+            Result result = await _mediator.Send(new AddRouteCommand(addRouteRequest), cancellationToken);
+
+            if (result.IsFailure)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
         }
     }
 }

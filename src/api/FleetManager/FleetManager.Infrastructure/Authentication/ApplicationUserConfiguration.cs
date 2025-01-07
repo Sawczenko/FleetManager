@@ -15,7 +15,7 @@ namespace FleetManager.Infrastructure.Authentication
             builder.HasMany(x => x.Routes)
                 .WithOne()
                 .HasForeignKey(y => y.UserId)
-                .HasConstraintName("FK_ApplicationUser_VehicleUsage");
+                .HasConstraintName("FK_ApplicationUser_Route");
         }
     }
 }

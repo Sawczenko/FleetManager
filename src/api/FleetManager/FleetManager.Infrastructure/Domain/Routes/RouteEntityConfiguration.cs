@@ -22,6 +22,12 @@ namespace FleetManager.Infrastructure.Domain.Routes
             builder.Property(r => r.ActualEndTime)
                 .IsRequired(false);
 
+            builder.Property(x => x.UserId)
+                .IsRequired();
+
+            builder.Property(x => x.StartLocationId)
+                .IsRequired();
+
             builder.HasOne<Location>()
                 .WithMany()
                 .HasForeignKey("StartLocationId")
