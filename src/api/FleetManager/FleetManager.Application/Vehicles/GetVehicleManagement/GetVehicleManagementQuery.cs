@@ -27,6 +27,7 @@ namespace FleetManager.Application.Vehicles.GetVehicleManagement
                     x.Id,
                     x.VehicleDetails,
                     x.Status.ToString(),
+                    x.NextInspectionDate,
                     x.Inspections.Select(y => new InspectionDto(y.Date, y.Description, y.Cost)).ToList(),
                     x.Repairs.Select(y => new RepairDto(y.Date, y.Description, y.Cost)).ToList()
                     ))

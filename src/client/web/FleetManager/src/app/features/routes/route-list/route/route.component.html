@@ -14,9 +14,20 @@
 
   <mat-card-content>
     <!-- Informacje o użytkowniku -->
-    <div class="route-user">
-      <mat-icon>account_circle</mat-icon>
-      <span>{{ route.userName }}</span>
+    <div>
+      <div class="row">
+        <div class="col-xs-12 route-user">
+          <mat-icon>account_circle</mat-icon>
+          <span>{{ route.userName }}</span>
+        </div>
+
+        <div class="col-xs-12 route-user">
+
+          <mat-icon>directions_car</mat-icon>
+          <span>{{ route.vehicle }}</span>
+        </div>
+      </div>
+
     </div>
 
     <!-- Informacje o czasie -->

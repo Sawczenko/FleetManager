@@ -11,11 +11,12 @@ public record VehicleManagementDto(
     string LicensePlate,
     string Model,
     string Status,
+    DateTime NextInspectionDate,
     List<InspectionDto> Inspections,
     List<RepairDto> Repairs)
 {
-    public VehicleManagementDto(Guid id, VehicleDetails vehicleDetails, string status, List<InspectionDto> inspections, List<RepairDto> repairs) : this(id, vehicleDetails.Vin,
-        vehicleDetails.LicensePlate, vehicleDetails.Model, status, inspections, repairs)
+    public VehicleManagementDto(Guid id, VehicleDetails vehicleDetails, string status, DateTime nextInspectionDate, List<InspectionDto> inspections, List<RepairDto> repairs) : this(id, vehicleDetails.Vin,
+        vehicleDetails.LicensePlate, vehicleDetails.Model, status, nextInspectionDate, inspections, repairs)
     {
     }
 }
