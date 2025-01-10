@@ -1,0 +1,200 @@
+
+Table "dbo"."AspNetRoles" {
+  "Id" uniqueidentifier [pk, not null]
+  "Name" nvarchar(256)
+  "NormalizedName" nvarchar(256)
+  "ConcurrencyStamp" nvarchar(max)
+
+  Indexes {
+    NormalizedName [unique, name: "RoleNameIndex"]
+  }
+}
+
+Table "dbo"."AspNetRoleClaims" {
+  "Id" int [pk, increment]
+  "RoleId" uniqueidentifier [not null]
+  "ClaimType" nvarchar(max)
+  "ClaimValue" nvarchar(max)
+
+  Indexes {
+    RoleId [name: "IX_AspNetRoleClaims_RoleId"]
+  }
+}
+
+Table "dbo"."Locations" {
+  "Id" uniqueidentifier [pk, not null]
+  "Name" nvarchar(max) [not null]
+  "Latitude" float [not null]
+  "Longitude" float [not null]
+}
+
+Table "dbo"."Users" {
+  "Id" uniqueidentifier [pk, not null]
+  "FirstName" nvarchar(100) [not null]
+  "LastName" nvarchar(100) [not null]
+  "UserName" nvarchar(256)
+  "NormalizedUserName" nvarchar(256)
+  "Email" nvarchar(256)
+  "NormalizedEmail" nvarchar(256)
+  "EmailConfirmed" bit [not null]
+  "PasswordHash" nvarchar(max)
+  "SecurityStamp" nvarchar(max)
+  "ConcurrencyStamp" nvarchar(max)
+  "PhoneNumber" nvarchar(max)
+  "PhoneNumberConfirmed" bit [not null]
+  "TwoFactorEnabled" bit [not null]
+  "LockoutEnd" datetimeoffset
+  "LockoutEnabled" bit [not null]
+  "AccessFailedCount" int [not null]
+
+  Indexes {
+    NormalizedEmail [name: "EmailIndex"]
+    NormalizedUserName [unique, name: "UserNameIndex"]
+  }
+}
+
+Table "dbo"."AspNetUserClaims" {
+  "Id" int [pk, increment]
+  "UserId" uniqueidentifier [not null]
+  "ClaimType" nvarchar(max)
+  "ClaimValue" nvarchar(max)
+
+  Indexes {
+    UserId [name: "IX_AspNetUserClaims_UserId"]
+  }
+}
+
+Table "dbo"."AspNetUserLogins" {
+  "LoginProvider" nvarchar(450) [not null]
+  "ProviderKey" nvarchar(450) [not null]
+  "ProviderDisplayName" nvarchar(max)
+  "UserId" uniqueidentifier [not null]
+
+  Indexes {
+    (LoginProvider, ProviderKey) [pk]
+    UserId [name: "IX_AspNetUserLogins_UserId"]
+  }
+}
+
+Table "dbo"."AspNetUserRoles" {
+  "UserId" uniqueidentifier [not null]
+  "RoleId" uniqueidentifier [not null]
+
+  Indexes {
+    (UserId, RoleId) [pk]
+    RoleId [name: "IX_AspNetUserRoles_RoleId"]
+  }
+}
+
+Table "dbo"."AspNetUserTokens" {
+  "UserId" uniqueidentifier [not null]
+  "LoginProvider" nvarchar(450) [not null]
+  "Name" nvarchar(450) [not null]
+  "Value" nvarchar(max)
+
+  Indexes {
+    (UserId, LoginProvider, Name) [pk]
+  }
+}
+
+Table "dbo"."Vehicles" {
+  "Id" uniqueidentifier [pk, not null]
+  "Status" int [not null]
+  "VIN" nvarchar(17) [not null]
+  "LicensePlate" nvarchar(10) [not null]
+  "Model" nvarchar(50) [not null]
+  "LastInspectionDate" datetime2 [not null]
+  "NextInspectionDate" datetime2 [not null]
+  "CurrentLocationId" uniqueidentifier
+
+  Indexes {
+    CurrentLocationId [name: "IX_Vehicles_CurrentLocationId"]
+    VIN [unique, name: "IX_Vehicles_VIN"]
+  }
+}
+
+Table "dbo"."Inspections" {
+  "Id" uniqueidentifier [pk, not null]
+  "VehicleId" uniqueidentifier [not null]
+  "Date" datetime2 [not null]
+  "Description" nvarchar(max) [not null]
+  "Cost" float [not null]
+
+  Indexes {
+    VehicleId [name: "IX_Inspections_VehicleId"]
+  }
+}
+
+Table "dbo"."Repairs" {
+  "Id" uniqueidentifier [pk, not null]
+  "VehicleId" uniqueidentifier [not null]
+  "Date" datetime2 [not null]
+  "Description" nvarchar(max) [not null]
+  "Cost" float [not null]
+
+  Indexes {
+    VehicleId [name: "IX_Repairs_VehicleId"]
+  }
+}
+
+Table "dbo"."Routes" {
+  "Id" uniqueidentifier [pk, not null]
+  "UserId" uniqueidentifier [not null]
+  "VehicleId" uniqueidentifier [not null]
+  "StartLocationId" uniqueidentifier [not null]
+  "EndLocationId" uniqueidentifier [not null]
+  "Status" int [not null]
+  "ScheduledStartTime" datetime2 [not null]
+  "ActualEndTime" datetime2
+
+  Indexes {
+    EndLocationId [name: "IX_Routes_EndLocationId"]
+    StartLocationId [name: "IX_Routes_StartLocationId"]
+    UserId [name: "IX_Routes_UserId"]
+    VehicleId [name: "IX_Routes_VehicleId"]
+  }
+}
+
+Table "dbo"."RouteStops" {
+  "Id" uniqueidentifier [pk, not null]
+  "SequenceNumber" int [not null]
+  "RouteId" uniqueidentifier [not null]
+  "LocationId" uniqueidentifier [not null]
+  "ArrivalTime" datetime2 [not null]
+  "DepartureTime" datetime2 [not null]
+
+  Indexes {
+    LocationId [name: "IX_RouteStops_LocationId"]
+    RouteId [name: "IX_RouteStops_RouteId"]
+  }
+}
+
+Ref:"dbo"."AspNetRoles"."Id" < "dbo"."AspNetRoleClaims"."RoleId" [delete: cascade]
+
+Ref:"dbo"."Users"."Id" < "dbo"."AspNetUserClaims"."UserId" [delete: cascade]
+
+Ref:"dbo"."Users"."Id" < "dbo"."AspNetUserLogins"."UserId" [delete: cascade]
+
+Ref:"dbo"."Users"."Id" < "dbo"."AspNetUserRoles"."UserId" [delete: cascade]
+
+Ref:"dbo"."AspNetRoles"."Id" < "dbo"."AspNetUserRoles"."RoleId" [delete: cascade]
+
+Ref:"dbo"."Users"."Id" < "dbo"."AspNetUserTokens"."UserId" [delete: cascade]
+
+Ref:"dbo"."Locations"."Id" < "dbo"."Vehicles"."CurrentLocationId"
+
+Ref:"dbo"."Vehicles"."Id" < "dbo"."Inspections"."VehicleId" [delete: cascade]
+
+Ref:"dbo"."Vehicles"."Id" < "dbo"."Repairs"."VehicleId"
+
+Ref:"dbo"."Users"."Id" < "dbo"."Routes"."UserId" [delete: cascade]
+
+Ref:"dbo"."Vehicles"."Id" < "dbo"."Routes"."VehicleId"
+
+Ref:"dbo"."Locations"."Id" < "dbo"."Routes"."StartLocationId"
+
+Ref:"dbo"."Locations"."Id" < "dbo"."Routes"."EndLocationId"
+
+Ref:"dbo"."Routes"."Id" < "dbo"."RouteStops"."RouteId" [delete: cascade]
+
+Ref:"dbo"."Locations"."Id" < "dbo"."RouteStops"."LocationId"
