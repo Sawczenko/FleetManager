@@ -6,8 +6,6 @@
         public string FirstName { get; private set; } = string.Empty;
         public string LastName { get; private set; } = string.Empty;
         public string Email { get; private set; } = string.Empty;
-        public List<Guid> VehicleUsageIds { get; private set; } = new List<Guid>();
-
         private User() { }
 
         internal User(string firstName, string lastName, string email)
@@ -23,18 +21,6 @@
             FirstName = firstName;
             LastName = lastName;
             Email = email;
-            VehicleUsageIds = new List<Guid>();
-        }
-
-        public void AssignVehicleUsage(Guid vehicleUsageId)
-        {
-            if (!VehicleUsageIds.Contains(vehicleUsageId))
-                VehicleUsageIds.Add(vehicleUsageId);
-        }
-
-        public void RemoveVehicleUsage(Guid vehicleUsageId)
-        {
-            VehicleUsageIds.Remove(vehicleUsageId);
         }
 
         public override string ToString()
