@@ -5,7 +5,7 @@
     </div>
     <div class="col-lg-9">
       <div class="row g-2">
-        <div class="col-6" *ngFor="let route of routes$ | async">
+        <div class="col-lg-6 col-xs-12" *ngFor="let route of routes$ | async">
           <app-route [route]="route"></app-route>
         </div>
       </div>
