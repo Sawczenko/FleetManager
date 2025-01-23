@@ -1,5 +1,5 @@
-﻿using FleetManager.Domain.Routes;
-using FleetManager.Domain.SeedWork.Results;
+﻿using FleetManager.Domain.SeedWork.Results;
+using FleetManager.Domain.Routes;
 using MediatR;
 
 namespace FleetManager.Application.Routes.AddRoute
@@ -22,9 +22,6 @@ namespace FleetManager.Application.Routes.AddRoute
             AddRouteRequest addRouteRequest = request.AddRouteRequest;
 
             return await _routeService.AddNewRouteAsync(
-                Guid.Parse(addRouteRequest.UserId),
-                Guid.Parse(addRouteRequest.VehicleId),
-                addRouteRequest.ScheduledStartTime,
                 Guid.Parse(addRouteRequest.StartLocationId), Guid.Parse(addRouteRequest.EndLocationId), cancellationToken);
         }
     }

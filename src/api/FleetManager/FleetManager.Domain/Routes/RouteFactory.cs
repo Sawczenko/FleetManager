@@ -4,8 +4,13 @@ namespace FleetManager.Domain.Routes;
 
 public static class RouteFactory
 {
-    public static Result<Route> Create(Guid startLocationId, Guid endLocationId, Guid userId, Guid vehicleId)
+    public static Result<Route> Create(Guid startLocationId, Guid endLocationId)
     {
-        return Result<Route>.Success(new Route(startLocationId, endLocationId, userId, vehicleId));
+        if (startLocationId == Guid.Empty || endLocationId == Guid.Empty)
+        {
+            return Result<Route>.Failure(RouteErrors.MissingLocation());
+        }
+
+        return Result<Route>.Success(new Route(startLocationId, endLocationId));
     }
 }

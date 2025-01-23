@@ -13,18 +13,6 @@ namespace FleetManager.Infrastructure.Domain.Routes
         {
             builder.HasKey(r => r.Id);
 
-            builder.Property(r => r.Status)
-                .IsRequired();
-
-            builder.Property(r => r.ScheduledStartTime)
-                .IsRequired();
-
-            builder.Property(r => r.ActualEndTime)
-                .IsRequired(false);
-
-            builder.Property(x => x.UserId)
-                .IsRequired();
-
             builder.Property(x => x.StartLocationId)
                 .IsRequired();
 
@@ -38,12 +26,6 @@ namespace FleetManager.Infrastructure.Domain.Routes
                 .WithMany()
                 .HasForeignKey("EndLocationId")
                 .HasConstraintName("FK_Route_EndLocation")
-                .OnDelete(DeleteBehavior.Restrict);
-
-            builder.HasOne<Vehicle>()
-                .WithMany()
-                .HasForeignKey("VehicleId")
-                .HasConstraintName("FK_Route_Vehicle")
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

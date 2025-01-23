@@ -19,14 +19,12 @@ namespace FleetManager.Domain.Routes
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Result> AddNewRouteAsync(Guid userId,
-            Guid vehicleId,
-            DateTime scheduledStartTime,
+        public async Task<Result> AddNewRouteAsync(
             Guid startLocationId,
             Guid endLocationId,
             CancellationToken cancellationToken)
         {
-            Result<Route> result = RouteFactory.Create(startLocationId, endLocationId, userId, vehicleId);
+            Result<Route> result = RouteFactory.Create(startLocationId, endLocationId);
 
             if (result.IsFailure)
             {

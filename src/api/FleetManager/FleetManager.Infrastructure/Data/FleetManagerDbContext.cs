@@ -15,7 +15,6 @@ namespace FleetManager.Infrastructure.Data
     {
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<Route> Routes { get; set; }
-        public DbSet<RouteStop> RouteStops { get; set; }
         public DbSet<Inspection> Inspections { get; set; }
         public DbSet<Repair> Repairs { get; set; }
         public DbSet<Location> Locations { get; set; }
@@ -37,7 +36,6 @@ namespace FleetManager.Infrastructure.Data
             modelBuilder.ApplyConfiguration(new ApplicationUserConfiguration());
             modelBuilder.ApplyConfiguration(new LocationEntityConfiguration());
             modelBuilder.ApplyConfiguration(new RouteEntityConfiguration());
-            modelBuilder.ApplyConfiguration(new RouteStopEntityConfiguration());
             modelBuilder.ApplyConfiguration(new VehicleEntityConfiguration());
             modelBuilder.ApplyConfiguration(new RepairEntityConfiguration());
             modelBuilder.ApplyConfiguration(new InspectionEntityConfiguration());

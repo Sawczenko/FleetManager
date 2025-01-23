@@ -121,16 +121,16 @@ namespace FleetManager.Infrastructure.Data
         private async Task AddRoutes(List<Vehicle> vehicles, ApplicationUser applicationUser, List<Location> locations)
         {
             await _dbContext.Set<Route>().AddAsync(RouteFactory
-                .Create(locations[0].Id, locations[1].Id, applicationUser.Id, vehicles[0].Id).Value);
+                .Create(locations[0].Id, locations[1].Id).Value);
 
             await _dbContext.Set<Route>().AddAsync(RouteFactory
-                .Create(locations[1].Id, locations[0].Id, applicationUser.Id, vehicles[1].Id).Value);
+                .Create(locations[1].Id, locations[0].Id).Value);
 
             await _dbContext.Set<Route>().AddAsync(RouteFactory
-                .Create(locations[2].Id, locations[1].Id, applicationUser.Id, vehicles[2].Id).Value);
+                .Create(locations[2].Id, locations[1].Id).Value);
 
             await _dbContext.Set<Route>().AddAsync(RouteFactory
-                .Create(locations[3].Id, locations[2].Id, applicationUser.Id, vehicles[2].Id).Value);
+                .Create(locations[3].Id, locations[2].Id).Value);
         }
     }
 }
