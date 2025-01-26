@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using FleetManager.Domain.Itinerary;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using FleetManager.Domain.Vehicles.Models;
 
@@ -40,6 +41,12 @@ namespace FleetManager.Infrastructure.Domain.Vehicles.Configurations
                     .HasForeignKey("CurrentLocationId")
                     .HasConstraintName("FK_Vehicle_CurrentLocation")
                     .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasMany<Itinerary>()
+                .WithOne()
+                .HasForeignKey(x => x.VehicleId)
+                .HasConstraintName("FK_Vehicle_Itinerary")
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

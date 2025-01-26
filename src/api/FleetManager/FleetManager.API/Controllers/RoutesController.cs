@@ -1,4 +1,4 @@
-﻿using FleetManager.Application.Routes.AddRoute;
+﻿using FleetManager.Application.Routes.CreateRoute;
 using FleetManager.Application.Routes.GetRoutePlannerForm;
 using FleetManager.Application.Routes.GetRoutePlannerForm.Dto;
 using FleetManager.Application.Routes.GetRoutes;
@@ -33,9 +33,9 @@ namespace FleetManager.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Result>> AddRouteAsync([FromBody] AddRouteRequest addRouteRequest, CancellationToken cancellationToken)
+        public async Task<ActionResult<Result>> AddRouteAsync([FromBody] CreateRouteRequest addRouteRequest, CancellationToken cancellationToken)
         {
-            Result result = await _mediator.Send(new AddRouteCommand(addRouteRequest), cancellationToken);
+            Result result = await _mediator.Send(new CreateRouteCommand(addRouteRequest), cancellationToken);
 
             if (result.IsFailure)
             {

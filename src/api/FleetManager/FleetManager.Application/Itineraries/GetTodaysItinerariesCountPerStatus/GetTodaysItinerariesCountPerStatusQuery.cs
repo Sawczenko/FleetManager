@@ -1,16 +1,16 @@
 ﻿using FleetManager.Infrastructure.Data;
+using FleetManager.Domain.Itinerary;
 using Microsoft.EntityFrameworkCore;
-using FleetManager.Domain.Routes;
 using MediatR;
 
-namespace FleetManager.Application.Routes.GetTodaysRoutesCountPerStatus;
+namespace FleetManager.Application.Itineraries.GetTodaysItinerariesCountPerStatus;
 
-public class GetTodaysRouteCountPerStatusQuery : IRequest<Dictionary<RouteStatus, int>>
+public class GetTodaysItinerariesCountPerStatusQuery : IRequest<Dictionary<ItineraryStatus, int>>
 {
 
 }
 
-internal class GetTodaysRouteCountPerStatusQueryHandler : IRequestHandler<GetTodaysRouteCountPerStatusQuery, Dictionary<RouteStatus, int>>
+internal class GetTodaysRouteCountPerStatusQueryHandler : IRequestHandler<GetTodaysItinerariesCountPerStatusQuery, Dictionary<ItineraryStatus, int>>
 {
     private readonly FleetManagerDbContext _dbContext;
 
@@ -19,12 +19,12 @@ internal class GetTodaysRouteCountPerStatusQueryHandler : IRequestHandler<GetTod
         _dbContext = dbContext;
     }
 
-    public Task<Dictionary<RouteStatus, int>> Handle(GetTodaysRouteCountPerStatusQuery request, CancellationToken cancellationToken)
+    public Task<Dictionary<ItineraryStatus, int>> Handle(GetTodaysItinerariesCountPerStatusQuery request, CancellationToken cancellationToken)
     {
         DateTime currentDate = DateTime.UtcNow;
 
-        return _dbContext.Set<Route>()
-            .Where(x => x.ScheduledStartTime <= currentDate)
+        return _dbContext.Set<Itinerary>()
+            .Where(x => x.ScheduledStartDate <= currentDate)
             .Where(x => x.ActualEndTime == null || EF.Functions.DateDiffDay(x.ActualEndTime, currentDate) == 0)
             .GroupBy(x => x.Status)
             .Select(x => new

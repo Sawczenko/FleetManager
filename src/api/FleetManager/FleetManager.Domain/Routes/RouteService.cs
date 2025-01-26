@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FleetManager.Domain.SeedWork.Results;
 using FleetManager.Domain.SeedWork;
-using FleetManager.Domain.SeedWork.Results;
 
 namespace FleetManager.Domain.Routes
 {
@@ -19,7 +14,7 @@ namespace FleetManager.Domain.Routes
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Result> AddNewRouteAsync(
+        public async Task<Result> CreateNewRouteAsync(
             Guid startLocationId,
             Guid endLocationId,
             CancellationToken cancellationToken)

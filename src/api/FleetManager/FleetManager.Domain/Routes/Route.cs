@@ -1,6 +1,5 @@
 ﻿namespace FleetManager.Domain.Routes
 {
-    //TODO: Itinerary refactor
     public class Route
     {
         public Guid Id { get; private set; }

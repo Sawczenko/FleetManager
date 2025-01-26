@@ -45,11 +45,6 @@ namespace FleetManager.Domain.Vehicles.Models
                 return Result<Vehicle>.Failure(VehicleErrors.PastNextInspectionDate(nextInspectionDate, currentDate));
             }
 
-            if (nextInspectionDate < lastInspectionDate)
-            {
-                return Result<Vehicle>.Failure(VehicleErrors.NextInspectionDateOlderThanLastInspectionDate(nextInspectionDate, lastInspectionDate));
-            }
-
             Vehicle vehicle = new Vehicle(new VehicleDetails(vin, licensePlate, model),
                 lastInspectionDate,
                 nextInspectionDate,

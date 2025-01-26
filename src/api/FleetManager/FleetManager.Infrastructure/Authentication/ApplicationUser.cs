@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
-using FleetManager.Domain.Routes;
+﻿using FleetManager.Domain.Itinerary;
+using Microsoft.AspNetCore.Identity;
 
 namespace FleetManager.Infrastructure.Authentication
 {
@@ -8,6 +8,6 @@ namespace FleetManager.Infrastructure.Authentication
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        public ICollection<Route> Routes { get; set; }
+        public ICollection<Itinerary> Itineraries { get; set; }
     }
 }

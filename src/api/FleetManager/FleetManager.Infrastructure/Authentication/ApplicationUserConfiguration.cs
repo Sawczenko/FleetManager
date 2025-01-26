@@ -12,10 +12,10 @@ namespace FleetManager.Infrastructure.Authentication
             builder.Property(u => u.FirstName).HasMaxLength(100).IsRequired();
             builder.Property(u => u.LastName).HasMaxLength(100).IsRequired();
 
-            builder.HasMany(x => x.Routes)
+            builder.HasMany(x => x.Itineraries)
                 .WithOne()
-                .HasForeignKey(y => y.UserId)
-                .HasConstraintName("FK_ApplicationUser_Route");
+                .HasForeignKey(y => y.DriverId)
+                .HasConstraintName("FK_ApplicationUser_Itinerary");
         }
     }
 }

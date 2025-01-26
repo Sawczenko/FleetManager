@@ -1,7 +1,7 @@
-﻿using FleetManager.Application.Vehicles.GetVehiclesWithUpcomingMaintenances;
+﻿using FleetManager.Application.Itineraries.GetTodaysItinerariesCountPerStatus;
+using FleetManager.Application.Vehicles.GetVehiclesWithUpcomingMaintenances;
 using FleetManager.Application.Vehicles.GetVehiclesCountPerStatus;
 using FleetManager.Application.Dashboard.Models;
-using FleetManager.Application.Routes.GetTodaysRoutesCountPerStatus;
 using MediatR;
 
 namespace FleetManager.Application.Dashboard.Queries.GetDashboard;
@@ -26,7 +26,7 @@ public class GetDashboardQueryHandler : IRequestHandler<GetDashboardQuery, Dashb
 
         var vehiclesWithUpcomingMaintenance = await _mediator.Send(new GetVehiclesWithUpcomingMaintenancesQuery(), cancellationToken);
 
-        var routesCountPerStatus = await _mediator.Send(new GetTodaysRouteCountPerStatusQuery(), cancellationToken);
+        var routesCountPerStatus = await _mediator.Send(new GetTodaysItinerariesCountPerStatusQuery(), cancellationToken);
 
         return new DashboardDto(vehicleCountPerStatus, vehiclesWithUpcomingMaintenance, routesCountPerStatus);
     }
