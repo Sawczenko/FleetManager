@@ -1,6 +1,6 @@
 ﻿using FleetManager.Domain.SeedWork;
 
-namespace FleetManager.Domain.Itinerary;
+namespace FleetManager.Domain.Itineraries;
 
 public class ItineraryErrors
 {

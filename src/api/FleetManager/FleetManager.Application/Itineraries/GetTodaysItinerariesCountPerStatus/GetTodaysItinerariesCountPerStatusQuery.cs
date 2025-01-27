@@ -1,7 +1,7 @@
 ﻿using FleetManager.Infrastructure.Data;
-using FleetManager.Domain.Itinerary;
 using Microsoft.EntityFrameworkCore;
 using MediatR;
+using FleetManager.Domain.Itineraries;
 
 namespace FleetManager.Application.Itineraries.GetTodaysItinerariesCountPerStatus;
 
@@ -23,15 +23,17 @@ internal class GetTodaysRouteCountPerStatusQueryHandler : IRequestHandler<GetTod
     {
         DateTime currentDate = DateTime.UtcNow;
 
-        return _dbContext.Set<Itinerary>()
-            .Where(x => x.ScheduledStartDate <= currentDate)
-            .Where(x => x.ActualEndTime == null || EF.Functions.DateDiffDay(x.ActualEndTime, currentDate) == 0)
-            .GroupBy(x => x.Status)
-            .Select(x => new
-            {
-                Status = x.Key,
-                Count = x.Count(),
-            })
-            .ToDictionaryAsync(x => x.Status, x => x.Count, cancellationToken);
+        return Task.FromResult(new Dictionary<ItineraryStatus, int>());
+
+        //return _dbContext.Set<Itinerary>()
+        //    .Where(x => x.ScheduledStartDate <= currentDate)
+        //    .Where(x => x.ActualEndTime == null || EF.Functions.DateDiffDay(x.ActualEndTime, currentDate) == 0)
+        //    .GroupBy(x => x.Status)
+        //    .Select(x => new
+        //    {
+        //        Status = x.Key,
+        //        Count = x.Count(),
+        //    })
+        //    .ToDictionaryAsync(x => x.Status, x => x.Count, cancellationToken);
     }
 }

@@ -99,13 +99,13 @@ namespace FleetManager.Infrastructure.Data.Migrations
                 {
                     table.PrimaryKey("PK_Routes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Route_EndLocation",
+                        name: "FK_Routes_Locations_EndLocationId",
                         column: x => x.EndLocationId,
                         principalTable: "Locations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Route_StartLocation",
+                        name: "FK_Routes_Locations_StartLocationId",
                         column: x => x.StartLocationId,
                         principalTable: "Locations",
                         principalColumn: "Id",
@@ -129,7 +129,7 @@ namespace FleetManager.Infrastructure.Data.Migrations
                 {
                     table.PrimaryKey("PK_Vehicles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Vehicle_CurrentLocation",
+                        name: "FK_Vehicles_Locations_CurrentLocationId",
                         column: x => x.CurrentLocationId,
                         principalTable: "Locations",
                         principalColumn: "Id",
@@ -235,7 +235,7 @@ namespace FleetManager.Infrastructure.Data.Migrations
                 {
                     table.PrimaryKey("PK_Inspections", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Inspection_Vehicle",
+                        name: "FK_Inspections_Vehicles_VehicleId",
                         column: x => x.VehicleId,
                         principalTable: "Vehicles",
                         principalColumn: "Id",
@@ -243,35 +243,27 @@ namespace FleetManager.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Itinerary",
+                name: "Itineraries",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    RouteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DriverId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     VehicleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ScheduledStartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ScheduledEndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ActualEndTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Status = table.Column<int>(type: "int", nullable: false)
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<int>(type: "INT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Itinerary", x => x.Id);
+                    table.PrimaryKey("PK_Itineraries", x => x.Id);
                     table.ForeignKey(
                         name: "FK_ApplicationUser_Itinerary",
-                        column: x => x.UserId,
+                        column: x => x.DriverId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Route_Itinerary",
-                        column: x => x.RouteId,
-                        principalTable: "Routes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Vehicle_Itinerary",
+                        name: "FK_Itineraries_Vehicles_VehicleId",
                         column: x => x.VehicleId,
                         principalTable: "Vehicles",
                         principalColumn: "Id",
@@ -292,11 +284,37 @@ namespace FleetManager.Infrastructure.Data.Migrations
                 {
                     table.PrimaryKey("PK_Repairs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Repair_Vehicle",
+                        name: "FK_Repairs_Vehicles_VehicleId",
                         column: x => x.VehicleId,
                         principalTable: "Vehicles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ItineraryRoutes",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ItineraryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RouteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Order = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ItineraryRoutes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ItineraryRoutes_Itineraries_ItineraryId",
+                        column: x => x.ItineraryId,
+                        principalTable: "Itineraries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ItineraryRoutes_Routes_RouteId",
+                        column: x => x.RouteId,
+                        principalTable: "Routes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -332,19 +350,24 @@ namespace FleetManager.Infrastructure.Data.Migrations
                 column: "VehicleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Itinerary_RouteId",
-                table: "Itinerary",
-                column: "RouteId");
+                name: "IX_Itineraries_DriverId",
+                table: "Itineraries",
+                column: "DriverId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Itinerary_UserId",
-                table: "Itinerary",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Itinerary_VehicleId",
-                table: "Itinerary",
+                name: "IX_Itineraries_VehicleId",
+                table: "Itineraries",
                 column: "VehicleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItineraryRoutes_ItineraryId",
+                table: "ItineraryRoutes",
+                column: "ItineraryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItineraryRoutes_RouteId",
+                table: "ItineraryRoutes",
+                column: "RouteId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Repairs_VehicleId",
@@ -407,7 +430,7 @@ namespace FleetManager.Infrastructure.Data.Migrations
                 name: "Inspections");
 
             migrationBuilder.DropTable(
-                name: "Itinerary");
+                name: "ItineraryRoutes");
 
             migrationBuilder.DropTable(
                 name: "Repairs");
@@ -416,10 +439,13 @@ namespace FleetManager.Infrastructure.Data.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Itineraries");
 
             migrationBuilder.DropTable(
                 name: "Routes");
+
+            migrationBuilder.DropTable(
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Vehicles");

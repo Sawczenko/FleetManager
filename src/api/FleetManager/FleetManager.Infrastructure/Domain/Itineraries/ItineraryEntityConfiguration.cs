@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using FleetManager.Infrastructure.Authentication;
 using FleetManager.Domain.Vehicles.Models;
-using FleetManager.Domain.Itinerary;
 using Microsoft.EntityFrameworkCore;
 using FleetManager.Domain.Routes;
+using FleetManager.Domain.Itineraries;
 
 namespace FleetManager.Infrastructure.Domain.Itineraries
 {
@@ -13,10 +13,10 @@ namespace FleetManager.Infrastructure.Domain.Itineraries
         {
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.ScheduledStartDate)
+            builder.Property(x => x.StartDate)
                 .IsRequired();
 
-            builder.Property(x => x.RouteId)
+            builder.Property(x => x.EndDate)
                 .IsRequired();
 
             builder.Property(x => x.VehicleId)

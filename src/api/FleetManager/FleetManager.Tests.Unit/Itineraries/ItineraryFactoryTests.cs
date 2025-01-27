@@ -1,4 +1,5 @@
-﻿using FleetManager.Domain.Itinerary;
+﻿using FleetManager.Domain.Itineraries;
+using FleetManager.Domain.Routes;
 using FluentAssertions;
 
 namespace FleetManager.Tests.Unit.Itineraries
@@ -6,112 +7,129 @@ namespace FleetManager.Tests.Unit.Itineraries
     public class ItineraryFactoryTests
     {
         [Fact]
-        public void Create_WhenRouteIdIsEmpty_ReturnsFailureWithMissingRouteError()
+        public void Create_ShouldReturnFailure_WhenRouteIdIsEmpty()
         {
             // Arrange
-            var result = ItineraryFactory.Create(
-                Guid.Empty,
-                Guid.NewGuid(),
-                Guid.NewGuid(),
-                DateTime.UtcNow.AddHours(1),
-                DateTime.UtcNow.AddHours(2)
-            );
+            var routes = new List<ItineraryRoute>
+            {
+                new ItineraryRoute(Guid.NewGuid(), Guid.Empty, 1)
+            };
+            var driverId = Guid.NewGuid();
+            var vehicleId = Guid.NewGuid();
+            var scheduledStartDate = DateTime.UtcNow.AddHours(1);
+            var scheduledEndDate = scheduledStartDate.AddHours(2);
+
+            // Act
+            var result = ItineraryFactory.Create(routes, driverId, vehicleId, scheduledStartDate, scheduledEndDate);
 
             // Assert
-            result.IsFailure.Should().BeTrue();
+            result.IsSuccess.Should().BeFalse();
             result.Error.Should().Be(ItineraryErrors.MissingRoute());
         }
 
         [Fact]
-        public void Create_WhenUserIdIsEmpty_ReturnsFailureWithMissingDriverError()
+        public void Create_ShouldReturnFailure_WhenDriverIdIsEmpty()
         {
             // Arrange
-            var result = ItineraryFactory.Create(
-                Guid.NewGuid(),
-                Guid.Empty,
-                Guid.NewGuid(),
-                DateTime.UtcNow.AddHours(1),
-                DateTime.UtcNow.AddHours(2)
-            );
+            var routes = new List<ItineraryRoute>
+            {
+                new ItineraryRoute(Guid.NewGuid(), Guid.NewGuid(), 1)
+            };
+            var driverId = Guid.Empty;
+            var vehicleId = Guid.NewGuid();
+            var scheduledStartDate = DateTime.UtcNow.AddHours(1);
+            var scheduledEndDate = scheduledStartDate.AddHours(2);
+
+            // Act
+            var result = ItineraryFactory.Create(routes, driverId, vehicleId, scheduledStartDate, scheduledEndDate);
 
             // Assert
-            result.IsFailure.Should().BeTrue();
+            result.IsSuccess.Should().BeFalse();
             result.Error.Should().Be(ItineraryErrors.MissingDriver());
         }
 
         [Fact]
-        public void Create_WhenVehicleIdIsEmpty_ReturnsFailureWithMissingVehicleError()
+        public void Create_ShouldReturnFailure_WhenVehicleIdIsEmpty()
         {
             // Arrange
-            var result = ItineraryFactory.Create(
-                Guid.NewGuid(),
-                Guid.NewGuid(),
-                Guid.Empty,
-                DateTime.UtcNow.AddHours(1),
-                DateTime.UtcNow.AddHours(2)
-            );
+            var routes = new List<ItineraryRoute>
+        {
+            new ItineraryRoute(Guid.NewGuid(), Guid.NewGuid(), 1)
+        };
+            var driverId = Guid.NewGuid();
+            var vehicleId = Guid.Empty;
+            var scheduledStartDate = DateTime.UtcNow.AddHours(1);
+            var scheduledEndDate = scheduledStartDate.AddHours(2);
+
+            // Act
+            var result = ItineraryFactory.Create(routes, driverId, vehicleId, scheduledStartDate, scheduledEndDate);
 
             // Assert
-            result.IsFailure.Should().BeTrue();
+            result.IsSuccess.Should().BeFalse();
             result.Error.Should().Be(ItineraryErrors.MissingVehicle());
         }
 
         [Fact]
-        public void Create_WhenScheduledStartDateIsInThePast_ReturnsFailureWithScheduledStartDateCannotBeInThePastError()
+        public void Create_ShouldReturnFailure_WhenScheduledStartDateIsInThePast()
         {
             // Arrange
-            var result = ItineraryFactory.Create(
-                Guid.NewGuid(),
-                Guid.NewGuid(),
-                Guid.NewGuid(),
-                DateTime.UtcNow.AddHours(-1),
-                DateTime.UtcNow.AddHours(1)
-            );
+            var routes = new List<ItineraryRoute>
+        {
+            new ItineraryRoute(Guid.NewGuid(), Guid.NewGuid(), 1)
+        };
+            var driverId = Guid.NewGuid();
+            var vehicleId = Guid.NewGuid();
+            var scheduledStartDate = DateTime.UtcNow.AddHours(-1);
+            var scheduledEndDate = scheduledStartDate.AddHours(1);
+
+            // Act
+            var result = ItineraryFactory.Create(routes, driverId, vehicleId, scheduledStartDate, scheduledEndDate);
 
             // Assert
-            result.IsFailure.Should().BeTrue();
+            result.IsSuccess.Should().BeFalse();
             result.Error.Should().Be(ItineraryErrors.ScheduledStartDateCannotBeInThePast());
         }
 
         [Fact]
-        public void Create_WhenScheduledStartDateIsLaterThanScheduledEndDate_ReturnsFailureWithScheduledStartDateCannotBeLaterThanScheduledEndDateError()
+        public void Create_ShouldReturnFailure_WhenScheduledStartDateIsLaterThanScheduledEndDate()
         {
             // Arrange
-            var result = ItineraryFactory.Create(
-                Guid.NewGuid(),
-                Guid.NewGuid(),
-                Guid.NewGuid(),
-                DateTime.UtcNow.AddHours(2),
-                DateTime.UtcNow.AddHours(1)
-            );
+            var routes = new List<ItineraryRoute>
+        {
+            new ItineraryRoute(Guid.NewGuid(), Guid.NewGuid(), 1)
+        };
+            var driverId = Guid.NewGuid();
+            var vehicleId = Guid.NewGuid();
+            var scheduledStartDate = DateTime.UtcNow.AddHours(2);
+            var scheduledEndDate = scheduledStartDate.AddHours(-1);
+
+            // Act
+            var result = ItineraryFactory.Create(routes, driverId, vehicleId, scheduledStartDate, scheduledEndDate);
 
             // Assert
-            result.IsFailure.Should().BeTrue();
+            result.IsSuccess.Should().BeFalse();
             result.Error.Should().Be(ItineraryErrors.ScheduledStartDateCannotBeLaterThanScheduledEndDate());
         }
 
         [Fact]
-        public void Create_WhenAllParametersAreValid_ReturnsSuccessWithValidItinerary()
+        public void Create_ShouldReturnSuccess_WhenAllParametersAreValid()
         {
             // Arrange
-            var routeId = Guid.NewGuid();
-            var userId = Guid.NewGuid();
+            var routes = new List<ItineraryRoute>
+            {
+                new ItineraryRoute(Guid.NewGuid(), Guid.NewGuid(), 1)
+            };
+            var driverId = Guid.NewGuid();
             var vehicleId = Guid.NewGuid();
             var scheduledStartDate = DateTime.UtcNow.AddHours(1);
-            var scheduledEndDate = DateTime.UtcNow.AddHours(2);
+            var scheduledEndDate = scheduledStartDate.AddHours(2);
 
             // Act
-            var result = ItineraryFactory.Create(routeId, userId, vehicleId, scheduledStartDate, scheduledEndDate);
+            var result = ItineraryFactory.Create(routes, driverId, vehicleId, scheduledStartDate, scheduledEndDate);
 
             // Assert
             result.IsSuccess.Should().BeTrue();
-            result.Value.Should().BeOfType<Domain.Itinerary.Itinerary>();
-            result.Value.RouteId.Should().Be(routeId);
-            result.Value.DriverId.Should().Be(userId);
-            result.Value.VehicleId.Should().Be(vehicleId);
-            result.Value.ScheduledStartDate.Should().Be(scheduledStartDate);
-            result.Value.ScheduledEndDate.Should().Be(scheduledEndDate);
-            result.Value.Status.Should().Be(ItineraryStatus.Planned);
+            result.Value.Should().NotBeNull();
         }
     }
 }

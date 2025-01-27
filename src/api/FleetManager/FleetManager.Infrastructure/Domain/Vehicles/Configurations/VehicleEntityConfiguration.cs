@@ -1,7 +1,7 @@
-﻿using FleetManager.Domain.Itinerary;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using FleetManager.Domain.Vehicles.Models;
+using FleetManager.Domain.Itineraries;
 
 namespace FleetManager.Infrastructure.Domain.Vehicles.Configurations
 {
@@ -39,13 +39,11 @@ namespace FleetManager.Infrastructure.Domain.Vehicles.Configurations
             builder.HasOne(v => v.CurrentLocation)
                     .WithMany()
                     .HasForeignKey("CurrentLocationId")
-                    .HasConstraintName("FK_Vehicle_CurrentLocation")
                     .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasMany<Itinerary>()
                 .WithOne()
                 .HasForeignKey(x => x.VehicleId)
-                .HasConstraintName("FK_Vehicle_Itinerary")
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

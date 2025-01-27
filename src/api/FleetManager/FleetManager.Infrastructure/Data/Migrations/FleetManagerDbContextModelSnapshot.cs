@@ -28,36 +28,52 @@ namespace FleetManager.Infrastructure.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("ActualEndTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("RouteId")
+                    b.Property<Guid>("DriverId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("ScheduledEndDate")
+                    b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("ScheduledStartDate")
+                    b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("INT");
 
                     b.Property<Guid>("VehicleId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RouteId");
-
-                    b.HasIndex("UserId");
+                    b.HasIndex("DriverId");
 
                     b.HasIndex("VehicleId");
 
-                    b.ToTable("Itinerary");
+                    b.ToTable("Itineraries");
+                });
+
+            modelBuilder.Entity("FleetManager.Domain.Itinerary.ItineraryRoute", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ItineraryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("RouteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItineraryId");
+
+                    b.HasIndex("RouteId");
+
+                    b.ToTable("ItineraryRoutes");
                 });
 
             modelBuilder.Entity("FleetManager.Domain.Locations.Location", b =>
@@ -388,16 +404,9 @@ namespace FleetManager.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("FleetManager.Domain.Itinerary.Itinerary", b =>
                 {
-                    b.HasOne("FleetManager.Domain.Routes.Route", null)
-                        .WithMany()
-                        .HasForeignKey("RouteId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired()
-                        .HasConstraintName("FK_Route_Itinerary");
-
                     b.HasOne("FleetManager.Infrastructure.Authentication.ApplicationUser", null)
                         .WithMany("Itineraries")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("DriverId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("FK_ApplicationUser_Itinerary");
@@ -406,8 +415,22 @@ namespace FleetManager.Infrastructure.Data.Migrations
                         .WithMany()
                         .HasForeignKey("VehicleId")
                         .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired()
-                        .HasConstraintName("FK_Vehicle_Itinerary");
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FleetManager.Domain.Itinerary.ItineraryRoute", b =>
+                {
+                    b.HasOne("FleetManager.Domain.Itinerary.Itinerary", null)
+                        .WithMany("Routes")
+                        .HasForeignKey("ItineraryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FleetManager.Domain.Routes.Route", null)
+                        .WithMany()
+                        .HasForeignKey("RouteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("FleetManager.Domain.Routes.Route", b =>
@@ -416,15 +439,13 @@ namespace FleetManager.Infrastructure.Data.Migrations
                         .WithMany()
                         .HasForeignKey("EndLocationId")
                         .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired()
-                        .HasConstraintName("FK_Route_EndLocation");
+                        .IsRequired();
 
                     b.HasOne("FleetManager.Domain.Locations.Location", null)
                         .WithMany()
                         .HasForeignKey("StartLocationId")
                         .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired()
-                        .HasConstraintName("FK_Route_StartLocation");
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("FleetManager.Domain.Vehicles.Models.Inspection", b =>
@@ -433,8 +454,7 @@ namespace FleetManager.Infrastructure.Data.Migrations
                         .WithMany("Inspections")
                         .HasForeignKey("VehicleId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_Inspection_Vehicle");
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("FleetManager.Domain.Vehicles.Models.Repair", b =>
@@ -443,8 +463,7 @@ namespace FleetManager.Infrastructure.Data.Migrations
                         .WithMany("Repairs")
                         .HasForeignKey("VehicleId")
                         .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired()
-                        .HasConstraintName("FK_Repair_Vehicle");
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("FleetManager.Domain.Vehicles.Models.Vehicle", b =>
@@ -452,8 +471,7 @@ namespace FleetManager.Infrastructure.Data.Migrations
                     b.HasOne("FleetManager.Domain.Locations.Location", "CurrentLocation")
                         .WithMany()
                         .HasForeignKey("CurrentLocationId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .HasConstraintName("FK_Vehicle_CurrentLocation");
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.OwnsOne("FleetManager.Domain.Vehicles.Models.VehicleDetails", "VehicleDetails", b1 =>
                         {
@@ -544,6 +562,11 @@ namespace FleetManager.Infrastructure.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("FleetManager.Domain.Itinerary.Itinerary", b =>
+                {
+                    b.Navigation("Routes");
                 });
 
             modelBuilder.Entity("FleetManager.Domain.Vehicles.Models.Vehicle", b =>

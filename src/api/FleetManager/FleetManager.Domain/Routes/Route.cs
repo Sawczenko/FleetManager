@@ -8,7 +8,6 @@
 
         internal Route(Guid startLocationId, Guid endLocationId)
         {
-            Id = Guid.NewGuid();
             StartLocationId = startLocationId;
             EndLocationId = endLocationId;
         }

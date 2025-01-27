@@ -1,17 +1,17 @@
 ﻿using FleetManager.Domain.SeedWork.Results;
 
-namespace FleetManager.Domain.Itinerary
+namespace FleetManager.Domain.Itineraries
 {
     public static class ItineraryFactory
     {
         public static Result<Itinerary> Create(
-            Guid routeId, 
-            Guid driverId, 
-            Guid vehicleId, 
-            DateTime scheduledStartDate, 
+            List<ItineraryRoute> routes,
+            Guid driverId,
+            Guid vehicleId,
+            DateTime scheduledStartDate,
             DateTime scheduledEndDate)
         {
-            if (routeId == Guid.Empty)
+            if (routes.Any(x => x.RouteId == Guid.Empty))
             {
                 return Result<Itinerary>.Failure(ItineraryErrors.MissingRoute());
             }
@@ -37,9 +37,9 @@ namespace FleetManager.Domain.Itinerary
             }
 
             return Result<Itinerary>.Success(new Itinerary(
-                routeId, 
-                driverId, 
-                vehicleId, 
+                routes,
+                driverId,
+                vehicleId,
                 scheduledStartDate,
                 scheduledEndDate));
         }

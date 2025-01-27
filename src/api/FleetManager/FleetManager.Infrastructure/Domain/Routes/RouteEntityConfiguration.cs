@@ -23,21 +23,12 @@ namespace FleetManager.Infrastructure.Domain.Routes
             builder.HasOne<Location>()
                 .WithMany()
                 .HasForeignKey(x => x.StartLocationId)
-                .HasConstraintName("FK_Route_StartLocation")
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne<Location>()
                 .WithMany()
                 .HasForeignKey(x => x.EndLocationId)
-                .HasConstraintName("FK_Route_EndLocation")
                 .OnDelete(DeleteBehavior.Restrict);
-
-            builder.HasMany<Itinerary>()
-                .WithOne()
-                .HasForeignKey(x => x.RouteId)
-                .HasConstraintName("FK_Route_Itinerary")
-                .OnDelete(DeleteBehavior.Restrict);
-
         }
     }
 }

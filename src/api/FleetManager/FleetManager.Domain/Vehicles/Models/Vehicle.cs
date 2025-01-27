@@ -27,7 +27,6 @@ namespace FleetManager.Domain.Vehicles.Models
             Location currentLocation,
             VehicleStatus status)
         {
-            Id = Guid.NewGuid();
             Status = VehicleStatus.Available;
             VehicleDetails = vehicleDetails;
             LastInspectionDate = lastInspectionDate;

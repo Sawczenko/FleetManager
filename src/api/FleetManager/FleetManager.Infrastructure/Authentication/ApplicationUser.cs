@@ -1,4 +1,4 @@
-﻿using FleetManager.Domain.Itinerary;
+﻿using FleetManager.Domain.Itineraries;
 using Microsoft.AspNetCore.Identity;
 
 namespace FleetManager.Infrastructure.Authentication

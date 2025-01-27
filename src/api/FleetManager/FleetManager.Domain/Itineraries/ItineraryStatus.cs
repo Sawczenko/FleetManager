@@ -1,4 +1,4 @@
-﻿namespace FleetManager.Domain.Itinerary;
+﻿namespace FleetManager.Domain.Itineraries;
 
 public enum ItineraryStatus
 {

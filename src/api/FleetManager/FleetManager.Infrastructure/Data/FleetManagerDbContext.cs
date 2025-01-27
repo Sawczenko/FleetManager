@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using FleetManager.Domain.Routes;
 using FleetManager.Infrastructure.Authentication;
+using FleetManager.Infrastructure.Domain.Itineraries;
+using FleetManager.Domain.Itineraries;
 
 namespace FleetManager.Infrastructure.Data
 {
@@ -15,6 +17,8 @@ namespace FleetManager.Infrastructure.Data
     {
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<Route> Routes { get; set; }
+        public DbSet<Itinerary> Itineraries { get; set; }
+        public DbSet<ItineraryRoute> ItineraryRoutes { get; set; }
         public DbSet<Inspection> Inspections { get; set; }
         public DbSet<Repair> Repairs { get; set; }
         public DbSet<Location> Locations { get; set; }
@@ -36,6 +40,8 @@ namespace FleetManager.Infrastructure.Data
             modelBuilder.ApplyConfiguration(new ApplicationUserConfiguration());
             modelBuilder.ApplyConfiguration(new LocationEntityConfiguration());
             modelBuilder.ApplyConfiguration(new RouteEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new ItineraryEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new ItineraryRouteEntityConfiguration());
             modelBuilder.ApplyConfiguration(new VehicleEntityConfiguration());
             modelBuilder.ApplyConfiguration(new RepairEntityConfiguration());
             modelBuilder.ApplyConfiguration(new InspectionEntityConfiguration());

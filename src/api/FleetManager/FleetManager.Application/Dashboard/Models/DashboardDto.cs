@@ -1,5 +1,5 @@
 ﻿using FleetManager.Application.Vehicles.GetVehiclesWithUpcomingMaintenances;
-using FleetManager.Domain.Itinerary;
+using FleetManager.Domain.Itineraries;
 using FleetManager.Domain.Routes;
 using FleetManager.Domain.Vehicles.Models;
 

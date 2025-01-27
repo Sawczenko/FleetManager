@@ -1,4 +1,4 @@
-﻿namespace FleetManager.Domain.User
+﻿namespace FleetManager.Domain.Users
 {
     public interface IUser
     {

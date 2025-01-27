@@ -1,4 +1,4 @@
-﻿namespace FleetManager.Domain.User
+﻿namespace FleetManager.Domain.Users
 {
     public class User
     {
@@ -10,8 +10,6 @@
 
         internal User(string firstName, string lastName, string email)
         {
-            Id = Guid.NewGuid();
-
             if (string.IsNullOrWhiteSpace(firstName) || string.IsNullOrWhiteSpace(lastName) ||
                 string.IsNullOrWhiteSpace(email))
             {
