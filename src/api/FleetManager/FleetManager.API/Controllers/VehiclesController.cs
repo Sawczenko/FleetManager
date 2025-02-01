@@ -1,6 +1,6 @@
 ﻿using FleetManager.Application.Vehicles.AddInspection;
 using FleetManager.Application.Vehicles.AddRepair;
-using FleetManager.Application.Vehicles.AddVehicle;
+using FleetManager.Application.Vehicles.CreateVehicle;
 using FleetManager.Application.Vehicles.GetVehicleManagement;
 using FleetManager.Application.Vehicles.GetVehicles;
 using FleetManager.Application.Vehicles.Shared;
@@ -29,9 +29,9 @@ namespace FleetManager.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Result>> AddVehicleAsync([FromBody] AddVehicleRequest request, CancellationToken cancellationToken)
+        public async Task<ActionResult<Result>> CreateVehicleAsync([FromBody] CreateVehicleRequest request, CancellationToken cancellationToken)
         {
-            Result result = await _mediator.Send(new AddVehicleCommand(request), cancellationToken);
+            Result result = await _mediator.Send(new CreateVehicleCommand(request), cancellationToken);
 
             if (result.IsFailure)
             {

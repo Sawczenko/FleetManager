@@ -32,11 +32,6 @@ namespace FleetManager.Domain.Vehicles
                 return result;
             }
 
-            if (result.Value is null)
-            {
-                return Result.Failure(VehicleErrors.VehicleWasNotCreated);
-            }
-
             Vehicle newVehicle = result.Value;
 
             Vehicle? existingVehicle =

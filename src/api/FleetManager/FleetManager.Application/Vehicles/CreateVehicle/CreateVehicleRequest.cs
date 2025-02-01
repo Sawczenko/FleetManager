@@ -1,6 +1,6 @@
-﻿namespace FleetManager.Application.Vehicles.AddVehicle
+﻿namespace FleetManager.Application.Vehicles.CreateVehicle
 {
-    public record AddVehicleRequest(
+    public record CreateVehicleRequest(
         string Vin,
         string LicensePlate,
         string Model,

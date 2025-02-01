@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using FleetManager.Domain.Vehicles.Models;
 using FleetManager.Domain.Locations;
 using Microsoft.AspNetCore.Identity;
-using FleetManager.Domain.Routes;
 
 #nullable disable
 
@@ -36,8 +35,6 @@ namespace FleetManager.Infrastructure.Data
             List<Location> locations = await AddLocations();
 
             List<Vehicle> vehicles = await AddVehicles(locations);
-
-            await AddRoutes(vehicles, applicationUser, locations);
 
             await _dbContext.SaveChangesAsync();
         }
@@ -116,21 +113,6 @@ namespace FleetManager.Infrastructure.Data
             vehicle.AddInspection(new Inspection(vehicle.Id, DateTime.UtcNow, "Przegląd", 120));
 
             return vehicles;
-        }
-
-        private async Task AddRoutes(List<Vehicle> vehicles, ApplicationUser applicationUser, List<Location> locations)
-        {
-            await _dbContext.Set<Route>().AddAsync(RouteFactory
-                .Create(locations[0].Id, locations[1].Id).Value);
-
-            await _dbContext.Set<Route>().AddAsync(RouteFactory
-                .Create(locations[1].Id, locations[0].Id).Value);
-
-            await _dbContext.Set<Route>().AddAsync(RouteFactory
-                .Create(locations[2].Id, locations[1].Id).Value);
-
-            await _dbContext.Set<Route>().AddAsync(RouteFactory
-                .Create(locations[3].Id, locations[2].Id).Value);
         }
     }
 }

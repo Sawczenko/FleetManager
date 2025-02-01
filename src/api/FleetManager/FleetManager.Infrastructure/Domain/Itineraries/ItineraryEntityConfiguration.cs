@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using FleetManager.Infrastructure.Authentication;
-using FleetManager.Domain.Vehicles.Models;
-using Microsoft.EntityFrameworkCore;
-using FleetManager.Domain.Routes;
 using FleetManager.Domain.Itineraries;
+using Microsoft.EntityFrameworkCore;
 
 namespace FleetManager.Infrastructure.Domain.Itineraries
 {

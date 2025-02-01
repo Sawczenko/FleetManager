@@ -22,7 +22,28 @@ namespace FleetManager.Infrastructure.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("FleetManager.Domain.Itinerary.Itinerary", b =>
+            modelBuilder.Entity("FleetManager.Domain.Contractors.Contractor", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("HeadquartersId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HeadquartersId");
+
+                    b.ToTable("Contractors");
+                });
+
+            modelBuilder.Entity("FleetManager.Domain.Itineraries.Itinerary", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -52,7 +73,7 @@ namespace FleetManager.Infrastructure.Data.Migrations
                     b.ToTable("Itineraries");
                 });
 
-            modelBuilder.Entity("FleetManager.Domain.Itinerary.ItineraryRoute", b =>
+            modelBuilder.Entity("FleetManager.Domain.Itineraries.ItineraryRoute", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -95,6 +116,41 @@ namespace FleetManager.Infrastructure.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Locations");
+                });
+
+            modelBuilder.Entity("FleetManager.Domain.Orders.Order", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ContractorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DeliveryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("DestinationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("OriginId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("PickupDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("INT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContractorId");
+
+                    b.HasIndex("DestinationId");
+
+                    b.HasIndex("OriginId");
+
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("FleetManager.Domain.Routes.Route", b =>
@@ -402,7 +458,16 @@ namespace FleetManager.Infrastructure.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("FleetManager.Domain.Itinerary.Itinerary", b =>
+            modelBuilder.Entity("FleetManager.Domain.Contractors.Contractor", b =>
+                {
+                    b.HasOne("FleetManager.Domain.Locations.Location", null)
+                        .WithMany()
+                        .HasForeignKey("HeadquartersId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FleetManager.Domain.Itineraries.Itinerary", b =>
                 {
                     b.HasOne("FleetManager.Infrastructure.Authentication.ApplicationUser", null)
                         .WithMany("Itineraries")
@@ -418,9 +483,9 @@ namespace FleetManager.Infrastructure.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("FleetManager.Domain.Itinerary.ItineraryRoute", b =>
+            modelBuilder.Entity("FleetManager.Domain.Itineraries.ItineraryRoute", b =>
                 {
-                    b.HasOne("FleetManager.Domain.Itinerary.Itinerary", null)
+                    b.HasOne("FleetManager.Domain.Itineraries.Itinerary", null)
                         .WithMany("Routes")
                         .HasForeignKey("ItineraryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -430,6 +495,27 @@ namespace FleetManager.Infrastructure.Data.Migrations
                         .WithMany()
                         .HasForeignKey("RouteId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FleetManager.Domain.Orders.Order", b =>
+                {
+                    b.HasOne("FleetManager.Domain.Contractors.Contractor", null)
+                        .WithMany()
+                        .HasForeignKey("ContractorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("FleetManager.Domain.Locations.Location", null)
+                        .WithMany()
+                        .HasForeignKey("DestinationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("FleetManager.Domain.Locations.Location", null)
+                        .WithMany()
+                        .HasForeignKey("OriginId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -564,7 +650,7 @@ namespace FleetManager.Infrastructure.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("FleetManager.Domain.Itinerary.Itinerary", b =>
+            modelBuilder.Entity("FleetManager.Domain.Itineraries.Itinerary", b =>
                 {
                     b.Navigation("Routes");
                 });

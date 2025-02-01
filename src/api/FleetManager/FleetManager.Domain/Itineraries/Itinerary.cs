@@ -1,10 +1,12 @@
-﻿namespace FleetManager.Domain.Itineraries;
+﻿using FleetManager.Domain.Itineraries.Checkpoints;
+
+namespace FleetManager.Domain.Itineraries;
 
 public class Itinerary
 {
     public Guid Id { get; private set; }
 
-    public List<ItineraryRoute> Routes { get; private set; }
+    public List<Checkpoint> Checkpoints { get; private set; }
 
     public Guid DriverId { get; private set; }
 
@@ -18,16 +20,23 @@ public class Itinerary
 
     private Itinerary()
     {
-        Routes = new List<ItineraryRoute>();
+        Checkpoints = new List<Checkpoint>();
     }
 
-    internal Itinerary(List<ItineraryRoute> routes, Guid driverId, Guid vehicleId, DateTime startDate, DateTime endDate)
+    internal Itinerary(List<Checkpoint> checkpoints, Guid driverId, Guid vehicleId, DateTime startDate, DateTime endDate)
     {
-        Routes = routes;
+        Checkpoints = checkpoints;
         DriverId = driverId;
         VehicleId = vehicleId;
         StartDate = startDate;
         EndDate = endDate;
         Status = ItineraryStatus.Planned;
+    }
+
+    public void CheckpointCompleted(Guid checkpointId)
+    {
+        Checkpoint checkpoint = Checkpoints.First(x => x.Id == checkpointId);
+
+        checkpoint.CheckpointCompleted();
     }
 }

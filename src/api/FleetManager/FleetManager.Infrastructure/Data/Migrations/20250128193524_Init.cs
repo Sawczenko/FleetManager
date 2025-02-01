@@ -88,6 +88,25 @@ namespace FleetManager.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Contractors",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    HeadquartersId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Contractors", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Contractors_Locations_HeadquartersId",
+                        column: x => x.HeadquartersId,
+                        principalTable: "Locations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Routes",
                 columns: table => new
                 {
@@ -222,6 +241,41 @@ namespace FleetManager.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ContractorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OriginId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DestinationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PickupDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeliveryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<int>(type: "INT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Orders_Contractors_ContractorId",
+                        column: x => x.ContractorId,
+                        principalTable: "Contractors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Orders_Locations_DestinationId",
+                        column: x => x.DestinationId,
+                        principalTable: "Locations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Orders_Locations_OriginId",
+                        column: x => x.OriginId,
+                        principalTable: "Locations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Inspections",
                 columns: table => new
                 {
@@ -345,6 +399,11 @@ namespace FleetManager.Infrastructure.Data.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Contractors_HeadquartersId",
+                table: "Contractors",
+                column: "HeadquartersId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Inspections_VehicleId",
                 table: "Inspections",
                 column: "VehicleId");
@@ -368,6 +427,21 @@ namespace FleetManager.Infrastructure.Data.Migrations
                 name: "IX_ItineraryRoutes_RouteId",
                 table: "ItineraryRoutes",
                 column: "RouteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_ContractorId",
+                table: "Orders",
+                column: "ContractorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_DestinationId",
+                table: "Orders",
+                column: "DestinationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_OriginId",
+                table: "Orders",
+                column: "OriginId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Repairs_VehicleId",
@@ -433,6 +507,9 @@ namespace FleetManager.Infrastructure.Data.Migrations
                 name: "ItineraryRoutes");
 
             migrationBuilder.DropTable(
+                name: "Orders");
+
+            migrationBuilder.DropTable(
                 name: "Repairs");
 
             migrationBuilder.DropTable(
@@ -443,6 +520,9 @@ namespace FleetManager.Infrastructure.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Routes");
+
+            migrationBuilder.DropTable(
+                name: "Contractors");
 
             migrationBuilder.DropTable(
                 name: "Users");

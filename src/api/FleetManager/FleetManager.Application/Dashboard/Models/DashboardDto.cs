@@ -1,7 +1,6 @@
 ﻿using FleetManager.Application.Vehicles.GetVehiclesWithUpcomingMaintenances;
-using FleetManager.Domain.Itineraries;
-using FleetManager.Domain.Routes;
 using FleetManager.Domain.Vehicles.Models;
+using FleetManager.Domain.Itineraries;
 
 namespace FleetManager.Application.Dashboard.Models
 {
