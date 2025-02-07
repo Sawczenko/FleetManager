@@ -25,7 +25,7 @@ public class Itinerary
 
     internal Itinerary(List<Checkpoint> checkpoints, Guid driverId, Guid vehicleId, DateTime startDate, DateTime endDate)
     {
-        Checkpoints = checkpoints;
+        Checkpoints = checkpoints.OrderBy(checkpoint => checkpoint.Sequence).ToList();
         DriverId = driverId;
         VehicleId = vehicleId;
         StartDate = startDate;
@@ -33,10 +33,33 @@ public class Itinerary
         Status = ItineraryStatus.Planned;
     }
 
-    public void CheckpointCompleted(Guid checkpointId)
+    public void Start()
+    {
+        Status = ItineraryStatus.InProgress;
+        ActivateNextCheckpoint();
+    }
+
+    public void CompleteCheckpoint(Guid checkpointId)
     {
         Checkpoint checkpoint = Checkpoints.First(x => x.Id == checkpointId);
 
-        checkpoint.CheckpointCompleted();
+        checkpoint.Complete();
+
+        if (AnyQueuedCheckpointRemaining())
+        {
+            ActivateNextCheckpoint();
+        }
+    }
+
+    private bool AnyQueuedCheckpointRemaining()
+    {
+        return Checkpoints.Any(checkpoint => checkpoint.Status == CheckpointStatus.Queued);
+    }
+
+    private void ActivateNextCheckpoint()
+    {
+        Checkpoint nextCheckpoint = Checkpoints.First(checkpoint => checkpoint.Status == CheckpointStatus.Queued);
+
+        nextCheckpoint.Activate();
     }
 }

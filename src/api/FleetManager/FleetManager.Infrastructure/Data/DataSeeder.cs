@@ -1,8 +1,11 @@
-﻿using FleetManager.Infrastructure.Authentication;
+﻿using FleetManager.Domain.Contractors;
+using FleetManager.Infrastructure.Authentication;
 using Microsoft.Extensions.DependencyInjection;
 using FleetManager.Domain.Vehicles.Models;
 using FleetManager.Domain.Locations;
+using FleetManager.Domain.Orders;
 using Microsoft.AspNetCore.Identity;
+using FleetManager.Domain.Vehicles;
 
 #nullable disable
 
@@ -35,6 +38,10 @@ namespace FleetManager.Infrastructure.Data
             List<Location> locations = await AddLocations();
 
             List<Vehicle> vehicles = await AddVehicles(locations);
+
+            List<Contractor> contractors = await AddContractors(locations);
+
+            List<Order> orders = await AddOrders(locations, contractors);
 
             await _dbContext.SaveChangesAsync();
         }
@@ -113,6 +120,35 @@ namespace FleetManager.Infrastructure.Data
             vehicle.AddInspection(new Inspection(vehicle.Id, DateTime.UtcNow, "Przegląd", 120));
 
             return vehicles;
+        }
+
+
+        private async Task<List<Contractor>> AddContractors(List<Location> locations)
+        {
+            List<Contractor> contractors = new List<Contractor>();
+
+            contractors.Add(ContractorFactory.Create("Company A", locations[0].Id).Value);
+
+            await _dbContext.Set<Contractor>().AddRangeAsync(contractors);
+
+            return contractors;
+        }
+
+        private async Task<List<Order>> AddOrders(List<Location> locations, List<Contractor> contractors)
+        {
+            List<Order> orders = new List<Order>();
+
+            orders.Add(OrderFactory.Create(
+                contractors[0].Id, 
+                locations[0].Id, 
+                locations[1].Id,
+                DateTime.UtcNow.AddMinutes(10), 
+                DateTime.UtcNow.AddDays(2)
+                ).Value);
+
+            await _dbContext.Set<Order>().AddRangeAsync(orders);
+
+            return orders;
         }
     }
 }

@@ -10,7 +10,6 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
-import {TestComponent} from "../../features/test/test.component";
 import {MatAccordion, MatExpansionModule} from '@angular/material/expansion';
 
 const routes: Routes = [

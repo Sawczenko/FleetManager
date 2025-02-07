@@ -53,8 +53,8 @@ namespace FleetManager.Domain.Itineraries
 
             foreach (var order in orderRoutings.OrderBy(x => x.Sequence))
             {
-                Checkpoint pickupCheckpoint = new Checkpoint(order.OrderId, order.PickupLocationId, CheckpointType.Pickup);
-                Checkpoint deliveryCheckpoint = new Checkpoint(order.OrderId, order.DeliveryLocationId, CheckpointType.Delivery);
+                Checkpoint pickupCheckpoint = new Checkpoint(order.OrderId, order.PickupLocationId, CheckpointType.Pickup, order.Sequence);
+                Checkpoint deliveryCheckpoint = new Checkpoint(order.OrderId, order.DeliveryLocationId, CheckpointType.Delivery, order.Sequence);
 
                 checkpoints.Add(pickupCheckpoint);
                 checkpoints.Add(deliveryCheckpoint);

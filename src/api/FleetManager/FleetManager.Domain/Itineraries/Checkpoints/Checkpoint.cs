@@ -1,4 +1,6 @@
-﻿namespace FleetManager.Domain.Itineraries.Checkpoints
+﻿using FleetManager.Domain.SeedWork.Entities;
+
+namespace FleetManager.Domain.Itineraries.Checkpoints
 {
     public class Checkpoint
     {
@@ -14,18 +16,26 @@
 
         public CheckpointType Type { get; private set; }
 
-        public Checkpoint(Guid orderId, Guid locationId, CheckpointType type)
+        public int Sequence { get; private set; }
+
+        public Checkpoint(Guid orderId, Guid locationId, CheckpointType type, int sequence)
         {
             OrderId = orderId;
             LocationId = locationId;
             Status = CheckpointStatus.Queued;
             Type = type;
+            Sequence = sequence;
         }
 
-        public void CheckpointCompleted()
+        public void Complete()
         {
             Status = CheckpointStatus.Completed;
-            //event
         }
+
+        public void Activate()
+        {
+            Status = CheckpointStatus.Active;
+        }
+
     }
 }

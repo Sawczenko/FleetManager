@@ -7,6 +7,14 @@
         <mat-accordion>
           <mat-expansion-panel class="mat-elevation-z8">
             <mat-expansion-panel-header>
+              <mat-panel-title>Orders</mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-list-item role="listitem" [routerLink]="'orders'">Management</mat-list-item>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion>
+          <mat-expansion-panel class="mat-elevation-z8">
+            <mat-expansion-panel-header>
               <mat-panel-title>Vehicles</mat-panel-title>
             </mat-expansion-panel-header>
             <mat-list-item role="listitem" [routerLink]="'vehicles'">
@@ -30,7 +38,6 @@
             </mat-list-item>
           </mat-expansion-panel>
         </mat-accordion>
-<!--        <mat-list-item role="listitem" [routerLink]="'test'">Test</mat-list-item>-->
         <mat-list-item role="listitem" (click)="logout()">Logout</mat-list-item>
       </mat-nav-list>
     </div>

@@ -1,4 +1,5 @@
 ﻿using FleetManager.Application.Orders.CreateOrder;
+using FleetManager.Application.Orders.GetOrders;
 using FleetManager.Domain.SeedWork.Results;
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
@@ -27,5 +28,11 @@ public class OrdersController : ControllerBase
         }
 
         return Ok(result);
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<List<OrderDto>>> GetOrdersAsync(CancellationToken cancellationToken)
+    {
+        return Ok(await _mediator.Send(new GetOrdersQuery(), cancellationToken));
     }
 }

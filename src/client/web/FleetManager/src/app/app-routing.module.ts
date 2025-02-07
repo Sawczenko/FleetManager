@@ -16,9 +16,8 @@ const routes: Routes = [
           .then(m => m.DashboardModule),
       canActivate: [AuthGuard]
       },
-      { path: 'test', loadChildren: () => import('./features/test/test.module')
-          .then(m => m.TestModule),
-        canActivate: [AuthGuard] },
+      { path: 'orders', loadChildren: () => import('./features/orders/orders.module')
+          .then(m => m.OrdersModule),},
       { path: 'vehicles', loadChildren: () => import('./features/vehicles/vehicles.module')
           .then(m => m.VehiclesModule),
         canActivate: [AuthGuard]},

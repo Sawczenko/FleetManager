@@ -1,7 +1,8 @@
 ﻿using FleetManager.Domain.SeedWork.Results;
+using FleetManager.Domain.Vehicles.Models;
 using FleetManager.Domain.Locations;
 
-namespace FleetManager.Domain.Vehicles.Models
+namespace FleetManager.Domain.Vehicles
 {
     public static class VehicleFactory
     {
