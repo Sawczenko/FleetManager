@@ -7,7 +7,6 @@
         </mat-card-header>
         <mat-card-content>
           <mat-stepper [linear]="false" [orientation]="'vertical'" #stepper>
-            <!-- Krok 1: Podstawowe dane trasy -->
             <mat-step [stepControl]="routeForm">
               <ng-template matStepLabel>Fill route data</ng-template>
               <form [formGroup]="routeForm">
@@ -49,7 +48,6 @@
               </form>
             </mat-step>
 
-            <!-- Krok 2: Lokalizacje trasy -->
             <mat-step [stepControl]="locationForm">
               <ng-template matStepLabel>Set locations</ng-template>
               <form [formGroup]="locationForm">
@@ -81,7 +79,6 @@
               </form>
             </mat-step>
 
-            <!-- Krok 3: Podsumowanie -->
             <mat-step label="Summary">
               <div *ngIf="routeSummary && addRouteRequest">
                 <div class="row">

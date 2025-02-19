@@ -1,0 +1,11 @@
+.table-container {
+  max-height: calc(100vh - 224px); /* Dostosuj do wysokości navbarów itp. */
+  overflow-y: auto;
+  display: block;
+}
+
+.mat-table {
+  width: 100%;
+}
+
+.gray { background-color: #E2E2E2 }

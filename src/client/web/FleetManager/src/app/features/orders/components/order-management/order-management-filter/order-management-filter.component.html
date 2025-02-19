@@ -1,0 +1,84 @@
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Orders filter
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+
+    <form>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="fill">
+            <mat-label>Origin</mat-label>
+            <input matInput formControlName="origin">
+          </mat-form-field>
+        </div>
+
+        <div class="col">
+          <mat-form-field appearance="fill">
+            <mat-label>Destination</mat-label>
+            <input matInput formControlName="destination">
+          </mat-form-field>
+        </div>
+
+        <div class="col">
+          <mat-form-field appearance="fill">
+            <mat-label>Contractor</mat-label>
+            <input matInput formControlName="contractor">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="fill">
+            <mat-label>Pickup date from</mat-label>
+            <input matInput [matDatepicker]="pickupDateFromPicker" formControlName="pickupDateFrom">
+            <mat-datepicker-toggle matSuffix [for]="pickupDateFromPicker"></mat-datepicker-toggle>
+            <mat-datepicker #pickupDateFromPicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="col">
+          <mat-form-field appearance="fill">
+            <mat-label>Pickup date to</mat-label>
+            <input matInput [matDatepicker]="pickupDateToPicker" formControlName="pickupDateTo">
+            <mat-datepicker-toggle matSuffix [for]="pickupDateToPicker"></mat-datepicker-toggle>
+            <mat-datepicker #pickupDateToPicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="col">
+          <mat-form-field appearance="fill">
+            <mat-label>Delivery date from</mat-label>
+            <input matInput [matDatepicker]="deliveryDateFromPicker" formControlName="deliveryDateFrom">
+            <mat-datepicker-toggle matSuffix [for]="deliveryDateFromPicker"></mat-datepicker-toggle>
+            <mat-datepicker #deliveryDateFromPicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="col">
+          <mat-form-field appearance="fill">
+            <mat-label>Delivery date to</mat-label>
+            <input matInput [matDatepicker]="deliveryDateToPicker" formControlName="deliveryDateTo">
+            <mat-datepicker-toggle matSuffix [for]="deliveryDateToPicker"></mat-datepicker-toggle>
+            <mat-datepicker #deliveryDateToPicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <button class="w-100" mat-button type="button">Reset</button>
+        </div>
+        <div class="col">
+          <button class="w-100" mat-button type="submit">Search</button>
+        </div>
+      </div>
+    </form>
+  </mat-expansion-panel>
+
+
+</mat-accordion>

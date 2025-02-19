@@ -128,6 +128,7 @@ namespace FleetManager.Infrastructure.Data
             List<Contractor> contractors = new List<Contractor>();
 
             contractors.Add(ContractorFactory.Create("Company A", locations[0].Id).Value);
+            contractors.Add(ContractorFactory.Create("Company B", locations[1].Id).Value);
 
             await _dbContext.Set<Contractor>().AddRangeAsync(contractors);
 
@@ -145,6 +146,18 @@ namespace FleetManager.Infrastructure.Data
                 DateTime.UtcNow.AddMinutes(10), 
                 DateTime.UtcNow.AddDays(2)
                 ).Value);
+
+            for (int i = 1; i < 50; i++)
+            {
+                orders.Add(OrderFactory.Create(
+                    contractors[1].Id,
+                    locations[1].Id,
+                    locations[2].Id,
+                    DateTime.UtcNow.AddDays(3),
+                    DateTime.UtcNow.AddDays(5)
+                ).Value);
+            }
+
 
             await _dbContext.Set<Order>().AddRangeAsync(orders);
 

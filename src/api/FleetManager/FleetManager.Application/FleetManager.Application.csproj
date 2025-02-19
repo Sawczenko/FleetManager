@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Contractors\GetContractorsInfo\" />
     <Folder Include="Dashboard\Queries\GetDashboard\" />
   </ItemGroup>
 
