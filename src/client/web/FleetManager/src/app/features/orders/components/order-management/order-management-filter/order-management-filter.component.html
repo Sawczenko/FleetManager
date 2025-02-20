@@ -7,65 +7,95 @@
     </mat-expansion-panel-header>
 
 
-    <form>
+    <form [formGroup]="filterForm" (ngSubmit)="filter()">
       <div class="row">
         <div class="col">
           <mat-form-field appearance="fill">
             <mat-label>Origin</mat-label>
-            <input matInput formControlName="origin">
+            <input
+              matInput type="text"
+              placeholder="Warsaw"
+              formControlName="origin"
+              [formControl]="originFormControl"
+              [matAutocomplete]="originAutoComplete">
+            <mat-autocomplete #originAutoComplete="matAutocomplete" [displayWith]="displayLocation">
+              @for (origin of filteredOriginLocations | async; track origin) {
+                <mat-option [value]="origin">{{ origin.name }}</mat-option>
+              }
+            </mat-autocomplete>
           </mat-form-field>
         </div>
 
         <div class="col">
           <mat-form-field appearance="fill">
             <mat-label>Destination</mat-label>
-            <input matInput formControlName="destination">
+            <input
+              matInput type="text"
+              placeholder="Bydgoszcz"
+              formControlName="destination"
+              [formControl]="destinationFormControl"
+              [matAutocomplete]="destinationAutoComplete">
+            <mat-autocomplete #destinationAutoComplete="matAutocomplete" [displayWith]="displayLocation">
+              @for (destination of filteredDestinationLocations | async; track destination) {
+                <mat-option [value]="destination">{{ destination.name }}</mat-option>
+              }
+            </mat-autocomplete>
           </mat-form-field>
         </div>
 
         <div class="col">
           <mat-form-field appearance="fill">
             <mat-label>Contractor</mat-label>
-            <input matInput formControlName="contractor">
-          </mat-form-field>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col">
-          <mat-form-field appearance="fill">
-            <mat-label>Pickup date from</mat-label>
-            <input matInput [matDatepicker]="pickupDateFromPicker" formControlName="pickupDateFrom">
-            <mat-datepicker-toggle matSuffix [for]="pickupDateFromPicker"></mat-datepicker-toggle>
-            <mat-datepicker #pickupDateFromPicker></mat-datepicker>
-          </mat-form-field>
-        </div>
-
-        <div class="col">
-          <mat-form-field appearance="fill">
-            <mat-label>Pickup date to</mat-label>
-            <input matInput [matDatepicker]="pickupDateToPicker" formControlName="pickupDateTo">
-            <mat-datepicker-toggle matSuffix [for]="pickupDateToPicker"></mat-datepicker-toggle>
-            <mat-datepicker #pickupDateToPicker></mat-datepicker>
+            <input
+              matInput type="text"
+              placeholder="Company"
+              formControlName="contractor"
+              [formControl]="contractorFormControl"
+              [matAutocomplete]="contractorAutoComplete">
+            <mat-autocomplete #contractorAutoComplete="matAutocomplete" [displayWith]="displayContractor">
+              @for (contractor of filteredContractors | async; track contractor) {
+                <mat-option [value]="contractor">{{ contractor.name }}</mat-option>
+              }
+            </mat-autocomplete>
           </mat-form-field>
         </div>
 
-        <div class="col">
-          <mat-form-field appearance="fill">
-            <mat-label>Delivery date from</mat-label>
-            <input matInput [matDatepicker]="deliveryDateFromPicker" formControlName="deliveryDateFrom">
-            <mat-datepicker-toggle matSuffix [for]="deliveryDateFromPicker"></mat-datepicker-toggle>
-            <mat-datepicker #deliveryDateFromPicker></mat-datepicker>
-          </mat-form-field>
-        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="fill">
+              <mat-label>Pickup date from</mat-label>
+              <input matInput [matDatepicker]="pickupDateFromPicker" formControlName="pickupDateFrom">
+              <mat-datepicker-toggle matSuffix [for]="pickupDateFromPicker"></mat-datepicker-toggle>
+              <mat-datepicker #pickupDateFromPicker></mat-datepicker>
+            </mat-form-field>
+          </div>
 
-        <div class="col">
-          <mat-form-field appearance="fill">
-            <mat-label>Delivery date to</mat-label>
-            <input matInput [matDatepicker]="deliveryDateToPicker" formControlName="deliveryDateTo">
-            <mat-datepicker-toggle matSuffix [for]="deliveryDateToPicker"></mat-datepicker-toggle>
-            <mat-datepicker #deliveryDateToPicker></mat-datepicker>
-          </mat-form-field>
+          <div class="col">
+            <mat-form-field appearance="fill">
+              <mat-label>Pickup date to</mat-label>
+              <input matInput [matDatepicker]="pickupDateToPicker" formControlName="pickupDateTo">
+              <mat-datepicker-toggle matSuffix [for]="pickupDateToPicker"></mat-datepicker-toggle>
+              <mat-datepicker #pickupDateToPicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="col">
+            <mat-form-field appearance="fill">
+              <mat-label>Delivery date from</mat-label>
+              <input matInput [matDatepicker]="deliveryDateFromPicker" formControlName="deliveryDateFrom">
+              <mat-datepicker-toggle matSuffix [for]="deliveryDateFromPicker"></mat-datepicker-toggle>
+              <mat-datepicker #deliveryDateFromPicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="col">
+            <mat-form-field appearance="fill">
+              <mat-label>Delivery date to</mat-label>
+              <input matInput [matDatepicker]="deliveryDateToPicker" formControlName="deliveryDateTo">
+              <mat-datepicker-toggle matSuffix [for]="deliveryDateToPicker"></mat-datepicker-toggle>
+              <mat-datepicker #deliveryDateToPicker></mat-datepicker>
+            </mat-form-field>
+          </div>
         </div>
       </div>
 
