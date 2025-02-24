@@ -32,9 +32,9 @@ public class OrdersController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<OrderDto>>> GetOrdersAsync(CancellationToken cancellationToken)
+    public async Task<ActionResult<List<OrderDto>>> GetOrdersAsync([FromQuery]OrdersFilterDto ordersFilter, CancellationToken cancellationToken)
     {
-        return Ok(await _mediator.Send(new GetOrdersQuery(), cancellationToken));
+        return Ok(await _mediator.Send(new GetOrdersQuery(ordersFilter), cancellationToken));
     }
 
     [HttpGet("OrderManagementFilter")]

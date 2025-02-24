@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {OrderManagementFilterService} from './service/order-management-filter.service';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {map, Observable, startWith} from 'rxjs';
 import {LocationInfo} from '../../../../locations/models/location-info';
 import {ContractorInfo} from '../../../../contractors/models/contractor-info';
-import {OrderManagementFilter} from '../models/order-management-filter';
+import {OrderManagementFilterFormData} from '../models/order-management-filter-form-data';
+import {OrdersFilter} from '../models/orders-filter';
 
 @Component({
   selector: 'app-order-management-filter',
@@ -14,15 +15,16 @@ import {OrderManagementFilter} from '../models/order-management-filter';
   styleUrl: './order-management-filter.component.css'
 })
 export class OrderManagementFilterComponent implements OnInit {
+  @Output() filterChanged = new EventEmitter<OrdersFilter>();
 
   public filterForm: FormGroup;
-  public originFormControl: FormControl = new FormControl('');
+  public originFormControl: FormControl = new FormControl(new LocationInfo());
   public filteredOriginLocations: Observable<LocationInfo[]> = new Observable<LocationInfo[]>();
 
-  public destinationFormControl: FormControl = new FormControl('');
+  public destinationFormControl: FormControl = new FormControl(new LocationInfo());
   public filteredDestinationLocations: Observable<LocationInfo[]> = new Observable<LocationInfo[]>();
 
-  public contractorFormControl: FormControl = new FormControl('');
+  public contractorFormControl: FormControl = new FormControl(new ContractorInfo());
   public filteredContractors: Observable<ContractorInfo[]> = new Observable<ContractorInfo[]>();
 
   private locationsInfo: LocationInfo[] = [];
@@ -49,28 +51,40 @@ export class OrderManagementFilterComponent implements OnInit {
     })
   }
 
-  private prepareControls(orderManagementFilter: OrderManagementFilter) {
+  private prepareControls(orderManagementFilter: OrderManagementFilterFormData) {
     this.locationsInfo = orderManagementFilter.locationsInfo;
     this.contractorInfo = orderManagementFilter.contractorsInfo;
 
     this.filteredOriginLocations = this.originFormControl.valueChanges.pipe(
       startWith(''),
-      map(value => this.locationFilter(value || '')),
-    )
+      map(value => this.locationFilter(value || '')))
 
     this.filteredDestinationLocations = this.destinationFormControl.valueChanges.pipe(
       startWith(''),
-      map(value => this.locationFilter(value || '')),
-    )
+      map(value => this.locationFilter(value || '')))
 
     this.filteredContractors = this.contractorFormControl.valueChanges.pipe(
       startWith(''),
-      map(value => this.contractorFilter(value || '')),
-    )
+      map(value => this.contractorFilter(value || '')))
   }
 
   public filter(){
     console.log(this.filterForm.value);
+
+    const formValue = this.filterForm.value;
+    const ordersFilter = new OrdersFilter(
+      formValue.contractor.id,
+      formValue.origin.id,
+      formValue.destination.id,
+      formValue.pickupDateFrom,
+      formValue.pickupDateTo,
+      formValue.deliveryDateFrom,
+      formValue.deliveryDateTo
+    )
+
+    console.log(ordersFilter);
+
+    this.filterChanged.emit(ordersFilter)
   }
 
   public displayLocation(locationInfo: LocationInfo): string {
@@ -78,12 +92,12 @@ export class OrderManagementFilterComponent implements OnInit {
   }
 
   private locationFilter(value: string): LocationInfo[] {
-    const filterValue = value.toLowerCase();
+    const filterValue = value.toString().toLowerCase();
     return this.locationsInfo.filter(location => location.name.toLowerCase().includes(filterValue));
   }
 
   private contractorFilter(value: string): ContractorInfo[] {
-    const filterValue = value.toLowerCase();
+    const filterValue = value.toString().toLowerCase();
     return this.contractorInfo.filter(contractor => contractor.name.toLowerCase().includes(filterValue));
   }
 

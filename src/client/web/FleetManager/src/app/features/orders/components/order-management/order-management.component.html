@@ -1,24 +1,24 @@
 <div class="container-fluid p-4">
   <div class="row">
     <div class="col-xs-12">
-      <app-order-management-filter></app-order-management-filter>
+      <app-order-management-filter (filterChanged)="filterChanged($event)"></app-order-management-filter>
     </div>
     <div class="col-xs-12 mt-2">
       <div class="table-container w-100">
         <table mat-table [dataSource]="orderDataSource" multiTemplateDataRows class="mat-elevation-z8">
           <ng-container matColumnDef="contractorName">
             <th mat-header-cell *matHeaderCellDef>Contractor</th>
-            <td mat-cell *matCellDef="let order">{{order.contractorName}}</td>
+            <td mat-cell *matCellDef="let order">{{order.contractor.name}}</td>
           </ng-container>
 
           <ng-container matColumnDef="originLocation">
             <th mat-header-cell *matHeaderCellDef>Origin</th>
-            <td mat-cell *matCellDef="let order">{{order.originLocation}}</td>
+            <td mat-cell *matCellDef="let order">{{order.originLocation.name}}</td>
           </ng-container>
 
           <ng-container matColumnDef="destinationLocation">
             <th mat-header-cell *matHeaderCellDef>Destination</th>
-            <td mat-cell *matCellDef="let order">{{order.destinationLocation}}</td>
+            <td mat-cell *matCellDef="let order">{{order.destinationLocation.name}}</td>
           </ng-container>
 
           <ng-container matColumnDef="pickupDate">
@@ -36,9 +36,36 @@
             <td mat-cell *matCellDef="let order">{{order.status}}</td>
           </ng-container>
 
+          <ng-container matColumnDef="expand">
+            <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button aria-label="expand row"
+                      (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
+                @if (expandedElement === element) {
+                  <mat-icon>keyboard_arrow_up</mat-icon>
+                } @else {
+                  <mat-icon>keyboard_arrow_down</mat-icon>
+                }
+              </button>
+            </td>
+          </ng-container>
+
+          <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+          <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="orderDataSource.columnsToDisplay.length">
+              <div class="element-detail"
+                   [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                <p>Tu będą szczegóły</p>
+              </div>
+            </td>
+          </ng-container>
+
           <tr mat-header-row *matHeaderRowDef="orderDataSource.columnsToDisplay; sticky: true"></tr>
           <tr mat-row *matRowDef="let row; let even = even; columns: orderDataSource.columnsToDisplay"
-              [ngClass]="{gray: even}"></tr>
+              class="element-row"
+              [class.example-expanded-row]="expandedElement === row"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+
         </table>
       </div>
       <mat-paginator [length]="100"

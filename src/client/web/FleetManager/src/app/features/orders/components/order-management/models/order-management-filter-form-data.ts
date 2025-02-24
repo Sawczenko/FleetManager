@@ -1,7 +1,7 @@
 import {LocationInfo} from '../../../../locations/models/location-info';
 import {ContractorInfo} from '../../../../contractors/models/contractor-info';
 
-export class OrderManagementFilter {
+export class OrderManagementFilterFormData {
   public locationsInfo: LocationInfo[];
   public contractorsInfo: ContractorInfo[];
 
