@@ -21,9 +21,6 @@ const routes: Routes = [
       { path: 'vehicles', loadChildren: () => import('./features/vehicles/vehicles.module')
           .then(m => m.VehiclesModule),
         canActivate: [AuthGuard]},
-      { path: 'routes', loadChildren: () => import('./features/routes/routes.module')
-          .then(m => m.RoutesModule),
-        canActivate: [AuthGuard]}
     ]
   },
   {

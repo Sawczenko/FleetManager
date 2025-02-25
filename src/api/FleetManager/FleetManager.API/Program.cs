@@ -1,7 +1,6 @@
 using FleetManager.Infrastructure.Data;
 using FleetManager.Infrastructure;
 using FleetManager.Application;
-using FleetManager.Domain;
 
 var builder = WebApplication.CreateBuilder(args);
 

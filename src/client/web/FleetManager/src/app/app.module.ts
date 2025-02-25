@@ -11,6 +11,7 @@ import {MatIcon} from '@angular/material/icon';
 import {MainLayoutModule} from './layouts/main-layout/main-layout.module';
 import {AuthenticationLayoutModule} from './layouts/authentication-layout/authentication-layout.module';
 import {provideNativeDateAdapter} from '@angular/material/core';
+import {environment} from '../environments/environment';
 
 @NgModule({
   declarations: [

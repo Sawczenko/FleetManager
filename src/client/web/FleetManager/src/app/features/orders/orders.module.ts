@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
-import {RouteListComponent} from '../routes/route-list/route-list.component';
 import {AuthGuard} from '../../core/guards/auth-guard';
-import {RoutePlannerComponent} from '../routes/route-planner/route-planner.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
@@ -18,7 +16,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { OrderManagementFilterComponent } from './components/order-management/order-management-filter/order-management-filter.component';
 import {OrderManagementComponent} from './components/order-management/order-management.component';
 import {MatIconModule} from '@angular/material/icon';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {GoogleMap, GoogleMapsModule, MapInfoWindow, MapMarker} from '@angular/google-maps';
 
 const routes: Routes = [
   {
@@ -54,7 +52,8 @@ const routes: Routes = [
     MatExpansionModule,
     MatAutocompleteModule,
     MatIconModule,
-    MatIconButton
+    MatIconButton,
+    GoogleMapsModule
   ]
 })
 export class OrdersModule { }
