@@ -5,6 +5,7 @@ import {Order} from './models/order';
 import {Observable, ReplaySubject} from 'rxjs';
 import {OrdersFilter} from './models/orders-filter';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {GoogleMapsService} from '../../../../core/services/maps/google-maps.service';
 
 @Component({
   selector: 'app-order-management',
@@ -20,6 +21,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
   styleUrl: './order-management.component.css'
 })
 export class OrderManagementComponent implements OnInit{
+  public mapsLoaded = false;
   public orderDataSource = new OrderDataSource([]);
   expandedElement!: Order | null;
 
@@ -30,10 +32,13 @@ export class OrderManagementComponent implements OnInit{
     { lat: 40.74988, lng: -73.968285 }
   ];
 
-  constructor(private orderManagementService: OrderManagementService) {
+  constructor(private orderManagementService: OrderManagementService, private googleMapsService: GoogleMapsService) {
   }
 
   ngOnInit(): void {
+    this.googleMapsService.loadGoogleMaps().then(() => {
+      this.mapsLoaded = true;
+    }).catch(error => console.log(error));
     this.getOrders();
   }
 

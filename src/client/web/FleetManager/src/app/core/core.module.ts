@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import {provideHttpClient, withInterceptors} from '@angular/common/http';
 import {tokenInterceptor} from './interceptors/token.interceptor';
 import {ApiService} from './services/api/api.service';
+import {GoogleMapsService} from './services/maps/google-maps.service';
 
 @NgModule({
   declarations: [],
@@ -11,6 +12,7 @@ import {ApiService} from './services/api/api.service';
   ],
   providers: [
     ApiService,
+    GoogleMapsService,
     provideHttpClient(
       withInterceptors([tokenInterceptor])
     )

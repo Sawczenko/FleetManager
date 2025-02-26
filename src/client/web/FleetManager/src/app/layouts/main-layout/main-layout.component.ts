@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {Router} from "@angular/router";
 import {AuthenticationService} from '../../features/authentication/service/authentication.service';
+import {GoogleMapsService} from '../../core/services/maps/google-maps.service';
 
 @Component({
   selector: 'app-main-layout',
@@ -11,7 +12,7 @@ import {AuthenticationService} from '../../features/authentication/service/authe
 export class MainLayoutComponent {
   public menuOpened: boolean = false;
 
-  constructor(private router: Router, private authenticationService: AuthenticationService) {
+  constructor(private router: Router, private authenticationService: AuthenticationService, private googleMapsService: GoogleMapsService) {
   }
 
   public menuButtonClickedEventHandler($event: any){
@@ -19,5 +20,6 @@ export class MainLayoutComponent {
   }
   public logout(){
     this.authenticationService.logout();
+    this.googleMapsService.unloadGoogleMaps();
   }
 }
