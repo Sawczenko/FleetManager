@@ -1,0 +1,17 @@
+<div class="row order-details-container">
+  <div class="col-6">
+
+  </div>
+  <div class="col-6 p-2">
+    <div class="map-container">
+      <google-map height="100%" width="100%" [center]="center" [zoom]="zoom">
+        <map-marker *ngFor="let marker of markers" [position]="marker"></map-marker>
+        @if (directionsResults$ | async; as directionsResults) {
+          <map-directions-renderer [directions]="directionsResults" />
+        }
+      </google-map>
+    </div>
+
+  </div>
+
+</div>

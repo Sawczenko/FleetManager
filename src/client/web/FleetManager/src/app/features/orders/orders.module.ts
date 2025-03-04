@@ -17,6 +17,7 @@ import { OrderManagementFilterComponent } from './components/order-management/or
 import {OrderManagementComponent} from './components/order-management/order-management.component';
 import {MatIconModule} from '@angular/material/icon';
 import {GoogleMap, GoogleMapsModule, MapInfoWindow, MapMarker} from '@angular/google-maps';
+import { OrderDetailsComponent } from './components/order-management/order-details/order-details.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,7 @@ const routes: Routes = [
   declarations: [
     OrderManagementComponent,
     OrderManagementFilterComponent,
+    OrderDetailsComponent,
   ],
   imports: [
     CommonModule,

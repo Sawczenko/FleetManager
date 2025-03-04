@@ -29,6 +29,11 @@ tr.element-row:not(.expanded-row):active {
   display: flex;
 }
 
+.order-details-container {
+  height: 400px;
+  width: 100%;
+}
+
 .map-container {
   height: 400px;
   width: 100%;

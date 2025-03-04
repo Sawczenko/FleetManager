@@ -27,8 +27,8 @@ internal class GetOrdersQueryHandler : IRequestHandler<GetOrdersQuery, List<Orde
             .SqlQuery<OrdersQuery>(@$"
                 SELECT orders.Id, 
                 contractors.Id as ContractorId, contractors.Name as ContractorName,
-                originLocations.Id as OriginLocationId, originLocations.Name as OriginLocationName, 
-                destinationLocations.Id as DestinationLocationId, destinationLocations.Name as DestinationLocationName,
+                originLocations.Id as OriginLocationId, originLocations.Name as OriginLocationName, originLocations.Latitude as OriginLocationLatitude, originLocations.Longitude as OriginLocationLongitude, 
+                destinationLocations.Id as DestinationLocationId, destinationLocations.Name as DestinationLocationName, destinationLocations.Latitude as DestinationLocationLatitude, destinationLocations.Longitude as DestinationLocationLongitude,
                 orders.PickupDate, orders.DeliveryDate, orders.Status
                 FROM Orders orders
                 JOIN Locations originLocations ON originLocations.Id = orders.OriginId
@@ -77,8 +77,8 @@ internal class GetOrdersQueryHandler : IRequestHandler<GetOrdersQuery, List<Orde
             .Select(ordersQuery => new OrderDto(
                 ordersQuery.Id,
                 new ContractorInfo(ordersQuery.ContractorId, ordersQuery.ContractorName),
-                new LocationInfo(ordersQuery.OriginLocationId, ordersQuery.OriginLocationName),
-                new LocationInfo(ordersQuery.DestinationLocationId, ordersQuery.DestinationLocationName),
+                new LocationInfo(ordersQuery.OriginLocationId, ordersQuery.OriginLocationName, ordersQuery.OriginLocationLatitude, ordersQuery.OriginLocationLongitude),
+                new LocationInfo(ordersQuery.DestinationLocationId, ordersQuery.DestinationLocationName, ordersQuery.DestinationLocationLatitude, ordersQuery.DestinationLocationLongitude),
                 ordersQuery.PickupDate,
                 ordersQuery.DeliveryDate,
                 ((OrderStatus)ordersQuery.Status).ToString()
@@ -93,8 +93,12 @@ internal record OrdersQuery(
     string ContractorName,
     Guid OriginLocationId,
     string OriginLocationName,
+    double OriginLocationLatitude,
+    double OriginLocationLongitude,
     Guid DestinationLocationId,
     string DestinationLocationName,
+    double DestinationLocationLatitude,
+    double DestinationLocationLongitude,
     DateTime PickupDate,
     DateTime DeliveryDate,
     int Status

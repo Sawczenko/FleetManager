@@ -25,14 +25,8 @@ export class OrderManagementComponent implements OnInit{
   public orderDataSource = new OrderDataSource([]);
   expandedElement!: Order | null;
 
-  center: google.maps.LatLngLiteral = { lat: 40.73061, lng: -73.935242 };
-  zoom = 12;
-  markers = [
-    { lat: 40.73061, lng: -73.935242 },
-    { lat: 40.74988, lng: -73.968285 }
-  ];
-
   constructor(private orderManagementService: OrderManagementService, private googleMapsService: GoogleMapsService) {
+
   }
 
   ngOnInit(): void {
@@ -53,6 +47,8 @@ export class OrderManagementComponent implements OnInit{
   public filterChanged(ordersFilter: OrdersFilter){
     this.getOrders(ordersFilter);
   }
+
+
 }
 
 class OrderDataSource extends DataSource<Order>{

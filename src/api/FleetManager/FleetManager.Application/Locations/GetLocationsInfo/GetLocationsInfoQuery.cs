@@ -20,7 +20,7 @@ namespace FleetManager.Application.Locations.GetLocationsInfo
 
         public async Task<List<LocationInfo>> Handle(GetLocationsInfoQuery request, CancellationToken cancellationToken)
         {
-            return await _dbContext.Set<Location>().Select(location => new LocationInfo(location.Id, location.Name))
+            return await _dbContext.Set<Location>().Select(location => new LocationInfo(location.Id, location.Name, location.Latitude, location.Longitude))
                 .ToListAsync(cancellationToken);
         }
     }

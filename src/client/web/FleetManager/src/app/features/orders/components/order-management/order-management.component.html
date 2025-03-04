@@ -55,17 +55,11 @@
             <td mat-cell *matCellDef="let element" [attr.colspan]="orderDataSource.columnsToDisplay.length">
               <div class="element-detail"
                    [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-                <div class="py-2 px-3 w-100">
-                  <div class="row justify-content-end">
-                    <div class="col-6">
-                      <div class="map-container">
-                        <google-map height="400px" width="100%" [center]="center" [zoom]="zoom">
-                          <map-marker *ngFor="let marker of markers" [position]="marker"></map-marker>
-                        </google-map>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <ng-container *ngIf="expandedElement != null && expandedElement === element">
+
+                    <app-order-details class="w-100"  [order]="expandedElement"></app-order-details>
+
+                </ng-container>
               </div>
             </td>
           </ng-container>
