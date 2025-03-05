@@ -1,6 +1,6 @@
 ﻿namespace FleetManager.Modules.Contractors.Domain;
 
-internal class Contractor
+public class Contractor
 {
     public Guid Id { get; private set; }
 

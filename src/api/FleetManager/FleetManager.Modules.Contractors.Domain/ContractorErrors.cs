@@ -2,7 +2,7 @@
 
 namespace FleetManager.Modules.Contractors.Domain
 {
-    internal static class Errors
+    internal static class ContractorErrors
     {
         internal static Error MissingContractorName() => new Error("Contractor.MissingContractorName", "Contractor name is missing.");
 

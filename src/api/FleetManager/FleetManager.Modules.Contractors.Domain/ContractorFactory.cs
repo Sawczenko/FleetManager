@@ -8,12 +8,12 @@ namespace FleetManager.Modules.Contractors.Domain
         {
             if (string.IsNullOrWhiteSpace(name))
             {
-                return Result<Contractor>.Failure(Errors.MissingContractorName());
+                return Result<Contractor>.Failure(ContractorErrors.MissingContractorName());
             }
 
             if (headquartersId == Guid.Empty)
             {
-                return Result<Contractor>.Failure(Errors.MissingHeadquarters());
+                return Result<Contractor>.Failure(ContractorErrors.MissingHeadquarters());
             }
 
             return Result<Contractor>.Success(new Contractor(name, headquartersId));

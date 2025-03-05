@@ -1,6 +1,7 @@
 using FleetManager.Infrastructure.Data;
 using FleetManager.Infrastructure;
 using FleetManager.Application;
+using FleetManager.Modules.Contractors.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
+
+builder.Services.LoadContractorsModule(builder.Configuration);
 
 var app = builder.Build();
 
