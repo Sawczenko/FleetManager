@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FleetManager.Application\FleetManager.Application.csproj" />
-    <ProjectReference Include="..\FleetManager.Modules.Contractors.Infrastructure\FleetManager.Modules.Contractors.Infrastructure.csproj" />
     <ProjectReference Include="..\Modules\Contractors\FleetManager.Modules.Contractors.Infrastructure\FleetManager.Modules.Contractors.Infrastructure.csproj" />
   </ItemGroup>
 

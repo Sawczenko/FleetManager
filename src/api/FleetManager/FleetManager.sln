@@ -71,6 +71,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FleetManager.Modules.Vehicl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FleetManager.Modules.Vehicles.UnitTests", "Modules\Vehicles\FleetManager.Modules.Vehicles.UnitTests\FleetManager.Modules.Vehicles.UnitTests.csproj", "{670BBCAF-2FFA-406E-BF3B-5F7C32E6739B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FleetManager.Modules.Itineraries.Domain", "Modules\Itineraries\FleetManager.Modules.Itineraries.Domain\FleetManager.Modules.Itineraries.Domain.csproj", "{68AC5DBE-6D85-4DF1-8C26-BBE558B901B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FleetManager.Modules.Itineraries.Infrastructure", "Modules\Itineraries\FleetManager.Modules.Itineraries.Infrastructure\FleetManager.Modules.Itineraries.Infrastructure.csproj", "{30D6B5EB-5408-4579-98E6-44956CC7B569}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FleetManager.Modules.Itineraries.UnitTests", "Modules\Itineraries\FleetManager.Modules.Itineraries.UnitTests\FleetManager.Modules.Itineraries.UnitTests.csproj", "{36F1DE48-9CBE-40F5-AC60-2CCECA49B3C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -161,6 +167,18 @@ Global
 		{670BBCAF-2FFA-406E-BF3B-5F7C32E6739B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{670BBCAF-2FFA-406E-BF3B-5F7C32E6739B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{670BBCAF-2FFA-406E-BF3B-5F7C32E6739B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68AC5DBE-6D85-4DF1-8C26-BBE558B901B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68AC5DBE-6D85-4DF1-8C26-BBE558B901B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68AC5DBE-6D85-4DF1-8C26-BBE558B901B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68AC5DBE-6D85-4DF1-8C26-BBE558B901B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30D6B5EB-5408-4579-98E6-44956CC7B569}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30D6B5EB-5408-4579-98E6-44956CC7B569}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30D6B5EB-5408-4579-98E6-44956CC7B569}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30D6B5EB-5408-4579-98E6-44956CC7B569}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36F1DE48-9CBE-40F5-AC60-2CCECA49B3C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36F1DE48-9CBE-40F5-AC60-2CCECA49B3C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36F1DE48-9CBE-40F5-AC60-2CCECA49B3C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36F1DE48-9CBE-40F5-AC60-2CCECA49B3C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -192,6 +210,9 @@ Global
 		{0D5962F3-2EE2-482F-880F-B989D27554E4} = {1E2DB1FC-6896-4729-B006-DC99370ECA67}
 		{0A3FD36E-7D16-42E0-B7F6-FCE55F30DC38} = {1E2DB1FC-6896-4729-B006-DC99370ECA67}
 		{670BBCAF-2FFA-406E-BF3B-5F7C32E6739B} = {1E2DB1FC-6896-4729-B006-DC99370ECA67}
+		{68AC5DBE-6D85-4DF1-8C26-BBE558B901B3} = {1AE0E1CF-E82A-4D76-9C15-C7A946AD1A45}
+		{30D6B5EB-5408-4579-98E6-44956CC7B569} = {1AE0E1CF-E82A-4D76-9C15-C7A946AD1A45}
+		{36F1DE48-9CBE-40F5-AC60-2CCECA49B3C7} = {1AE0E1CF-E82A-4D76-9C15-C7A946AD1A45}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {351EEDD4-8404-4DCF-8F1C-A5DFC63AD6A3}
