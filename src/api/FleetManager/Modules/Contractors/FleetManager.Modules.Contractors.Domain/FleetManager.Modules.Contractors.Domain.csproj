@@ -7,10 +7,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\FleetManager.BuildingBlocks.Domain\FleetManager.BuildingBlocks.Domain.csproj" />
+      <ProjectReference Include="..\..\..\BuildingBlocks\FleetManager.BuildingBlocks.Domain\FleetManager.BuildingBlocks.Domain.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <InternalsVisibleTo Include="FleetManager.Modules.Contractors.Tests" />
+        <InternalsVisibleTo Include="FleetManager.Modules.Contractors.UnitTests" />
     </ItemGroup>
 </Project>

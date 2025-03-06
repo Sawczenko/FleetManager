@@ -3,7 +3,7 @@ using FleetManager.BuildingBlocks.Domain;
 
 namespace FleetManager.Modules.Vehicles.Domain
 {
-    public static class Errors
+    public static class VehicleErrors
     {
         public static Error MissingVehicleDetails(string parameterName) => new Error("Vehicle.MissingVehicleDetails", $"Missing vehicle detail - {parameterName}");
 

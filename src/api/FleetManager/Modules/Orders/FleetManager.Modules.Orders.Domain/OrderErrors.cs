@@ -2,7 +2,7 @@
 
 namespace FleetManager.Modules.Orders.Domain;
 
-public class Errors
+public class OrderErrors
 {
     public static Error MissingContractor() => new Error("Contractor.MissingContractor", "Contractor is missing.");
 

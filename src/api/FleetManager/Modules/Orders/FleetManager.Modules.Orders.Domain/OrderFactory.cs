@@ -13,41 +13,41 @@ namespace FleetManager.Modules.Orders.Domain
         {
             if (contractorId == Guid.Empty)
             {
-                return Result<Order>.Failure(Errors.MissingContractor());
+                return Result<Order>.Failure(OrderErrors.MissingContractor());
             }
 
             if (originId == Guid.Empty)
             {
-                return Result<Order>.Failure(Errors.MissingOriginLocation());
+                return Result<Order>.Failure(OrderErrors.MissingOriginLocation());
 
             }
 
             if (destinationId == Guid.Empty)
             {
-                return Result<Order>.Failure(Errors.MissingDestinationLocation());
+                return Result<Order>.Failure(OrderErrors.MissingDestinationLocation());
 
             }
 
             if (pickupDate == default)
             {
-                return Result<Order>.Failure(Errors.InvalidPickupDate());
+                return Result<Order>.Failure(OrderErrors.InvalidPickupDate());
             }
 
             if (deliveryDate == default)
             {
-                return Result<Order>.Failure(Errors.InvalidDeliveryDate());
+                return Result<Order>.Failure(OrderErrors.InvalidDeliveryDate());
             }
 
             DateTime currentDate = DateTime.UtcNow;
 
             if (pickupDate < currentDate)
             {
-                return Result<Order>.Failure(Errors.PickupDateInThePast());
+                return Result<Order>.Failure(OrderErrors.PickupDateInThePast());
             }
 
             if (deliveryDate < pickupDate)
             {
-                return Result<Order>.Failure(Errors.DeliveryDateIsEarlierThanPickupDate());
+                return Result<Order>.Failure(OrderErrors.DeliveryDateIsEarlierThanPickupDate());
             }
 
             return Result<Order>.Success(new Order(

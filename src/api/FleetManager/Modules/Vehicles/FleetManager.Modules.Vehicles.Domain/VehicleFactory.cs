@@ -15,34 +15,34 @@ namespace FleetManager.Modules.Vehicles.Domain
         {
             if (string.IsNullOrWhiteSpace(vin))
             {
-                return Result<Vehicle>.Failure(Errors.MissingVehicleDetails(nameof(vin)));
+                return Result<Vehicle>.Failure(VehicleErrors.MissingVehicleDetails(nameof(vin)));
             }
 
             if (string.IsNullOrWhiteSpace(licensePlate))
             {
-                return Result<Vehicle>.Failure(Errors.MissingVehicleDetails(nameof(licensePlate)));
+                return Result<Vehicle>.Failure(VehicleErrors.MissingVehicleDetails(nameof(licensePlate)));
             }
 
             if (string.IsNullOrWhiteSpace(model))
             {
-                return Result<Vehicle>.Failure(Errors.MissingVehicleDetails(nameof(model)));
+                return Result<Vehicle>.Failure(VehicleErrors.MissingVehicleDetails(nameof(model)));
             }
 
-            if (currentLocationId != Guid.Empty)
+            if (currentLocationId == Guid.Empty)
             {
-                return Result<Vehicle>.Failure(Errors.MissingInitialLocation);
+                return Result<Vehicle>.Failure(VehicleErrors.MissingInitialLocation);
             }
 
             DateTime currentDate = DateTime.UtcNow;
 
             if (lastInspectionDate > currentDate)
             {
-                return Result<Vehicle>.Failure(Errors.FutureLastInspectionDate(lastInspectionDate, currentDate));
+                return Result<Vehicle>.Failure(VehicleErrors.FutureLastInspectionDate(lastInspectionDate, currentDate));
             }
 
             if (nextInspectionDate < currentDate)
             {
-                return Result<Vehicle>.Failure(Errors.PastNextInspectionDate(nextInspectionDate, currentDate));
+                return Result<Vehicle>.Failure(VehicleErrors.PastNextInspectionDate(nextInspectionDate, currentDate));
             }
 
             Vehicle vehicle = new Vehicle(new VehicleDetails(vin, licensePlate, model),

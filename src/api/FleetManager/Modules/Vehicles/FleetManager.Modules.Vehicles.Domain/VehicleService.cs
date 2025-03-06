@@ -38,7 +38,7 @@ namespace FleetManager.Modules.Vehicles.Domain
 
             if (existingVehicle is not null)
             {
-                return Result.Failure(Errors.VehicleAlreadyExists(existingVehicle.VehicleDetails));
+                return Result.Failure(VehicleErrors.VehicleAlreadyExists(existingVehicle.VehicleDetails));
             }
 
             await _vehicleRepository.AddAsync(newVehicle, cancellationToken);
@@ -52,14 +52,14 @@ namespace FleetManager.Modules.Vehicles.Domain
         {
             if (date == default || string.IsNullOrWhiteSpace(description) || cost == 0 || vehicleId == Guid.Empty)
             {
-                return Result.Failure(Errors.VehicleWasNotCreated);
+                return Result.Failure(VehicleErrors.VehicleWasNotCreated);
             }
 
             Vehicle? vehicle = await _vehicleRepository.GetByIdAsync(vehicleId, cancellationToken);
 
             if (vehicle is null)
             {
-                return Result.Failure(Errors.VehicleWasNotCreated);
+                return Result.Failure(VehicleErrors.VehicleWasNotCreated);
             }
 
             vehicle.AddRepair(new Repair(vehicleId, date, description, cost));
@@ -73,14 +73,14 @@ namespace FleetManager.Modules.Vehicles.Domain
         {
             if (date == default || string.IsNullOrWhiteSpace(description) || cost == 0 || vehicleId == Guid.Empty)
             {
-                return Result.Failure(Errors.VehicleWasNotCreated);
+                return Result.Failure(VehicleErrors.VehicleWasNotCreated);
             }
 
             Vehicle? vehicle = await _vehicleRepository.GetByIdAsync(vehicleId, cancellationToken);
 
             if (vehicle is null)
             {
-                return Result.Failure(Errors.VehicleWasNotCreated);
+                return Result.Failure(VehicleErrors.VehicleWasNotCreated);
             }
 
             vehicle.AddInspection(new Inspection(vehicleId, date, description, cost));

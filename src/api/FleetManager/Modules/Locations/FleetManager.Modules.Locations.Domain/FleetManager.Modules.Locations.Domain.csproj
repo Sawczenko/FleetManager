@@ -6,8 +6,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\FleetManager.BuildingBlocks.Domain\FleetManager.BuildingBlocks.Domain.csproj" />
-    </ItemGroup>
 
+    <ItemGroup>
+        <InternalsVisibleTo Include="FleetManager.Modules.Locations.UnitTests" />
+    </ItemGroup>
+    
 </Project>
