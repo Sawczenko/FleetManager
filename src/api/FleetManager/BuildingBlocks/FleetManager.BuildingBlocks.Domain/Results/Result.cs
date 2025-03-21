@@ -27,7 +27,7 @@
 
     public class Result<T> : Result
     {
-        public T Value { get; }
+        public T? Value { get; }
 
         public Result(T value, bool isSuccess, Error error) : base(isSuccess, error)
         {

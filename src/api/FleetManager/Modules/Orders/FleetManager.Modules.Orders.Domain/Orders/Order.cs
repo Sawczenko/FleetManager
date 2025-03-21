@@ -1,4 +1,4 @@
-﻿namespace FleetManager.Modules.Orders.Domain
+﻿namespace FleetManager.Modules.Orders.Domain.Orders
 {
     public class Order
     {

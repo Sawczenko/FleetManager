@@ -1,9 +1,9 @@
-﻿using FleetManager.BuildingBlocks.Domain;
-using FleetManager.BuildingBlocks.Domain.Results;
+﻿using FleetManager.BuildingBlocks.Domain.Results;
+using FleetManager.BuildingBlocks.Domain;
 
-namespace FleetManager.Modules.Orders.Domain
+namespace FleetManager.Modules.Orders.Domain.Orders
 {
-    public class OrderService
+    internal class OrderService
     {
         private readonly IOrderRepository _repository;
         private readonly IUnitOfWork _unitOfWork;

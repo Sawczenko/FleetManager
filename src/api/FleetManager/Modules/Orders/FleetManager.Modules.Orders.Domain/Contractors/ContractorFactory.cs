@@ -1,6 +1,6 @@
 ﻿using FleetManager.BuildingBlocks.Domain.Results;
 
-namespace FleetManager.Modules.Contractors.Domain
+namespace FleetManager.Modules.Orders.Domain.Contractors
 {
     internal class ContractorFactory
     {

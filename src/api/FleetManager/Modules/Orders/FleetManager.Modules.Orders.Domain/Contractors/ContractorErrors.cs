@@ -1,6 +1,6 @@
 ﻿using FleetManager.BuildingBlocks.Domain;
 
-namespace FleetManager.Modules.Contractors.Domain
+namespace FleetManager.Modules.Orders.Domain.Contractors
 {
     internal static class ContractorErrors
     {

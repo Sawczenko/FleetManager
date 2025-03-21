@@ -1,8 +1,8 @@
 ﻿using FleetManager.BuildingBlocks.Domain.Results;
 
-namespace FleetManager.Modules.Orders.Domain
+namespace FleetManager.Modules.Orders.Domain.Orders
 {
-    public static class OrderFactory
+    internal static class OrderFactory
     {
         public static Result<Order> Create(
             Guid contractorId,

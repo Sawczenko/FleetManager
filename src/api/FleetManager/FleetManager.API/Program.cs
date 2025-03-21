@@ -1,7 +1,7 @@
 using FleetManager.Infrastructure.Data;
 using FleetManager.Infrastructure;
 using FleetManager.Application;
-using FleetManager.Modules.Contractors.Infrastructure;
+using FleetManager.Modules.Orders.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +18,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
-builder.Services.LoadContractorsModule(builder.Configuration);
+builder.Services.LoadOrdersModule(builder.Configuration);
 
 var app = builder.Build();
 

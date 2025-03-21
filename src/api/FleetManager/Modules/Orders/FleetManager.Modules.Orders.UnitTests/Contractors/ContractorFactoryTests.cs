@@ -1,7 +1,7 @@
-﻿using FleetManager.Modules.Contractors.Domain;
+﻿using FleetManager.Modules.Orders.Domain.Contractors;
 using Shouldly;
 
-namespace FleetManager.Modules.Contractors.UnitTests;
+namespace FleetManager.Modules.Orders.UnitTests.Contractors;
 
 public class ContractorFactoryTests
 {

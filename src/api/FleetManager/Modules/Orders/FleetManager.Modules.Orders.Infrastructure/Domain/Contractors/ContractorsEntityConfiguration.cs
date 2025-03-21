@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using FleetManager.Modules.Contractors.Domain;
+using FleetManager.Modules.Orders.Domain.Contractors;
+using FleetManager.Modules.Orders.Domain.Orders;
 using Microsoft.EntityFrameworkCore;
 
-namespace FleetManager.Modules.Contractors.Infrastructure
+namespace FleetManager.Modules.Orders.Infrastructure.Domain.Contractors
 {
     internal class ContractorsEntityConfiguration : IEntityTypeConfiguration<Contractor>
     {
@@ -16,6 +17,12 @@ namespace FleetManager.Modules.Contractors.Infrastructure
 
             builder.Property(x => x.HeadquartersId)
                 .IsRequired();
+            
+            builder.HasMany<Order>()
+                .WithOne()
+                .HasForeignKey(y => y.ContractorId)
+                .HasConstraintName("FK_Contractor_Order")
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

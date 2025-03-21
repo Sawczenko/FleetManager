@@ -1,7 +1,7 @@
-﻿using FleetManager.Modules.Orders.Domain;
+﻿using FleetManager.Modules.Orders.Domain.Orders;
 using Microsoft.EntityFrameworkCore;
 
-namespace FleetManager.Modules.Orders.Infrastructure.Domain;
+namespace FleetManager.Modules.Orders.Infrastructure.Domain.Orders;
 
 internal class OrderRepository : IOrderRepository
 {

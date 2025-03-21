@@ -1,7 +1,7 @@
-﻿using FleetManager.Modules.Orders.Domain;
+﻿using FleetManager.Modules.Orders.Domain.Orders;
 using Shouldly;
 
-namespace FleetManager.Modules.Orders.UnitTests
+namespace FleetManager.Modules.Orders.UnitTests.Orders
 {
     public class OrderFactoryTests
     {

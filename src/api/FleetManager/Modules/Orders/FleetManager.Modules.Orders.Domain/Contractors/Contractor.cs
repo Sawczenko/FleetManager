@@ -1,4 +1,4 @@
-﻿namespace FleetManager.Modules.Contractors.Domain;
+﻿namespace FleetManager.Modules.Orders.Domain.Contractors;
 
 public class Contractor
 {
