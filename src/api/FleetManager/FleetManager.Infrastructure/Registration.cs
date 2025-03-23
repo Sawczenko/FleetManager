@@ -19,7 +19,7 @@ namespace FleetManager.Infrastructure
         {
             services.AddDbContext<FleetManagerDbContext>(options =>
                 options.UseSqlServer(
-                    configuration.GetConnectionString("SqlDockerDevelopmentConnection")));
+                    configuration.GetConnectionString("FleetManagerDatabase")));
 
             services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<FleetManagerDbContext>()

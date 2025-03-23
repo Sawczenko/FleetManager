@@ -9,5 +9,19 @@
     <ItemGroup>
         <InternalsVisibleTo Include="FleetManager.Modules.Orders.UnitTests" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Orders\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Dapper" Version="2.1.66" />
+      <PackageReference Include="MediatR" Version="12.4.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\BuildingBlocks\FleetManager.BuildingBlocks.Application\FleetManager.BuildingBlocks.Application.csproj" />
+      <ProjectReference Include="..\FleetManager.Modules.Orders.Domain\FleetManager.Modules.Orders.Domain.csproj" />
+    </ItemGroup>
     
 </Project>

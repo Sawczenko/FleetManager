@@ -21,12 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BuildingBlocks\FleetManager.BuildingBlocks.Infrastructure\FleetManager.BuildingBlocks.Infrastructure.csproj" />
     <ProjectReference Include="..\FleetManager.Application\FleetManager.Application.csproj" />
     <ProjectReference Include="..\Modules\Orders\FleetManager.Modules.Orders.Infrastructure\FleetManager.Modules.Orders.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Modules\" />
   </ItemGroup>
 
 </Project>

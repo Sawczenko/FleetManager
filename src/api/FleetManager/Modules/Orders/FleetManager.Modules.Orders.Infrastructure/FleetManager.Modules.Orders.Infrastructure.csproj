@@ -12,6 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\FleetManager.Modules.Orders.Application\FleetManager.Modules.Orders.Application.csproj" />
       <ProjectReference Include="..\FleetManager.Modules.Orders.Domain\FleetManager.Modules.Orders.Domain.csproj" />
     </ItemGroup>
 

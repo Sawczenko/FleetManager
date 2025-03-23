@@ -10,6 +10,6 @@ public static class LocationsModule
     {
         services.AddDbContext<LocationsContext>(options =>
             options.UseSqlServer(
-                configuration.GetConnectionString("SqlDockerDevelopmentConnection")));
+                configuration.GetConnectionString("FleetManagerDatabase")));
     }
 }

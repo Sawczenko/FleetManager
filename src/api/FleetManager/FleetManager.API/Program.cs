@@ -1,6 +1,10 @@
+using System.Reflection;
+using FleetManager.API.Modules.Orders;
 using FleetManager.Infrastructure.Data;
 using FleetManager.Infrastructure;
 using FleetManager.Application;
+using FleetManager.BuildingBlocks.Application;
+using FleetManager.BuildingBlocks.Infrastructure;
 using FleetManager.Modules.Orders.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,9 +20,18 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddApplication();
+builder.Services.AddInfrastructureBuildingBlocks(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);
 
-builder.Services.LoadOrdersModule(builder.Configuration);
+List<IModule> modules = new List<IModule>
+{
+    new OrdersModule(),
+};
+
+foreach (var module in modules)
+{
+    module.InstallModule(builder.Services, builder.Configuration);
+}
 
 var app = builder.Build();
 
@@ -39,6 +52,7 @@ app.UseCors(options => options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin(
 
 app.UseAuthorization();
 
+app.MapContractorEndpoints();
 app.MapControllers();
 
 app.Run();
