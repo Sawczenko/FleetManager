@@ -16,8 +16,4 @@
       <ProjectReference Include="..\FleetManager.Modules.Orders.Domain\FleetManager.Modules.Orders.Domain.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Data\" />
-    </ItemGroup>
-
 </Project>

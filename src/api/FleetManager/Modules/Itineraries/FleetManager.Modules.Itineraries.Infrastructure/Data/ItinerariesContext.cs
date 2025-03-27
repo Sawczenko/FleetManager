@@ -2,7 +2,7 @@
 using FleetManager.Modules.Itineraries.Domain;
 using Microsoft.EntityFrameworkCore;
 
-namespace FleetManager.Modules.Itineraries.Infrastructure;
+namespace FleetManager.Modules.Itineraries.Infrastructure.Data;
 
 public class ItinerariesContext : DbContext
 {

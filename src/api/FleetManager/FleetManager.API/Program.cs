@@ -5,6 +5,7 @@ using FleetManager.Infrastructure;
 using FleetManager.Application;
 using FleetManager.BuildingBlocks.Application;
 using FleetManager.BuildingBlocks.Infrastructure;
+using FleetManager.Modules.Itineraries.Infrastructure;
 using FleetManager.Modules.Orders.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +27,7 @@ builder.Services.AddInfrastructure(builder.Configuration);
 List<IModule> modules = new List<IModule>
 {
     new OrdersModule(),
+    new ItinerariesModule()
 };
 
 foreach (var module in modules)
@@ -38,6 +40,10 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    foreach (var module in modules)
+    {
+        
+    }
     DataSeeder dataSeeder = new DataSeeder(app.Services);
 
     await dataSeeder.SeedDataAsync();

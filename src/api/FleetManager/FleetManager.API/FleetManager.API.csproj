@@ -23,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BuildingBlocks\FleetManager.BuildingBlocks.Infrastructure\FleetManager.BuildingBlocks.Infrastructure.csproj" />
     <ProjectReference Include="..\FleetManager.Application\FleetManager.Application.csproj" />
+    <ProjectReference Include="..\Modules\Itineraries\FleetManager.Modules.Itineraries.Infrastructure\FleetManager.Modules.Itineraries.Infrastructure.csproj" />
     <ProjectReference Include="..\Modules\Orders\FleetManager.Modules.Orders.Infrastructure\FleetManager.Modules.Orders.Infrastructure.csproj" />
   </ItemGroup>
 

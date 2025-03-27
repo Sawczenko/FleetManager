@@ -9,13 +9,13 @@ public static class ContractorEndpoints
 {
     public static void MapContractorEndpoints(this IEndpointRouteBuilder app)
     {
-        // var group = app.MapGroup("contractors").WithTags("Contractors");
-        //
-        // group.MapGet("", async (IMediator mediator,CancellationToken cancellationToken) =>
-        // {
-        //     var contractorsInfo = await mediator.Send(new GetContractorsInfoQuery(), cancellationToken);
-        //     
-        //     return Results.Ok(Result<List<ContractorInfo>>.Success(contractorsInfo));
-        // });
+        var group = app.MapGroup("contractors").WithTags("Contractors");
+        
+        group.MapGet("", async (IMediator mediator, CancellationToken cancellationToken) =>
+        {
+            var contractorsInfo = await mediator.Send(new GetContractorsInfoQuery(), cancellationToken);
+
+            return Results.Ok(Result<List<ContractorInfo>>.Success(contractorsInfo));
+        });
     }
 }

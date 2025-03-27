@@ -27,7 +27,7 @@ internal class GetContractorsInfoQueryHandler : IRequestHandler<GetContractorsIn
         const string sql = $"""
                             SELECT
                                 [Contractors].[Id] AS [{nameof(Contractor.Id)}],
-                                [Contractors].[Name] AS [{nameof(Contractor.Name)}],
+                                [Contractors].[Name] AS [{nameof(Contractor.Name)}]
                             FROM [orders].[Contractors] AS [Contractors]
                             """;
         

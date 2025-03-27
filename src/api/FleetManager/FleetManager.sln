@@ -77,6 +77,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FleetManager.BuildingBlocks
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FleetManager.BuildingBlocks.Infrastructure", "BuildingBlocks\FleetManager.BuildingBlocks.Infrastructure\FleetManager.BuildingBlocks.Infrastructure.csproj", "{C67CC0D6-4502-44D8-9340-33A4FB3A6E54}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FleetManager.Modules.Itineraries.Application", "Modules\Itineraries\FleetManager.Modules.Itineraries.Application\FleetManager.Modules.Itineraries.Application.csproj", "{DA4D2B0A-1177-402F-8A12-F7EC1A426B0E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -183,6 +185,10 @@ Global
 		{C67CC0D6-4502-44D8-9340-33A4FB3A6E54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C67CC0D6-4502-44D8-9340-33A4FB3A6E54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C67CC0D6-4502-44D8-9340-33A4FB3A6E54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA4D2B0A-1177-402F-8A12-F7EC1A426B0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA4D2B0A-1177-402F-8A12-F7EC1A426B0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA4D2B0A-1177-402F-8A12-F7EC1A426B0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA4D2B0A-1177-402F-8A12-F7EC1A426B0E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -217,6 +223,7 @@ Global
 		{367456DE-46DE-4F6B-8E2B-C5F6FF5DA599} = {C0F13C4E-65DE-434E-B1FD-5BEF2BC19894}
 		{870E9A81-8C89-4AD6-849D-5A3A42773053} = {70DB60E4-7CC4-4B37-8C4B-6A7B7BB3610C}
 		{C67CC0D6-4502-44D8-9340-33A4FB3A6E54} = {70DB60E4-7CC4-4B37-8C4B-6A7B7BB3610C}
+		{DA4D2B0A-1177-402F-8A12-F7EC1A426B0E} = {1AE0E1CF-E82A-4D76-9C15-C7A946AD1A45}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {351EEDD4-8404-4DCF-8F1C-A5DFC63AD6A3}
